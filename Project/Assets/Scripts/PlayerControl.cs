@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    // 점프에 필요한 전역변수 선언 먼저.
-    public static float ACCELERATION = 10.0f; // 가속도.
-    public static float SPEED_MIN = 4.0f; // 속도의 최솟값.
-    public static float SPEED_MAX = 8.0f; // 속도의 최댓값.
-    public static float JUMP_HEIGHT_MAX = 3.0f; // 점프 높이.
-    public static float JUMP_KEY_RELEASE_REDUCE = 0.5f; // 점프 후의 감속도.
     public enum STEP
-    { // Player의 각종 상태를 나타내는 자료형 (*열거체)
-        NONE = -1, // 상태정보 없음.
-        RUN = 0, // 달린다.
-        JUMP, // 점프.
-        MISS, // 실패.
-        NUM, // 상태가 몇 종류 있는지 보여준다(=3).
+    {                   // Player의 각종 상태를 나타내는 자료형 (*열거체)
+        NONE = -1,      // 상태정보 없음.
+        RUN = 0,        // 달린다.
+        JUMP,           // 점프.
+        MISS,           // 실패.
+        NUM,            // 상태가 몇 종류 있는지 보여준다(=3).
     };
-    public STEP step = STEP.NONE; // Player의 현재 상태.
-    public STEP next_step = STEP.NONE; // Player의 다음 상태.
+    public STEP step = STEP.NONE;           // Player의 현재 상태.
+    public STEP next_step = STEP.NONE;      // Player의 다음 상태.
+
+    // 점프에 필요한 전역변수 선언 먼저.
+    public static float NARAKU_HEIGHT = -5.0f;
+    public static float ACCELERATION = 10.0f;           // 가속도.
+    public static float SPEED_MIN = 4.0f;               // 속도의 최솟값.
+    public static float SPEED_MAX = 8.0f;               // 속도의 최댓값.
+    public static float JUMP_HEIGHT_MAX = 3.0f;         // 점프 높이.
+    public static float JUMP_KEY_RELEASE_REDUCE = 0.5f; // 점프 후의 감속도.
+
+
     public float step_timer = 0.0f; // 경과 시간.
+
     private bool is_landed = false; // 착지했는가.
     private bool is_colided = false; // 뭔가와 충돌했는가.
     private bool is_key_released = false; // 버튼이 떨어졌는가.
@@ -52,8 +57,6 @@ public class PlayerControl : MonoBehaviour
     {
         this.next_step = STEP.RUN;
     }
-
-    public static float NARAKU_HEIGHT = -5.0f;
 
     void Update()
     {
@@ -110,7 +113,7 @@ public class PlayerControl : MonoBehaviour
                     }
                     break;
             }
-            this.transform.Translate(new Vector3(3.0f, 0.0f, 0.0f * Time.deltaTime));
+            this.transform.Translate(new Vector3(3.0f, 0.0f, 0.0f) * Time.deltaTime);
         }
 
         // '다음 정보'가 '상태 정보 없음'이 아닌 동안(상태가 변할 때만).
