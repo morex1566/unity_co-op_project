@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Block
 {
     // 블록의 종류를 나타내는 열거체.
@@ -20,7 +19,10 @@ public class MapCreator : MonoBehaviour
     public static float BLOCK_WIDTH = 1.0f; // 블록의 폭.
     public static float BLOCK_HEIGHT = 0.2f; // 블록의 높이.
     public static int BLOCK_NUM_IN_SCREEN = 24; // 화면 내에 들어가는 블록의 개수.
-    private LevelControl level_control = null;
+    private GameRoot game_root = null;
+    private LevelControl level_control;
+    public TextAsset level_data_text = null;
+
 
     private struct FloorBlock
     { // 블록에 관한 정보를 모아서 관리하는 구조체 (여러 개의 정보를 하나로 묶을 때 사용).
@@ -38,6 +40,10 @@ public class MapCreator : MonoBehaviour
 
         this.level_control = new LevelControl();
         this.level_control.initialize();
+        this.level_control.loadLevelData(this.level_data_text);
+
+        this.game_root = this.gameObject.GetComponent<GameRoot>();
+        this.player.level_control = this.level_control;
     }
 
     private void create_floor_block()
@@ -58,8 +64,10 @@ public class MapCreator : MonoBehaviour
         block_position.x += BLOCK_WIDTH; // 블록을 1블럭만큼 오른쪽으로 이동.
                                          // BlockCreator 스크립트의 createBlock()메소드에 생성을 지시!.
                                          //this.block_creator.createBlock(block_position); // 이제까지의 코드에서 설정한 block_position을 건네준다.
-        this.level_control.update(); // LevelControl을 갱신.
+        //this.level_control.update(); // LevelControl을 갱신.
                                      // level_control에 저장된 current_block(지금 만들 블록 정보)의 height(높이)를 씬 상의 좌표로 변환.
+        this.level_control.update(this.game_root.getPlayTime());
+
         block_position.y = level_control.current_block.height * BLOCK_HEIGHT;
         // 지금 만들 블록에 관한 정보를 변수 current에 넣는다.
         LevelControl.CreationInfo current = this.level_control.current_block;

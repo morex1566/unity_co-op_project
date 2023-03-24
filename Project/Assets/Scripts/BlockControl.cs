@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlockControl : MonoBehaviour
 {
     public MapCreator map_creator = null; // MapCreator를 보관하는 변수.
+
     void Start()
     {
         // MapCreator를 가져와서 멤버 변수 map_creator에 보관.
