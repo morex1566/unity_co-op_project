@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class BlockControl : MonoBehaviour
 {
-    public MapCreator map_creator = null; // MapCreator¸¦ º¸°üÇÏ´Â º¯¼ö.
-
+    public MapCreator map_creator = null; // MapCreatorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½.
     void Start()
     {
-        // MapCreator¸¦ °¡Á®¿Í¼­ ¸â¹ö º¯¼ö map_creator¿¡ º¸°ü.
+        // MapCreatorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ map_creatorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         map_creator = GameObject.Find("GameManager").GetComponent<MapCreator>();
     }
     void Update()
     {
         if (this.map_creator.isDelete(this.gameObject))
-        { // Ä«¸Þ¶ó¿¡°Ô ³ª ¾Èº¸ÀÌ³Ä°í ¹°¾îº¸°í ¾È º¸ÀÎ´Ù°í ´ë´äÇÏ¸é,
-            GameObject.Destroy(this.gameObject); // ÀÚ±â ÀÚ½ÅÀ» »èÁ¦.
+        { // Ä«ï¿½Þ¶ó¿¡°ï¿½ ï¿½ï¿½ ï¿½Èºï¿½ï¿½Ì³Ä°ï¿½ ï¿½ï¿½ï¿½îº¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Î´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½,
+            GameObject.Destroy(this.gameObject); // ï¿½Ú±ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         }
     }
 }

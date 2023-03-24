@@ -3,51 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // LevelControl.cs (1/2)
-// LevelControl class ¾Õ¿¡ Ãß°¡
+// LevelControl class ï¿½Õ¿ï¿½ ï¿½ß°ï¿½
 public class LevelData
 {
     public struct Range
-    { // ¹üÀ§¸¦ Ç¥ÇöÇÏ´Â ±¸Á¶Ã¼.
-        public int min; // ¹üÀ§ÀÇ ÃÖ¼Ú°ª.
-        public int max; // ¹üÀ§ÀÇ ÃÖ´ñ°ª.
+    { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼.
+        public int min; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½.
+        public int max; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
     };
 
-    public float end_time; // Á¾·á ½Ã°£.
-    public float player_speed; // ÇÃ·¹ÀÌ¾îÀÇ ¼Óµµ.
-    public Range floor_count; // ¹ßÆÇ ºí·Ï ¼öÀÇ ¹üÀ§.
-    public Range hole_count; // ±¸¸ÛÀÇ °³¼ö ¹üÀ§.
-    public Range height_diff; // ¹ßÆÇÀÇ ³ôÀÌ ¹üÀ§.
+    public float end_time; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+    public float player_speed; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Óµï¿½.
+    public Range floor_count; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    public Range hole_count; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    public Range height_diff; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
     public LevelData()
     {
-        this.end_time = 15.0f; // Á¾·á ½Ã°£ ÃÊ±âÈ­.
-        this.player_speed = 6.0f; // ÇÃ·¹ÀÌ¾îÀÇ ¼Óµµ ÃÊ±âÈ­.
-        this.floor_count.min = 10; // ¹ßÆÇ ºí·Ï ¼öÀÇ ÃÖ¼Ú°ªÀ» ÃÊ±âÈ­.
-        this.floor_count.max = 10; // ¹ßÆÇ ºí·Ï ¼öÀÇ ÃÖ´ñ°ªÀ» ÃÊ±âÈ­.
-        this.hole_count.min = 2; // ±¸¸Û °³¼öÀÇ ÃÖ¼Ú°ªÀ» ÃÊ±âÈ­.
-        this.hole_count.max = 6; // ±¸¸Û °³¼öÀÇ ÃÖ´ñ°ªÀ» ÃÊ±âÈ­.
-        this.height_diff.min = 0; // ¹ßÆÇ ³ôÀÌ º¯È­ÀÇ ÃÖ¼Ú°ªÀ» ÃÊ±âÈ­.
-        this.height_diff.max = 0; // ¹ßÆÇ ³ôÀÌ º¯È­ÀÇ ÃÖ´ñ°ªÀ» ÃÊ±âÈ­.
+        this.end_time = 15.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­.
+        this.player_speed = 6.0f; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½Ê±ï¿½È­.
+        this.floor_count.min = 10; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
+        this.floor_count.max = 10; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
+        this.hole_count.min = 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
+        this.hole_count.max = 6; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
+        this.height_diff.min = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
+        this.height_diff.max = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
     }
 }
 
 
 public class LevelControl
 {
-    // ¸¸µé¾î¾ß ÇÒ ºí·Ï¿¡ °üÇÑ Á¤º¸¸¦ ¸ðÀº ±¸Á¶Ã¼.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼.
     public struct CreationInfo
     {
-        public Block.TYPE block_type; // ºí·ÏÀÇ Á¾·ù.
-        public int max_count; // ºí·ÏÀÇ ÃÖ´ë °³¼ö.
-        public int height; // ºí·ÏÀ» ¹èÄ¡ÇÒ ³ôÀÌ.
-        public int current_count; // ÀÛ¼ºÇÑ ºí·ÏÀÇ °³¼ö.
+        public Block.TYPE block_type; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+        public int max_count; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½.
+        public int height; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+        public int current_count; // ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     };
-
-    public CreationInfo previous_block; // ÀÌÀü¿¡ ¾î¶² ºí·ÏÀ» ¸¸µé¾ú´Â°¡.
-    public CreationInfo current_block; // Áö±Ý ¾î¶² ºí·ÏÀ» ¸¸µé¾î¾ß ÇÏ´Â°¡.
-    public CreationInfo next_block; // ´ÙÀ½¿¡ ¾î¶² ºí·ÏÀ» ¸¸µé¾î¾ß ÇÏ´Â°¡.
-    public int block_count = 0; // »ý¼ºÇÑ ºí·ÏÀÇ ÃÑ ¼ö.
-    public int level = 0; // ³­ÀÌµµ
+    public CreationInfo previous_block; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½.
+    public CreationInfo current_block; // ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Â°ï¿½.
+    public CreationInfo next_block; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Â°ï¿½.
+    public int block_count = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½.
+    public int level = 0; // ï¿½ï¿½ï¿½Ìµï¿½
     public int HEIGHT_MAX = 20;
     public int HEIGHT_MIN = -4;
 
@@ -56,29 +55,29 @@ public class LevelControl
 
     private void clear_next_block(ref CreationInfo block)
     {
-        // Àü´Þ¹ÞÀº ºí·Ï(block)À» ÃÊ±âÈ­. 
+        // ï¿½ï¿½ï¿½Þ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(block)ï¿½ï¿½ ï¿½Ê±ï¿½È­. 
         block.block_type = Block.TYPE.FLOOR;
         block.max_count = 15;
         block.height = 0;
         block.current_count = 0;
     }
-    // ÇÁ·ÎÇÊ ³ëÆ®¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
     public void initialize()
     {
-        this.block_count = 0; // ºí·ÏÀÇ ÃÑ ¼ö¸¦ ÃÊ±âÈ­.
-                              // ÀÌÀü, ÇöÀç, ´ÙÀ½ ºí·ÏÀ» °¢°¢.
-                              // clear_next_block()¿¡ ³Ñ°Ü¼­ ÃÊ±âÈ­ÇÑ´Ù.
+        this.block_count = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
+                              // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                              // clear_next_block()ï¿½ï¿½ ï¿½Ñ°Ü¼ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
         this.clear_next_block(ref this.previous_block);
         this.clear_next_block(ref this.current_block);
         this.clear_next_block(ref this.next_block);
     }
-    // ref: ÂüÁ¶¿¡ ÀÇÇØ ÀÎ¼ö¸¦ Àü´ÞÇÒ ¶§´Â È£ÃâÇÏ´Â ÂÊ°ú È£ÃâµÇ´Â ÂÊ ¸ðµÎ ÀÎ¼ö¿¡ ÇÊ¿ä
+    // ref: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ê°ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
 
     private void update_level(ref CreationInfo current, CreationInfo previous, float passage_time)
-    { // »õ ÀÎ¼ö passage_timeÀ¸·Î ÇÃ·¹ÀÌ °æ°ú ½Ã°£À» ¹Þ´Â´Ù.
-      // ·¹º§ 1~·¹º§ 5¸¦ ¹Ýº¹ÇÑ´Ù.
+    { // ï¿½ï¿½ ï¿½Î¼ï¿½ passage_timeï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Þ´Â´ï¿½.
+      // ï¿½ï¿½ï¿½ï¿½ 1~ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½ ï¿½Ýºï¿½ï¿½Ñ´ï¿½.
         float local_time = Mathf.Repeat(passage_time, this.level_datas[this.level_datas.Count - 1].end_time);
-        // ÇöÀç ·¹º§À» ±¸ÇÑ´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
         int i;
         for (i = 0; i < this.level_datas.Count - 1; i++)
         {
@@ -92,27 +91,27 @@ public class LevelControl
         current.max_count = 1;
         if (this.block_count >= 10)
         {
-            // ÇöÀç ·¹º§¿ë ·¹º§ µ¥ÀÌÅÍ¸¦ °¡Á®¿Â´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
             LevelData level_data;
             level_data = this.level_datas[this.level];
             switch (previous.block_type)
             {
-                case Block.TYPE.FLOOR: // ÀÌÀü ºí·ÏÀÌ ¹Ù´ÚÀÎ °æ¿ì.
-                    current.block_type = Block.TYPE.HOLE; // ÀÌ¹ø¿£ ±¸¸ÛÀ» ¸¸µç´Ù.
-                                                          // ±¸¸Û Å©±âÀÇ ÃÖ¼Ú°ª~ÃÖ´ñ°ª »çÀÌÀÇ ÀÓÀÇÀÇ °ª.
+                case Block.TYPE.FLOOR: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
+                    current.block_type = Block.TYPE.HOLE; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+                                                          // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½~ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
                     current.max_count = Random.Range(level_data.hole_count.min, level_data.hole_count.max);
-                    current.height = previous.height; // ³ôÀÌ¸¦ ÀÌÀü°ú °°ÀÌ ÇÑ´Ù.
+                    current.height = previous.height; // ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
                     break;
-                case Block.TYPE.HOLE: // ÀÌÀü ºí·ÏÀÌ ±¸¸ÛÀÎ °æ¿ì.
-                    current.block_type = Block.TYPE.FLOOR; // ÀÌ¹ø¿£ ¹Ù´ÚÀ» ¸¸µç´Ù.
-                                                           // ¹Ù´Ú ±æÀÌÀÇ ÃÖ¼Ú°ª~ÃÖ´ñ°ª »çÀÌÀÇ ÀÓÀÇÀÇ °ª.
+                case Block.TYPE.HOLE: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
+                    current.block_type = Block.TYPE.FLOOR; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+                                                           // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½~ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
                     current.max_count = Random.Range(level_data.floor_count.min, level_data.floor_count.max);
-                    // ¹Ù´Ú ³ôÀÌÀÇ ÃÖ¼Ú°ª°ú ÃÖ´ñ°ªÀ» ±¸ÇÑ´Ù.
+                    // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
                     int height_min = previous.height + level_data.height_diff.min;
                     int height_max = previous.height + level_data.height_diff.max;
-                    height_min = Mathf.Clamp(height_min, HEIGHT_MIN, HEIGHT_MAX); // ÃÖ¼Ò¿Í ÃÖ´ë°ª »çÀÌ¸¦ °­Á¦·Î ÁöÁ¤
+                    height_min = Mathf.Clamp(height_min, HEIGHT_MIN, HEIGHT_MAX); // ï¿½Ö¼Ò¿ï¿½ ï¿½Ö´ë°ª ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     height_max = Mathf.Clamp(height_max, HEIGHT_MIN, HEIGHT_MAX);
-                    // ¹Ù´Ú ³ôÀÌÀÇ ÃÖ¼Ú°ª~ÃÖ´ñ°ª »çÀÌÀÇ ÀÓÀÇÀÇ °ª.
+                    // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ú°ï¿½~ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
                     current.height = Random.Range(height_min, height_max);
                     break;
             }
@@ -121,54 +120,54 @@ public class LevelControl
 
 
     public void update(float passage_time)
-    { // *Update()°¡ ¾Æ´Ô. create_floor_block() ¸Þ¼­µå¿¡¼­ È£Ãâ
-        this.current_block.current_count++; // ÀÌ¹ø¿¡ ¸¸µç ºí·Ï °³¼ö¸¦ Áõ°¡.
-                                            // ÀÌ¹ø¿¡ ¸¸µç ºí·Ï °³¼ö°¡ max_count ÀÌ»óÀÌ¸é.
+    { // *Update()ï¿½ï¿½ ï¿½Æ´ï¿½. create_floor_block() ï¿½Þ¼ï¿½ï¿½å¿¡ï¿½ï¿½ È£ï¿½ï¿½
+        this.current_block.current_count++; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                                            // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ max_count ï¿½Ì»ï¿½ï¿½Ì¸ï¿½.
         if (this.current_block.current_count >= this.current_block.max_count) {
             this.previous_block = this.current_block;
             this.current_block = this.next_block;
-            this.clear_next_block(ref this.next_block); // ´ÙÀ½¿¡ ¸¸µé ºí·ÏÀÇ ³»¿ëÀ» ÃÊ±âÈ­.
+            this.clear_next_block(ref this.next_block); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 
             // this.update_level(ref this.next_block, this.current_block);
             this.update_level(ref this.next_block, this.current_block, passage_time);
         }
-        this.block_count++; // ºí·ÏÀÇ ÃÑ ¼ö¸¦ Áõ°¡.
+        this.block_count++; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     }
 
 
     public void loadLevelData(TextAsset level_data_text)
     {
-        string level_texts = level_data_text.text; // ÅØ½ºÆ® µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î °¡Á®¿Â´Ù.
-        string[] lines = level_texts.Split('\n'); // °³Çà ÄÚµå '\'¸¶´Ù ºÐÇÒÇØ¼­ ¹®ÀÚ¿­ ¹è¿­¿¡ ³Ö´Â´Ù.
+        string level_texts = level_data_text.text; // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+        string[] lines = level_texts.Split('\n'); // ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ '\'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 
         foreach (var line in lines)
         {
             if (line == "")
-            { // ÇàÀÌ ºó ÁÙÀÌ¸é.
-                continue; // ¾Æ·¡ Ã³¸®´Â ÇÏÁö ¾Ê°í ¹Ýº¹¹®ÀÇ Ã³À½À¸·Î Á¡ÇÁÇÑ´Ù.
+            { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½.
+                continue; // ï¿½Æ·ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
             };
-            Debug.Log(line); // ÇàÀÇ ³»¿ëÀ» µð¹ö±× Ãâ·ÂÇÑ´Ù.
-            string[] words = line.Split(); // Çà ³»ÀÇ ¿öµå¸¦ ¹è¿­¿¡ ÀúÀåÇÑ´Ù.
+            Debug.Log(line); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            string[] words = line.Split(); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½å¸¦ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
             int n = 0;
-            // LevelDataÇü º¯¼ö¸¦ »ý¼ºÇÑ´Ù.
-            // ÇöÀç Ã³¸®ÇÏ´Â ÇàÀÇ µ¥ÀÌÅÍ¸¦ ³Ö¾î °£´Ù.
+            // LevelDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            // ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
             LevelData level_data = new LevelData();
-            // words³»ÀÇ °¢ ¿öµå¿¡ ´ëÇØ¼­ ¼ø¼­´ë·Î Ã³¸®ÇØ °¡´Â ·çÇÁ.
+            // wordsï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
             foreach (var word in words)
             {
                 if(word.StartsWith("#")) 
-                { // ¿öµåÀÇ ½ÃÀÛ¹®ÀÚ°¡ #ÀÌ¸é.
+                { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½ï¿½Ú°ï¿½ #ï¿½Ì¸ï¿½.
                     break;
-                } // ·çÇÁ Å»Ãâ.
+                } // ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½.
 
                 if (word == "")
-                { // ¿öµå°¡ ÅÖ ºñ¾úÀ¸¸é.
+                { // ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
                     continue;
-                } // ·çÇÁÀÇ ½ÃÀÛÀ¸·Î Á¡ÇÁÇÑ´Ù.
+                } // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
-                // n °ªÀ» 0, 1, 2,...7·Î º¯È­½ÃÄÑ °¨À¸·Î½á 8Ç×¸ñÀ» Ã³¸®ÇÑ´Ù.
-                // °¢ ¿öµå¸¦ ÇÃ·Ô°ªÀ¸·Î º¯È¯ÇÏ°í level_data¿¡ ÀúÀåÇÑ´Ù.
+                // n ï¿½ï¿½ï¿½ï¿½ 0, 1, 2,...7ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î½ï¿½ 8ï¿½×¸ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+                // ï¿½ï¿½ ï¿½ï¿½ï¿½å¸¦ ï¿½Ã·Ô°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï°ï¿½ level_dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
                 switch (n)
                 {
                     case 0: level_data.end_time = float.Parse(word); break;
@@ -184,27 +183,27 @@ public class LevelControl
             }
 
             if (n >= 8)
-            { // 8Ç×¸ñ(ÀÌ»ó)ÀÌ Á¦´ë·Î Ã³¸®µÇ¾ú´Ù¸é.
-                this.level_datas.Add(level_data); // List ±¸Á¶ÀÇ level_datas¿¡ level_data¸¦ Ãß°¡ÇÑ´Ù.
+            { // 8ï¿½×¸ï¿½(ï¿½Ì»ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½.
+                this.level_datas.Add(level_data); // List ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ level_datasï¿½ï¿½ level_dataï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
             }
             else
-            { // ±×·¸Áö ¾Ê´Ù¸é(¿À·ùÀÇ °¡´É¼ºÀÌ ÀÖ´Ù).
+            { // ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½).
                 if (n == 0)
-                { // 1¿öµåµµ Ã³¸®ÇÏÁö ¾ÊÀº °æ¿ì´Â ÁÖ¼®ÀÌ¹Ç·Î.
-                  // ¹®Á¦¾ø´Ù. ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+                { // 1ï¿½ï¿½ï¿½åµµ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½Ì¹Ç·ï¿½.
+                  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
                 }
                 else
-                { // ±× ÀÌ¿ÜÀÌ¸é ¿À·ù´Ù.
-                  // µ¥ÀÌÅÍ °³¼ö°¡ ¸ÂÁö ¾Ê´Ù´Â °ÍÀ» º¸¿©ÁÖ´Â ¿À·ù ¸Þ½ÃÁö¸¦ Ç¥½ÃÇÑ´Ù.
+                { // ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+                  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ñ´ï¿½.
                     Debug.LogError("[LevelData] Out of parameter.\n");
                 }
             }
         }
 
         if (this.level_datas.Count == 0)
-        {   // level_datas¿¡ µ¥ÀÌÅÍ°¡ ÇÏ³ªµµ ¾øÀ¸¸é.
-            Debug.LogError("[LevelData] Has no data.\n"); // ¿À·ù ¸Þ½ÃÁö¸¦ Ç¥½ÃÇÑ´Ù.
-            this.level_datas.Add(new LevelData()); // level_datas¿¡ ±âº» LevelData¸¦ ÇÏ³ª Ãß°¡ÇØ µÐ´Ù.
+        {   // level_datasï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+            Debug.LogError("[LevelData] Has no data.\n"); // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ñ´ï¿½.
+            this.level_datas.Add(new LevelData()); // level_datasï¿½ï¿½ ï¿½âº» LevelDataï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½.
         }
     }
 

@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class Block
 {
-    // ºí·ÏÀÇ Á¾·ù¸¦ ³ªÅ¸³»´Â ¿­°ÅÃ¼.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼.
     public enum TYPE
     {
-        NONE = -1, // ¾øÀ½.
-        FLOOR = 0, // ¸¶·ç.
-        HOLE, // ±¸¸Û.
-        NUM, // ºí·ÏÀÌ ¸î Á¾·ùÀÎÁö ³ªÅ¸³½´Ù(£½2).
+        NONE = -1, // ï¿½ï¿½ï¿½ï¿½.
+        FLOOR = 0, // ï¿½ï¿½ï¿½ï¿½.
+        HOLE, // ï¿½ï¿½ï¿½ï¿½.
+        NUM, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½2).
     };
 };
 
 public class MapCreator : MonoBehaviour
 {
-    public static float BLOCK_WIDTH = 1.0f; // ºí·ÏÀÇ Æø.
-    public static float BLOCK_HEIGHT = 0.2f; // ºí·ÏÀÇ ³ôÀÌ.
-    public static int BLOCK_NUM_IN_SCREEN = 24; // È­¸é ³»¿¡ µé¾î°¡´Â ºí·ÏÀÇ °³¼ö.
+    public static float BLOCK_WIDTH = 1.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+    public static float BLOCK_HEIGHT = 0.2f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    public static int BLOCK_NUM_IN_SCREEN = 24; // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     private GameRoot game_root = null;
     private LevelControl level_control;
     public TextAsset level_data_text = null;
 
 
     private struct FloorBlock
-    { // ºí·Ï¿¡ °üÇÑ Á¤º¸¸¦ ¸ð¾Æ¼­ °ü¸®ÇÏ´Â ±¸Á¶Ã¼ (¿©·¯ °³ÀÇ Á¤º¸¸¦ ÇÏ³ª·Î ¹­À» ¶§ »ç¿ë).
-        public bool is_created; // ºí·ÏÀÌ ¸¸µé¾îÁ³´Â°¡.
-        public Vector3 position; // ºí·ÏÀÇ À§Ä¡.
+    { // ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½).
+        public bool is_created; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½.
+        public Vector3 position; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡.
     };
-    private FloorBlock last_block; // ¸¶Áö¸·¿¡ »ý¼ºÇÑ ºí·Ï.
-    private PlayerControl player = null; // ¾À»óÀÇ Player¸¦ º¸°ü.
-    private BlockCreator block_creator; // BlockCreator¸¦ º¸°ü.
+    private FloorBlock last_block; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    private PlayerControl player = null; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    private BlockCreator block_creator; // BlockCreatorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     void Start()
     {
         this.player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
@@ -48,63 +48,63 @@ public class MapCreator : MonoBehaviour
 
     private void create_floor_block()
     {
-        Vector3 block_position; // ÀÌÁ¦ºÎÅÍ ¸¸µé ºí·ÏÀÇ À§Ä¡.
-        if(!this.last_block.is_created) { // last_blockÀÌ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì.
-                                          // ºí·ÏÀÇ À§Ä¡¸¦ ÀÏ´Ü Player¿Í °°°Ô ÇÑ´Ù.
+        Vector3 block_position; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡.
+        if(!this.last_block.is_created) { // last_blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
+                                          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ï´ï¿½ Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
             block_position = this.player.transform.position;
-            // ±×·¯°í ³ª¼­ ºí·ÏÀÇ X À§Ä¡¸¦ È­¸é Àý¹Ý¸¸Å­ ¿ÞÂÊÀ¸·Î ÀÌµ¿.
+            // ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ X ï¿½ï¿½Ä¡ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¸ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½.
             block_position.x -= BLOCK_WIDTH * ((float)BLOCK_NUM_IN_SCREEN / 2.0f);
-            // ºí·ÏÀÇ YÀ§Ä¡´Â 0À¸·Î.
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Yï¿½ï¿½Ä¡ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½.
             block_position.y = 0.0f;
         } else
-        { // last_blockÀÌ »ý¼ºµÈ °æ¿ì
-          // ÀÌ¹ø¿¡ ¸¸µé ºí·ÏÀÇ À§Ä¡¸¦ Á÷Àü¿¡ ¸¸µç ºí·Ï°ú °°°Ô.
+        { // last_blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+          // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½.
             block_position = this.last_block.position;
         }
-        block_position.x += BLOCK_WIDTH; // ºí·ÏÀ» 1ºí·°¸¸Å­ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿.
-                                         // BlockCreator ½ºÅ©¸³Æ®ÀÇ createBlock()¸Þ¼Òµå¿¡ »ý¼ºÀ» Áö½Ã!.
-                                         //this.block_creator.createBlock(block_position); // ÀÌÁ¦±îÁöÀÇ ÄÚµå¿¡¼­ ¼³Á¤ÇÑ block_positionÀ» °Ç³×ÁØ´Ù.
-        //this.level_control.update(); // LevelControlÀ» °»½Å.
-                                     // level_control¿¡ ÀúÀåµÈ current_block(Áö±Ý ¸¸µé ºí·Ï Á¤º¸)ÀÇ height(³ôÀÌ)¸¦ ¾À »óÀÇ ÁÂÇ¥·Î º¯È¯.
+        block_position.x += BLOCK_WIDTH; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½.
+                                         // BlockCreator ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ createBlock()ï¿½Þ¼Òµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!.
+                                         //this.block_creator.createBlock(block_position); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ block_positionï¿½ï¿½ ï¿½Ç³ï¿½ï¿½Ø´ï¿½.
+        //this.level_control.update(); // LevelControlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                                     // level_controlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ current_block(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ height(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½È¯.
         this.level_control.update(this.game_root.getPlayTime());
 
         block_position.y = level_control.current_block.height * BLOCK_HEIGHT;
-        // Áö±Ý ¸¸µé ºí·Ï¿¡ °üÇÑ Á¤º¸¸¦ º¯¼ö current¿¡ ³Ö´Â´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ currentï¿½ï¿½ ï¿½Ö´Â´ï¿½.
         LevelControl.CreationInfo current = this.level_control.current_block;
-        // Áö±Ý ¸¸µé ºí·ÏÀÌ ¹Ù´ÚÀÌ¸é (Áö±Ý ¸¸µé ºí·ÏÀÌ ±¸¸ÛÀÌ¶ó¸é) 
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ï¿½Ì¸ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½) 
         if (current.block_type == Block.TYPE.FLOOR)
         {
-            // block_positionÀÇ À§Ä¡¿¡ ºí·ÏÀ» ½ÇÁ¦·Î »ý¼º.
+            // block_positionï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             this.block_creator.createBlock(block_position);
         }
-        this.last_block.position = block_position; // last_blockÀÇ À§Ä¡¸¦ ÀÌ¹ø À§Ä¡·Î °»½Å.
-        this.last_block.is_created = true; // ºí·ÏÀÌ »ý¼ºµÇ¾úÀ¸¹Ç·Î last_blockÀÇ is_created¸¦ true·Î ¼³Á¤.
+        this.last_block.position = block_position; // last_blockï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+        this.last_block.is_created = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ last_blockï¿½ï¿½ is_createdï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     }
 
     public bool isDelete(GameObject block_object)
     {
-        bool ret = false; // ¹ÝÈ¯°ª.
-                          // Player·ÎºÎÅÍ ¹Ý È­¸é¸¸Å­ ¿ÞÂÊ¿¡ À§Ä¡, ÀÌ À§Ä¡°¡ »ç¶óÁö´À³Ä ¸¶´À³Ä¸¦ °áÁ¤ÇÏ´Â ¹®ÅÎ °ªÀÌ µÊ.
+        bool ret = false; // ï¿½ï¿½È¯ï¿½ï¿½.
+                          // Playerï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ È­ï¿½é¸¸Å­ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½Ä¡, ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
         float left_limit = this.player.transform.position.x - BLOCK_WIDTH * ((float)BLOCK_NUM_IN_SCREEN / 2.0f);
-        // ºí·ÏÀÇ À§Ä¡°¡ ¹®ÅÎ °ªº¸´Ù ÀÛÀ¸¸é(¿ÞÂÊ),
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½),
         if (block_object.transform.position.x < left_limit)
         {
-            ret = true; // ¹ÝÈ¯°ªÀ» true(»ç¶óÁ®µµ ÁÁ´Ù)·Î
+            ret = true; // ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ true(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½
         }
-        return (ret); // ÆÇÁ¤ °á°ú¸¦ µ¹·ÁÁÜ.
+        return (ret); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     }
 
     void Update()
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ XÀ§Ä¡¸¦ °¡Á®¿Â´Ù.
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ Xï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
         float block_generate_x = this.player.transform.position.x;
-        // ±×¸®°í ´ë·« ¹Ý È­¸é¸¸Å­ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿.
-        // ÀÌ À§Ä¡°¡ ºí·ÏÀ» »ý¼ºÇÏ´Â ¹®ÅÎ °ªÀÌ µÈ´Ù.
+        // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ë·« ï¿½ï¿½ È­ï¿½é¸¸Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½.
+        // ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
         block_generate_x += BLOCK_WIDTH * ((float)BLOCK_NUM_IN_SCREEN + 1) / 2.0f;
-        // ¸¶Áö¸·¿¡ ¸¸µç ºí·ÏÀÇ À§Ä¡°¡ ¹®ÅÎ °ªº¸´Ù ÀÛÀ¸¸é.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         while (this.last_block.position.x < block_generate_x)
         {
-            // ºí·ÏÀ» ¸¸µç´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
             this.create_floor_block();
         }
     }
