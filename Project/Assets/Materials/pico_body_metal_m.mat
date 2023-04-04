@@ -310,7 +310,7 @@ Material:
     - _utsVersion: 2.08
     - _utsVersionX: 2
     - _utsVersionY: 5
-    - _utsVersionZ: 0
+    - _utsVersionZ: 1
     m_Colors:
     - _1st_ShadeColor: {r: 0.67058825, g: 0.7019608, b: 0.83137256, a: 1}
     - _2nd_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
