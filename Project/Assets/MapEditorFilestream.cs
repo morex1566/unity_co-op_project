@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.IO;
+using UnityEditor;
 
-public class MapEditorFilestream : MonoBehaviour
+public class MapEditorFilestream
 {
-    // Start is called before the first frame update
-    void Start()
+    // ACTION : 파일 탐색기를 열어서, 선택한 파일의 경로를 return
+    public string GetPathFromFileBrowser(string purpose, string extension)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return null;
     }
 }

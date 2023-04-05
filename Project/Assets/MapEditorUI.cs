@@ -7,9 +7,7 @@
  *               3. 맵UI
  */
 
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,40 +18,43 @@ public class MapEditorUI : MonoBehaviour
     // INFO : 각 MapEditor클래스끼리 통신을 위한 객체
     private MapEditorEventHandler eventHandler;
 
-    // INFO : 노래관련 
-    private Scrollbar scrollbar;
-
     // INFO : 맵UI 관련
     private LineRenderer lineRenderer;
     private Material LineColorMat;
     private float sideLength;
 
-    // INFO : 버튼UI 관련
-    private Button saveFileButton;
-    private Button openFileButton;
-    private Button loadFileButton;
-    private Button previewButton;
-    private Button[] createObstacle;
-    
+    // INFO : 메뉴UI 관련
+    [SerializeField] private GameObject menuLayoutField;
+    [SerializeField] private Button saveFileButton;
+    [SerializeField] private Button loadFileButton;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button stopButton;
+    [SerializeField] private Button createObstacleButton;
+    [SerializeField] private Button songButton;
+
+    // INFO : 노래관련 
+    [SerializeField] private Scrollbar songTimeLineScrollbar;
+    [SerializeField] private GameObject songName;
 
     void Awake()
     {
-        eventHandler = GetComponent<MapEditorEventHandler>();
-
-        scrollbar = null;
-
+        eventHandler = GameObject.Find("EventManager").GetComponent<MapEditorEventHandler>();
         lineRenderer = GetComponent<LineRenderer>();
         LineColorMat = new Material(Shader.Find("Unlit/Texture"));
         sideLength = 7.5f;
-
-        
     }
 
     void Start()
     {
         renderMapUI();
-    }
 
+        saveFileButton.onClick.AddListener(eventHandler.OnSaveClicked);
+        loadFileButton.onClick.AddListener(eventHandler.OnLoadClicked);
+        playButton.onClick.AddListener(eventHandler.OnPlayClicked);
+        stopButton.onClick.AddListener(eventHandler.OnStopClicked);
+        createObstacleButton.onClick.AddListener(eventHandler.OnCreateClicked);
+        songButton.onClick.AddListener(eventHandler.OnSongClicked);
+    }
 
     private void renderMapUI()
     {

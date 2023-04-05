@@ -7,19 +7,53 @@
  *               3. 맵UI
  */
 
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class MapEditorEventHandler : MonoBehaviour
 {
+    [SerializeField] private MapEditorManager editorManager;
+    [SerializeField] private MapEditorUI editorUI;
+
+    void Awake()
+    {
+        editorManager = GameObject.Find("EditorManager").GetComponent<MapEditorManager>();
+        editorUI = GameObject.Find("UI").GetComponent<MapEditorUI>();
+    }
+
+
     #region ButtonEvent
 
     [SerializeField]
-    void function()
+    // ACTION : 현재까지 만든 맵 저장
+    public void OnSaveClicked()
     {
+
+    }
+    // ACTION : 만든 맵을 불러오기
+    public void OnLoadClicked()
+    {
+
+    }
+    // ACTION : 현재까지 만든 맵을 플레이
+    public void OnPlayClicked()
+    {
+
+    }
+    // ACTION : 현재 맵 플레이를 중단
+    public void OnStopClicked()
+    {
+
+    }
+    // ACTION : 장애물을 생성
+    public void OnCreateClicked()
+    {
+
+    }
+    // ACTION : 노래를 불러오기
+    public void OnSongClicked()
+    {
+        editorManager.OpenSong();
 
     }
 
