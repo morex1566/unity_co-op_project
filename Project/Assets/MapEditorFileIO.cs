@@ -29,11 +29,10 @@ public class MapEditorFileIO : MonoBehaviour
             string filename = FileBrowserHelpers.GetFilename(FileBrowser.Result[0]);
             string filepath = FileBrowser.Result[0];
             string copyPath = Path.Combine(Application.streamingAssetsPath, filename);
-            
+
             FileBrowserHelpers.CopyFile(filepath, copyPath);
 
             yield return WaitForCopyFile(copyPath);
-
             yield return LoadAudioClipFromPath(copyPath, filename);
     	}
     }
@@ -68,16 +67,27 @@ public class MapEditorFileIO : MonoBehaviour
     {
         bool isCopied = false;
         float waitTime = 0.1f;  // 0.1초마다 파일 존재 여부를 검사합니다.
-
+        float counter = 0f; // 타임오버 측정
+        
         while (!isCopied)
         {
             yield return new WaitForSeconds(waitTime);
+            counter += waitTime;
 
             // 파일이 존재하는지 확인
             if (File.Exists(copyPath))
             {
                 isCopied = true;
                 Debug.Log("File copy is completed: " + copyPath);
+            }
+            else
+            {
+                // 시간초과 
+                if (counter > 10f)
+                {
+                    isCopied = true;
+                    Debug.Log("load time out: "+ copyPath);
+                }
             }
         }
 

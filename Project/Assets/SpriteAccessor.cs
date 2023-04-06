@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
  
-public class SpriteConverter : MonoBehaviour {
+public class SpriteAccessor : MonoBehaviour {
  
     public Image image;
 

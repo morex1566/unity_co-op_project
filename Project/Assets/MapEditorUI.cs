@@ -8,14 +8,28 @@
  */
 
 using System;
+using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-[ExecuteInEditMode]
+
+
 [RequireComponent(typeof(LineRenderer))]
-public class MapEditorUI : MonoBehaviour
+public class MapEditorUI :  MonoBehaviour
 {
+    private int blockPositionCount = 30;
+    
+    // 여기서 Inspector에 보이는 색깔에 따른 블럭 정보가 나타납니다.
+    public enum ObstacleType 
+    {
+        FragileObstacle,
+        StaticObstacle,
+        Hole
+    }
+
+
     // INFO : 각 MapEditor클래스끼리 통신을 위한 객체
     private MapEditorEventHandler eventHandler;
 
@@ -32,10 +46,16 @@ public class MapEditorUI : MonoBehaviour
     [SerializeField] private Button stopButton;
     [SerializeField] private Button createObstacleButton;
     [SerializeField] private Button songButton;
+    [SerializeField] private GameObject obstacleMenuGUI;
+    [SerializeField] private GameObject obstaclePositionMarker;
+    private ObstacleType currObstacleType;
+    
 
     // INFO : 노래관련 
-    [SerializeField] private GameObject timeline;
+    [SerializeField] private Slider timelineSlider;
+    private SliderAccessor sliderAccessor;
     [SerializeField] private GameObject songName;
+    private Texture2D timelineInspector;
 
     public GameObject SongName { get { return songName; } set { songName = value; } }
 
@@ -45,21 +65,51 @@ public class MapEditorUI : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         LineColorMat = new Material(Shader.Find("Unlit/Texture"));
         sideLength = 7.5f;
-    }
 
+        currObstacleType = ObstacleType.FragileObstacle;
+    }
+    
     void Start()
     {
-        renderMapUI();
+        renderMap();
+        renderTimelineInspector();
 
         saveFileButton.onClick.AddListener(eventHandler.OnSaveClicked);
         loadFileButton.onClick.AddListener(eventHandler.OnLoadClicked);
         playButton.onClick.AddListener(eventHandler.OnPlayClicked);
         stopButton.onClick.AddListener(eventHandler.OnStopClicked);
         createObstacleButton.onClick.AddListener(eventHandler.OnCreateClicked);
+
         songButton.onClick.AddListener(eventHandler.OnSongClicked);
     }
 
-    private void renderMapUI()
+    private void renderTimelineInspector()
+    {
+        int width;
+        width = (int)(timelineSlider.transform.GetComponent<RectTransform>() as RectTransform).rect.width;
+        
+        Debug.Log(width);
+        
+        // TODO : height값 조정할 수도 있습니다.
+        timelineInspector = new Texture2D(width, blockPositionCount);
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < blockPositionCount; j++)
+            {
+                Color color = new Color(0, 0, 0, 150);
+                timelineInspector.SetPixel(i, j, color);
+            }
+        }
+
+        timelineInspector.filterMode = FilterMode.Point;
+        timelineInspector.Apply();
+        Sprite inspectorSprite = Sprite.Create(timelineInspector,
+            new Rect(0, 0, timelineInspector.width, timelineInspector.height), new Vector2(0.5f, 0.5f));
+
+        (timelineSlider.transform.GetChild(0).GetComponent<Image>() as Image).sprite = inspectorSprite;
+    }
+    
+    private void renderMap()
     {
         Vector3 center = transform.position;
         Color white = Color.white;
@@ -79,37 +129,43 @@ public class MapEditorUI : MonoBehaviour
         lineRenderer.SetPositions(positions);
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
-    public void renderTimeline(AudioClip audioClip)
+    public void ShowObstacleTypeMenuGUI()
     {
-        int width = (int)Math.Round(audioClip.length);
+        obstacleMenuGUI.SetActive(true);
+        
+        StartCoroutine(showObstacleTypeMenuDialog());
+    }
 
-        Debug.Log(width);
-        Texture2D timelineImage = new Texture2D(width , 30);
-    
-        // Timeline 이미지 그리기
-        for (int x = 0; x < width; x++)
+    private IEnumerator showObstacleTypeMenuDialog()
+    {
+        while (true)
         {
-            for (int y = 0; y < 18; y++)
-            {
-                if (y % 2 == 0)
-                {
-                    timelineImage.SetPixel(x, y, Color.red);
-
-                }
-                else
-                {
-                    timelineImage.SetPixel(x, y, Color.blue);
-
-                }
-            }
+            
         }
 
-        // 텍스쳐 업데이트
-        timelineImage.Apply();
-        Sprite sprite = Sprite.Create(timelineImage, new Rect(0, 0, timelineImage.width, timelineImage.height), Vector2.zero);
-
+        ShowObstaclePositionMark();
+    }
+    
+    // INNER FUNCTION : 
+    private void ShowObstaclePositionMark()
+    {
         
-        timeline.GetComponentInChildren<SpriteConverter>().image.sprite = sprite;
+    }
+
+    public void SetTimeline(AudioClip audioClip)
+    {
+        int width = (int)Math.Round(audioClip.length * 10);
+        timelineSlider.maxValue = width;
+    }
+    
+    public float GetSongCurrentTime()
+    {
+        return timelineSlider.value / 10f;
+    }
+
+    public void SetSongCurrentTime(float time)
+    {
+        int modifiedTime = (int)Math.Round(time * 10);
+        timelineSlider.value = modifiedTime;
     }
 }

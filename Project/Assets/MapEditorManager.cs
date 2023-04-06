@@ -4,6 +4,7 @@
  *  파일 설명 :  맵 에디터의 모든 정보를 가지고 있는 DB담당
  */
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -57,16 +58,37 @@ public class MapEditorManager : MonoBehaviour
         eventHandler = GameObject.Find("EventManager").GetComponent<MapEditorEventHandler>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        if (song.source.isPlaying)
+        {
+            eventHandler.SetSongCurrentTime(song.source.time);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySongAt(float time)
     {
-        
+        if (song.source != null)
+        {
+            song.source.time = time;
+            song.source.Play();   
+        }
+        else
+        {
+            Debug.Log("song source is null");
+        }
+    }
+
+    public void StopSongAt()
+    {
+        if (song.source != null)
+        {
+            song.source.Stop();   
+        }
+        else
+        {
+            Debug.Log("song source is null");
+        }
     }
 
     public void SetSong(string filepath, string filename, AudioClip audioClip)

@@ -35,22 +35,22 @@ public class MapEditorEventHandler : MonoBehaviour
     // ACTION : 만든 맵을 불러오기
     public void OnLoadClicked()
     {
-
+        
     }
     // ACTION : 현재까지 만든 맵을 플레이
     public void OnPlayClicked()
     {
-
+        editorManager.PlaySongAt(editorUI.GetSongCurrentTime());
     }
     // ACTION : 현재 맵 플레이를 중단
     public void OnStopClicked()
     {
-
+        editorManager.StopSongAt();
     }
     // ACTION : 장애물을 생성
     public void OnCreateClicked()
     {
-
+        editorUI.ShowObstacleTypeMenuGUI();
     }
     // ACTION : 노래를 불러오기
     public void OnSongClicked()
@@ -58,17 +58,22 @@ public class MapEditorEventHandler : MonoBehaviour
         editorFileIO.OnFileBrowserOpen();
     }
 
+    #endregion
+
+    #region USER_EVENT
+    
     // ACTION : OnSongClicked()에 대한 회신, 읽은 파일 정보 전달
     public void SendSongDesc(string filepath, string filename, AudioClip audioClip)
     {
         editorManager.SetSong(filepath, filename, audioClip);
         editorUI.SongName.GetComponent<TextMeshProUGUI>().text = filename;
-        editorUI.renderTimeline(audioClip);
+        editorUI.SetTimeline(audioClip);
     }
 
-    #endregion
-
-    #region USER_EVENT
-
+    public void SetSongCurrentTime(float songCurrentTime)
+    {
+        editorUI.SetSongCurrentTime(songCurrentTime);
+    }
+    
     #endregion
 }
