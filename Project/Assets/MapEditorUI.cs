@@ -7,9 +7,10 @@
  *               3. 맵UI
  */
 
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(LineRenderer))]
@@ -33,8 +34,10 @@ public class MapEditorUI : MonoBehaviour
     [SerializeField] private Button songButton;
 
     // INFO : 노래관련 
-    [SerializeField] private Scrollbar songTimeLineScrollbar;
+    [SerializeField] private GameObject timeline;
     [SerializeField] private GameObject songName;
+
+    public GameObject SongName { get { return songName; } set { songName = value; } }
 
     void Awake()
     {
@@ -74,5 +77,39 @@ public class MapEditorUI : MonoBehaviour
 
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public void renderTimeline(AudioClip audioClip)
+    {
+        int width = (int)Math.Round(audioClip.length);
+
+        Debug.Log(width);
+        Texture2D timelineImage = new Texture2D(width , 30);
+    
+        // Timeline 이미지 그리기
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < 18; y++)
+            {
+                if (y % 2 == 0)
+                {
+                    timelineImage.SetPixel(x, y, Color.red);
+
+                }
+                else
+                {
+                    timelineImage.SetPixel(x, y, Color.blue);
+
+                }
+            }
+        }
+
+        // 텍스쳐 업데이트
+        timelineImage.Apply();
+        Sprite sprite = Sprite.Create(timelineImage, new Rect(0, 0, timelineImage.width, timelineImage.height), Vector2.zero);
+
+        
+        timeline.GetComponentInChildren<SpriteConverter>().image.sprite = sprite;
     }
 }

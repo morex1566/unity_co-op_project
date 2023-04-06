@@ -1,29 +1,31 @@
 /*
  *  업데이트  :  2023-04-04
  *  작성자    :  jiwon.
- *  파일 설명 :  사용자가 하는 행동들(Event)을 각 MapEditor~ 스크립트에 전달해주는 라우터
- *               1. 노래 스크롤바
- *               2. 장애물 생성, 파일 입출력 버튼
- *               3. 맵UI
+ *  파일 설명 :  각 MapEditor~ 스크립트들이 통신하는 라우터
+ *  주의 사항 :  Event 함수 등록할 때, function chaining하면 stack-tracing하기 힘들어 집니다....
  */
 
+using TMPro;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class MapEditorEventHandler : MonoBehaviour
 {
+    // INFO : 등록된 통신망 이용자들
     [SerializeField] private MapEditorManager editorManager;
     [SerializeField] private MapEditorUI editorUI;
+    [SerializeField] private MapEditorAnimation editorAnimation;
+    [SerializeField] private MapEditorFileIO editorFileIO;
 
     void Awake()
     {
-        editorManager = GameObject.Find("EditorManager").GetComponent<MapEditorManager>();
+        editorManager = GameObject.Find("Editor").GetComponent<MapEditorManager>();
         editorUI = GameObject.Find("UI").GetComponent<MapEditorUI>();
+        editorAnimation = GameObject.Find("Editor").GetComponent<MapEditorAnimation>();
+        editorFileIO = GameObject.Find("Editor").GetComponent<MapEditorFileIO>();
     }
 
-
-    #region ButtonEvent
-
+    #region BUTTON_EVENT
     [SerializeField]
     // ACTION : 현재까지 만든 맵 저장
     public void OnSaveClicked()
@@ -53,9 +55,20 @@ public class MapEditorEventHandler : MonoBehaviour
     // ACTION : 노래를 불러오기
     public void OnSongClicked()
     {
-        editorManager.OpenSong();
-
+        editorFileIO.OnFileBrowserOpen();
     }
+
+    // ACTION : OnSongClicked()에 대한 회신, 읽은 파일 정보 전달
+    public void SendSongDesc(string filepath, string filename, AudioClip audioClip)
+    {
+        editorManager.SetSong(filepath, filename, audioClip);
+        editorUI.SongName.GetComponent<TextMeshProUGUI>().text = filename;
+        editorUI.renderTimeline(audioClip);
+    }
+
+    #endregion
+
+    #region USER_EVENT
 
     #endregion
 }

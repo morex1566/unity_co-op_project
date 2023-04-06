@@ -4,9 +4,12 @@
  *  파일 설명 :  맵 에디터의 모든 정보를 가지고 있는 DB담당
  */
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 
 public class EditorHotKey
@@ -32,25 +35,26 @@ public class EditorHotKey
     public static KeyCode StopCurrentWork = KeyCode.F5;
 }
 
-
-struct SongData
+public struct SongData
 {
-    public string    Filename;
-    public string    route;
-    public AudioClip source;
+    public string Filename;
+    public string FilePath;
+    public AudioSource source;
 }
-
 
 public class MapEditorManager : MonoBehaviour
 {
+    private MapEditorEventHandler eventHandler;
     private SongData song;
-    private MapEditorAnimation uiAnimation;
-    private MapEditorFilestream fileIO;
 
     void Awake()
     {
-        uiAnimation = new MapEditorAnimation();
-        fileIO = new MapEditorFilestream();
+        song = new SongData();
+        song.FilePath = null;
+        song.Filename = null;
+        song.source = GetComponent<AudioSource>();
+        
+        eventHandler = GameObject.Find("EventManager").GetComponent<MapEditorEventHandler>();
     }
 
     // Start is called before the first frame update
@@ -65,9 +69,12 @@ public class MapEditorManager : MonoBehaviour
         
     }
 
-    // ACTION : 노래를 불러오는게 성공했다면 TRUE
-    public bool OpenSong()
+    public void SetSong(string filepath, string filename, AudioClip audioClip)
     {
-        return true;
+        song.FilePath = filepath;
+        song.Filename = filename;
+        song.source.clip = audioClip;
+        song.source.clip.name = filename;
+        song.source.Play();
     }
 }
