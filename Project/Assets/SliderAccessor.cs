@@ -8,43 +8,53 @@ using UnityEngine.Serialization;
 
 public class SliderAccessor : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
 {
-    public Slider slider;
-    public string valueText; // UI Text component to display the current slider value
+    private MapEditorEventHandler eventHandler;
     
-    // Start is called before the first frame update
-    private bool isHandleDown = false; // Flag to indicate whether the handle is being held down
+    public Slider slider;
+    public string valueText;
+    private bool songSelected;
+    
+    public bool SongSelected { get { return songSelected; } set { songSelected = value; } }
     
     // INFO : 사용자 동작으로 생성하는 UI관련
     [SerializeField] private GameObject messageBox;
     private MessageBoxAccessor msgAccessor;
-    
-    private void Start()
+
+    private void Awake()
     {
+        eventHandler = GameObject.Find("EventManager").GetComponent<MapEditorEventHandler>();
         msgAccessor = messageBox.GetComponent<MessageBoxAccessor>();
         slider = transform.GetComponent<Slider>();
-        
+    }
+
+    private void Start()
+    {
         valueText = slider.value.ToString();
         slider.onValueChanged.AddListener(delegate { onValueChanged(); });
+        songSelected = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         messageBox.SetActive(true);
         msgAccessor.textmeshpro.text = valueText;
-        isHandleDown = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         messageBox.SetActive(false);
         msgAccessor.textmeshpro.text = valueText;
-        isHandleDown = false;
     }
 
     private void onValueChanged()
     {
         valueText = milisecToTime();
         msgAccessor.textmeshpro.text = valueText;
+
+        if (songSelected == true)
+        {
+            eventHandler.UpdateTimelineInspector();
+        }
     }
 
     private string milisecToTime()

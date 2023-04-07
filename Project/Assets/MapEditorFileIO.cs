@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class MapEditorFileIO : MonoBehaviour
 {
@@ -92,5 +93,54 @@ public class MapEditorFileIO : MonoBehaviour
         }
 
         yield return isCopied;
+    }
+
+    public void CreateSaveFile(Slider timelineSlider, SongData songData)
+    {
+        // JSON 파일에 저장할 값을 담을 리스트
+        string path = Application.streamingAssetsPath + "/" + songData.Filename.ToString() + ".json";
+        StreamWriter writer = new StreamWriter(path, false);
+        
+        Texture2D timelineTexture = timelineSlider.
+                                    GetComponent<RectTransform>().
+                                    Find("Background").
+                                    GetComponent<Image>().
+                                    sprite.texture;
+        
+        // 첫줄에는 파일의 정보를 저장합니다.
+        writer.WriteLine(songData.FilePath);
+        // 둘째줄에는 곡의 이름을 저장합니다.
+        writer.WriteLine(songData.Filename);
+        
+        writer.WriteLine();
+        
+        // 넷째줄부터 시작
+        // 각 픽셀의 색상을 검사하여 리스트에 저장
+        // 예 ) C/T23/F0.../X -> 생성 이벤트/시간은 23/Fragile타입 장애물(F) 위치는 0번버튼+.... / 종료
+        for (int x = 0; x < timelineTexture.width; x++)
+        {
+            writer.Write("C");
+            writer.Write("/");
+            writer.Write("T");
+            writer.Write(x.ToString());
+            writer.Write("/");
+
+            for (int y = 0; y < timelineTexture.height; y++)
+            {
+                Color pixelColor = timelineTexture.GetPixel(x, y);
+
+                if (pixelColor.Equals(Color.red))
+                {
+                    writer.Write("F");
+                    writer.Write(y.ToString());
+                    writer.Write("/");
+                }
+            }
+            
+            writer.Write("X");
+            writer.WriteLine();
+        }
+        
+        writer.Close();
     }
 }

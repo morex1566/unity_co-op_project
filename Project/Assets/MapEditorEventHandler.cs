@@ -29,10 +29,10 @@ public class MapEditorEventHandler : MonoBehaviour
     [SerializeField]
     // ACTION : 현재까지 만든 맵 저장
     public void OnSaveClicked()
-    {
-
+    { 
+        editorFileIO.CreateSaveFile(editorUI.GetTimelineSlider(), editorManager.Song);
     }
-    // ACTION : 만든 맵을 불러오기
+    // TODO : 만든 맵을 불러오기
     public void OnLoadClicked()
     {
         
@@ -40,7 +40,7 @@ public class MapEditorEventHandler : MonoBehaviour
     // ACTION : 현재까지 만든 맵을 플레이
     public void OnPlayClicked()
     {
-        editorManager.PlaySongAt(editorUI.GetSongCurrentTime());
+        editorManager.PlaySongAt(editorUI.GetSongCurrentRealTime());
     }
     // ACTION : 현재 맵 플레이를 중단
     public void OnStopClicked()
@@ -50,7 +50,19 @@ public class MapEditorEventHandler : MonoBehaviour
     // ACTION : 장애물을 생성
     public void OnCreateClicked()
     {
-        editorUI.ShowObstacleTypeMenuGUI();
+        // 토글기능
+        if (editorUI.CreateButtonToggle)
+        {
+            editorUI.CreateButtonToggle = false;
+            editorUI.ShutDownObstaclePositionMarker();
+            editorUI.SetCreateButtonColor(false);
+        }
+        else
+        {
+            editorUI.CreateButtonToggle = true;
+            editorUI.SetCreateButtonColor(true);
+            editorUI.ShowObstacleTypeMenuGUI();
+        }
     }
     // ACTION : 노래를 불러오기
     public void OnSongClicked()
@@ -67,6 +79,8 @@ public class MapEditorEventHandler : MonoBehaviour
     {
         editorManager.SetSong(filepath, filename, audioClip);
         editorUI.SongName.GetComponent<TextMeshProUGUI>().text = filename;
+
+        // Song정보를 통해 TimelineInspector의 크기 저장
         editorUI.SetTimeline(audioClip);
     }
 
@@ -74,6 +88,16 @@ public class MapEditorEventHandler : MonoBehaviour
     {
         editorUI.SetSongCurrentTime(songCurrentTime);
     }
-    
+
+
+    public SongData GetSongData()
+    {
+        return editorManager.Song;
+    }
+
+    public void UpdateTimelineInspector()
+    {
+        editorUI.UpdateTimelineInspector();
+    }
     #endregion
 }

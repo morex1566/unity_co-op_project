@@ -47,6 +47,8 @@ public class MapEditorManager : MonoBehaviour
 {
     private MapEditorEventHandler eventHandler;
     private SongData song;
+    
+    public SongData Song { get { return song;} set { song = value; } }
 
     void Awake()
     {
@@ -97,6 +99,5 @@ public class MapEditorManager : MonoBehaviour
         song.Filename = filename;
         song.source.clip = audioClip;
         song.source.clip.name = filename;
-        song.source.Play();
     }
 }
