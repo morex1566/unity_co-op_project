@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-public class SliderAccessor : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
+public class MapEditorSlider : MonoBehaviour,  IPointerDownHandler, IPointerUpHandler
 {
     private MapEditorEventHandler eventHandler;
     
@@ -18,12 +18,12 @@ public class SliderAccessor : MonoBehaviour,  IPointerDownHandler, IPointerUpHan
     
     // INFO : 사용자 동작으로 생성하는 UI관련
     [SerializeField] private GameObject messageBox;
-    private MessageBoxAccessor msgAccessor;
+    private MapEditorMessageBox msgAccessor;
 
     private void Awake()
     {
         eventHandler = GameObject.Find("EventManager").GetComponent<MapEditorEventHandler>();
-        msgAccessor = messageBox.GetComponent<MessageBoxAccessor>();
+        msgAccessor = messageBox.GetComponent<MapEditorMessageBox>();
         slider = transform.GetComponent<Slider>();
     }
 
@@ -46,7 +46,7 @@ public class SliderAccessor : MonoBehaviour,  IPointerDownHandler, IPointerUpHan
         msgAccessor.textmeshpro.text = valueText;
     }
 
-    private void onValueChanged()
+    public void onValueChanged()
     {
         valueText = milisecToTime();
         msgAccessor.textmeshpro.text = valueText;

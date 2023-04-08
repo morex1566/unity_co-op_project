@@ -34,6 +34,7 @@ public class EditorHotKey
     // ACTION : 플레이 멈추기
     public static EventModifiers StopCurrentWorkModifiers = EventModifiers.Control | EventModifiers.Shift;
     public static KeyCode StopCurrentWork = KeyCode.F5;
+    
 }
 
 public struct SongData
@@ -66,6 +67,8 @@ public class MapEditorManager : MonoBehaviour
         {
             eventHandler.SetSongCurrentTime(song.source.time);
         }
+        
+        
     }
 
     public void PlaySongAt(float time)

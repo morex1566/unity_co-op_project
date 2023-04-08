@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MessageBoxAccessor : MonoBehaviour
+public class MapEditorMessageBox : MonoBehaviour
 {
     public TMP_Text textmeshpro;
     public RectTransform rectTransform;

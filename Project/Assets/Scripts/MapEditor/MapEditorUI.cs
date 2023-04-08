@@ -10,24 +10,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+// 여기서 Inspector에 보이는 색깔에 따른 블럭 정보가 나타납니다.
+public enum ObstacleType 
+{
+    FragileObstacle,
+    StaticObstacle,
+    Hole
+}
 
 [RequireComponent(typeof(LineRenderer))]
 public class MapEditorUI :  MonoBehaviour
 {
-    private int timelineYPixelCount = 30;
-
-    // 여기서 Inspector에 보이는 색깔에 따른 블럭 정보가 나타납니다.
-    public enum ObstacleType 
-    {
-        FragileObstacle,
-        StaticObstacle,
-        Hole
-    }
+    // CAUTION : 하드코딩되어있는 값입니다! 변경X
+    static public int timelineYPixelCount = 30;
 
 
     // INFO : 각 MapEditor클래스끼리 통신을 위한 객체
@@ -48,6 +48,7 @@ public class MapEditorUI :  MonoBehaviour
     [SerializeField] private Button songButton;
     [SerializeField] private GameObject obstacleMenuGUI;
     [SerializeField] private GameObject obstaclePositionMarker;
+    [SerializeField] private Canvas positionMarkerCanvas;
     private List<Button> positionMarkerButton;
     private ObstacleType currObstacleType;
     private bool createButtonToggle;
@@ -55,7 +56,7 @@ public class MapEditorUI :  MonoBehaviour
 
     // INFO : 노래관련 
     [SerializeField] private Slider timelineSlider;
-    private SliderAccessor sliderAccessor;
+    private MapEditorSlider _mapEditorSlider;
     [SerializeField] private GameObject songName;
 
     public GameObject SongName { get { return songName; } set { songName = value; } }
@@ -65,7 +66,7 @@ public class MapEditorUI :  MonoBehaviour
     void Awake()
     {
         eventHandler = GameObject.Find("EventManager").GetComponent<MapEditorEventHandler>();
-        sliderAccessor = timelineSlider.GetComponent<SliderAccessor>();
+        _mapEditorSlider = timelineSlider.GetComponent<MapEditorSlider>();
         lineRenderer = GetComponent<LineRenderer>();
         LineColorMat = new Material(Shader.Find("Unlit/Texture"));
         sideLength = 7.5f;
@@ -73,6 +74,12 @@ public class MapEditorUI :  MonoBehaviour
         currObstacleType = ObstacleType.FragileObstacle;
         createButtonToggle = false;
         obstacleMenuGUI.SetActive(false);
+
+        positionMarkerCanvas.renderMode = RenderMode.WorldSpace;
+        RectTransform positionMarkerRect =
+            positionMarkerCanvas.transform.GetChild(0).GetComponent<RectTransform>();
+        positionMarkerRect.position = new Vector3(0,0,-1);
+        positionMarkerRect.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
     }
     
     void Start()
@@ -95,6 +102,32 @@ public class MapEditorUI :  MonoBehaviour
             int index = i; // 콜백 함수에서 사용하기 위해 인덱스 값을 저장합니다.
             positionMarkerButton[i].onClick.AddListener(() => OnPositionMarkerButtonClicked(index));
         }
+    }
+
+    void Update()
+    {
+        if (songName)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                timelineSlider.value = (int)(timelineSlider.value + 1);
+                _mapEditorSlider.onValueChanged();
+            }
+        
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                timelineSlider.value = (int)(timelineSlider.value - 1);
+                _mapEditorSlider.onValueChanged();
+            }
+        }
+    }
+
+    public void LoadTimelineInspector(Texture2D timeline)
+    {
+        Sprite inspectorSprite = Sprite.Create(timeline,
+            new Rect(0, 0, timeline.width, timeline.height), new Vector2(0.5f, 0.5f));
+        
+        (timelineSlider.transform.GetChild(0).GetComponent<Image>() as Image).sprite = inspectorSprite;
     }
 
     // INFO : 하단 Timeline UI 드로우 콜
@@ -165,14 +198,20 @@ public class MapEditorUI :  MonoBehaviour
             
             if (pixelColor.Equals(Color.red))
             {
-                positionMarkerButton[i].GetComponent<Image>().color = Color.yellow;
+                positionMarkerButton[i].GetComponent<Image>().color = Color.red;
             }
-            else
+            else if (pixelColor.Equals(Color.blue))
             {
-                positionMarkerButton[i].GetComponent<Image>().color = Color.white;
+                positionMarkerButton[i].GetComponent<Image>().color = Color.blue;
+            }
+            else if (pixelColor.Equals(Color.green))
+            {
+                positionMarkerButton[i].GetComponent<Image>().color = Color.green;
             }
         }
     }
+    
+    
     
     // INFO : create 클릭 시 호출
     public void ShowObstacleTypeMenuGUI()
@@ -240,7 +279,7 @@ public class MapEditorUI :  MonoBehaviour
     {
         // TODO : 여기보다 다른 곳에 있어야 할 코드, 옮겨야 합니다
         // CAUTION : 그렇다고 지우지 마세요... 
-        sliderAccessor.SongSelected = true;
+        _mapEditorSlider.SongSelected = true;
         
         int width = (int)Math.Round(audioClip.length * 10);
         timelineSlider.maxValue = width;
@@ -278,7 +317,9 @@ public class MapEditorUI :  MonoBehaviour
         obstaclePositionMarker.SetActive(false);;
     }
 
-    // INFO : 버튼이 클릭되면 index를 읽고 timelineinspector 이미지를 변경합니다.
+    
+    // INFO : 장애물을 배치할 수 있는 position marker를 클릭 시 호출
+    // ACTION : 버튼 색을 바꾸고, timelineinspector 이미지를 변경합니다.
     private void OnPositionMarkerButtonClicked(int index)
     {
         SongData songData = eventHandler.GetSongData();
@@ -287,40 +328,114 @@ public class MapEditorUI :  MonoBehaviour
             Debug.Log("select song first!");
             return;
         }
-        
+
         // 색 변경 코드
-        Texture2D  timelineInspectorTexture = timelineSlider.
-                                              GetComponent<RectTransform>().
-                                              Find("Background").
-                                              GetComponent<Image>().
-                                              sprite.texture;
-        
+        Texture2D timelineInspectorTexture = timelineSlider.GetComponent<RectTransform>().Find("Background")
+            .GetComponent<Image>().sprite.texture;
+
         Color color = new Color(0, 0, 0, 0.9f);
-        
+
+        // 컬러 선택
         if (positionMarkerButton[index].GetComponent<Image>().color == Color.white)
         {
             switch (currObstacleType)
             {
                 case ObstacleType.FragileObstacle:
-                    color = Color.red;
+                    // 그자리가 Hole이면 그냥 탈출
+                    if (!(positionMarkerButton[index].GetComponent<Image>().color == Color.blue))
+                    {
+                        color = Color.red;
+                        positionMarkerButton[index].GetComponent<Image>().color = Color.red;
+                    }
                     break;
-            
+
+                case ObstacleType.Hole:
+                    color = Color.blue;
+                    int whereSet = index / 5;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        positionMarkerButton[whereSet * 5 + i].GetComponent<Image>().color = Color.blue;
+                    }
+                    break;
+
+                case ObstacleType.StaticObstacle:
+                    if (!(positionMarkerButton[index].GetComponent<Image>().color == Color.blue))
+                    {
+                        color = Color.green;
+                        
+                        // static 기둥은 한개만 생성 가능합니다
+                        if (GetStaticObstacleButtonCount() < 2)
+                        {
+                            positionMarkerButton[index].GetComponent<Image>().color = Color.green;
+                        }
+                        else
+                        {
+                            Debug.Log("only takes 1 static obstacle.");
+                        }
+                    }
+                    break;
+                
                 default:
                     // TODO : 여기 색깔 등록해주세요!
                     break;
             }
-            
-            // 버튼 클릭했으니 표시
-            positionMarkerButton[index].GetComponent<Image>().color = Color.yellow;
         }
         else
-        {   
+        {
             // 다시 클릭하면 지우기
-            positionMarkerButton[index].GetComponent<Image>().color = Color.white;
+            if (positionMarkerButton[index].GetComponent<Image>().color == Color.blue)
+            {
+                int whereSet = index / 5;
+
+                for (int i = 0; i < 5; i++)
+                {
+                    positionMarkerButton[whereSet * 5 + i].GetComponent<Image>().color = Color.white;
+                }
+            }
+            else
+            {
+                positionMarkerButton[index].GetComponent<Image>().color = Color.white;
+
+            }
         }
-        
-        timelineInspectorTexture.SetPixel((int)timelineSlider.value, index, color);
+
+        // 선택한 컬러 색칠하기
+        if (color == Color.red)
+        {
+            timelineInspectorTexture.SetPixel((int)timelineSlider.value, index, color);
+        }
+        else if (color == Color.blue)
+        {
+            int whereSet = index / 5;
+
+            for (int i = 0; i < 5; i++)
+            {
+                timelineInspectorTexture.SetPixel((int)timelineSlider.value, whereSet * 5 + i, color);
+            }
+        }
+        else if (color == Color.green)
+        {
+            timelineInspectorTexture.SetPixel((int)timelineSlider.value, index, color);
+        }
+        else // 초기화
+        {
+            timelineInspectorTexture.SetPixel((int)timelineSlider.value, index, color);
+        }
+
         timelineInspectorTexture.Apply();
+    }
+    
+    // INNER FUNCTION : OnPositionMarkerButtonClicked()
+    private int GetStaticObstacleButtonCount()
+    {
+        int count = 0;
+        
+        for (int i = 0; i < positionMarkerButton.Count; i++)
+        {
+            if (positionMarkerButton[i].GetComponent<Image>().color == Color.green) { count++; }
+        }
+
+        return count;
     }
     
     // INFO : 유틸리티

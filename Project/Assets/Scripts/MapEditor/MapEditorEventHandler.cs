@@ -35,7 +35,7 @@ public class MapEditorEventHandler : MonoBehaviour
     // TODO : 만든 맵을 불러오기
     public void OnLoadClicked()
     {
-        
+        editorFileIO.OnTextFileLoadBrowserOpen();
     }
     // ACTION : 현재까지 만든 맵을 플레이
     public void OnPlayClicked()
@@ -67,7 +67,7 @@ public class MapEditorEventHandler : MonoBehaviour
     // ACTION : 노래를 불러오기
     public void OnSongClicked()
     {
-        editorFileIO.OnFileBrowserOpen();
+        editorFileIO.OnAudioFileLoadBrowserOpen();
     }
 
     #endregion
@@ -88,8 +88,6 @@ public class MapEditorEventHandler : MonoBehaviour
     {
         editorUI.SetSongCurrentTime(songCurrentTime);
     }
-
-
     public SongData GetSongData()
     {
         return editorManager.Song;
@@ -98,6 +96,11 @@ public class MapEditorEventHandler : MonoBehaviour
     public void UpdateTimelineInspector()
     {
         editorUI.UpdateTimelineInspector();
+    }
+
+    public void LoadTimelineInspector(Texture2D texture)
+    {
+        editorUI.LoadTimelineInspector(texture);
     }
     #endregion
 }
