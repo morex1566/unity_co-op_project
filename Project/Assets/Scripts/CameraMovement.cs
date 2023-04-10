@@ -1,95 +1,237 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/*
+ *  íŒŒì¼ ì„¤ëª…   : í”Œë ˆì´ì–´ë¥¼ ê¸°ì¤€, InputSettingì˜ í‚¤ë¥¼ ìž…ë ¥í•˜ë©´, ì¹´ë©”ë¼ ì‹œì ì„ ë³€ê²½.
+ */
 
+using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class CameraMovement : MonoBehaviour
 {
-    // INFO : ½ÃÁ¡ÀÇ Á¾·ù.
-    enum PovState
+    enum PointOfViewState
     {
         Left,
         Right
     }
-    [SerializeField] private PovState _povState;
 
-    // INFO : 'PovState.Left'¿¡ °üÇÑ, '½ÃÁ¡Á¤º¸ º¯¼ö'.
+    // CAUTION : ì¶•ì˜ + -ëŠ” ì•™íŽ˜
+    enum MovementAxisState
+    {
+        X,
+        Y,
+        Z
+    }
+
+    [SerializeField] private float translationSpeed;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private GameObject player;
+    [FormerlySerializedAs("baseAxis")] [SerializeField] private MovementAxisState baseAxisState;
+
+    private PointOfViewState _baseState;
+    private PointOfViewState _currentState;
+    
+    private Vector3 _positionOffset;
+
+    // INFO : 'PovState.Left'ì— ê´€í•œ, 'ì‹œì ì •ë³´ ë³€ìˆ˜'.
     private Vector3     _leftPovPosition;
     private Vector3     _leftPovRotation;
 
-    // INFO : 'PovState.Right'¿¡ °üÇÑ, '½ÃÁ¡Á¤º¸ º¯¼ö'.
+    // INFO : 'PovState.Right'ì— ê´€í•œ, 'ì‹œì ì •ë³´ ë³€ìˆ˜'.
     private Vector3     _rightPovPosition;
     private Vector3     _rightPovRotation;
 
-    // INFO : ½ÃÁ¡ º¯È¯ ½Ã, Ä«¸Þ¶ó ÀüÈ¯°ú °ü·ÃµÇ´Â º¯¼ö.
-    [SerializeField] private float _conversionSpeed;
-    [SerializeField] private bool _conversionDone;
+    // INFO : ìž¥ì• ë¬¼ ìƒí˜¸ìž‘ìš© ì‹œ, 'í™”ë©´ í”ë“¤ë¦¼ ê³„ìˆ˜'.
 
-
-    // INFO : Àå¾Ö¹° »óÈ£ÀÛ¿ë ½Ã, 'È­¸é Èçµé¸² °è¼ö'.
-
-
-    // INFO : 'PlayerMovement'ÀÇ ÄÝ¹éÇÔ¼öµé ¿©±â¿¡!
-    #region MSG_EVENT
-    public void SetLeftPov()
+    public static Vector3 VectorAbs(Vector3 vector)
     {
-        _povState = PovState.Left;
+        return new Vector3(MathF.Abs(vector.x), Mathf.Abs(vector.y), MathF.Abs(vector.z));
     }
 
-    public void SetRightPov()
+    public static Vector3 RotationAbs(Vector3 rotation)
     {
-        _povState = PovState.Right;
-    }
-    #endregion
-
-    //**************************************** À¯´ÏÆ¼ Loop ÇÔ¼öµé ****************************************//
-    void Awake()
-    {
-        // CAUTION : ½ÃÁ¡ÀÇ ±âÁØÀº '¿ÞÂÊ', º¯°æ ½Ã Á¤ÀÇµÇÁö ¾ÊÀº µ¿ÀÛ À§Çè.
-        _povState = PovState.Left;
-        _leftPovPosition = transform.position;
-        _leftPovRotation = transform.rotation.eulerAngles;
-
-
-        // INFO : 'PovState.Right'´Â, 'Left ½ÃÁ¡ÀÇ YÃà ¹ÝÀü'.
-        _rightPovPosition = transform.position;
-        _rightPovPosition.x = -transform.position.x;
-
-        _rightPovRotation = transform.rotation.eulerAngles;
-        _rightPovRotation.y = -transform.rotation.eulerAngles.y;
-        _rightPovRotation.z = -transform.rotation.eulerAngles.z;
-
-        _conversionSpeed = 1.0f;
+        return new Vector3(MathF.Abs(rotation.x), Mathf.Abs(rotation.y), MathF.Abs(rotation.z));
     }
 
+    //**************************************** ìœ ë‹ˆí‹° Loop í•¨ìˆ˜ë“¤ ****************************************//
     void Start()
     {
-    }
-
-    void Update()
-    {
-        switch (_povState)
+        Vector3 revertedRotation = transform.rotation.eulerAngles;
+        
+        switch (baseAxisState)
         {
-            case PovState.Left:
-                transform.position = Vector3.Lerp(transform.position,
-                                                  _leftPovPosition,
-                                                  _conversionSpeed * Time.deltaTime);
+            case MovementAxisState.X:
+                _currentState = (player.transform.position.z > transform.position.z) ? PointOfViewState.Right : PointOfViewState.Left;
+                
+                _positionOffset = VectorAbs(transform.position - player.transform.position);
+                _positionOffset.x = 0;
+                _positionOffset.y = 0;
 
-                transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                     Quaternion.Euler(_leftPovRotation),
-                                                     _conversionSpeed * Time.deltaTime);
+                switch (_currentState)
+                {
+                    case PointOfViewState.Left:
+                        _leftPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z + _positionOffset.z);
+
+                        _rightPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z - _positionOffset.z);
+
+                        _leftPovRotation = transform.rotation.eulerAngles;
+
+                        revertedRotation.x *= -1;
+                        revertedRotation.z *= -1;
+
+                        _rightPovRotation = revertedRotation;
+
+                        break;
+                    case PointOfViewState.Right:
+                        _rightPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z - _positionOffset.z);
+                        _leftPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z + _positionOffset.z);
+
+                        _rightPovRotation = transform.rotation.eulerAngles;
+
+                        revertedRotation.x *= -1;
+                        revertedRotation.z *= -1;
+
+                        _leftPovRotation = revertedRotation;
+                        break;
+                }
+
                 break;
-            case PovState.Right:
+            
+            case MovementAxisState.Y:
+                _currentState = (player.transform.position.x > transform.position.x) ? PointOfViewState.Right : PointOfViewState.Left;
+                
+                _positionOffset = VectorAbs(transform.position - player.transform.position);
+                _positionOffset.y = 0;
+                _positionOffset.z = 0;
+
+                switch (_currentState)
+                {
+                    case PointOfViewState.Right:
+                        _rightPovPosition = new Vector3(player.transform.position.x - _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                            
+                        _leftPovPosition = new Vector3(player.transform.position.x + _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                        
+                        _rightPovRotation = transform.rotation.eulerAngles;
+                        
+                        revertedRotation.y *= -1;
+                        revertedRotation.z *= -1;
+
+                        _leftPovRotation = revertedRotation;
+
+                        break;
+                    case PointOfViewState.Left:
+                        _leftPovPosition = new Vector3(player.transform.position.x + _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                        _rightPovPosition = new Vector3(player.transform.position.x - _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                        
+                        _leftPovRotation = transform.rotation.eulerAngles;
+                        
+                        revertedRotation.y *= -1;
+                        revertedRotation.z *= -1;
+
+                        _rightPovRotation = revertedRotation;
+                        break;
+                }
+
+                break;
+            case MovementAxisState.Z:
+                _currentState = (player.transform.position.y < transform.position.y) ? PointOfViewState.Right : PointOfViewState.Left;
+                
+                _positionOffset = VectorAbs(transform.position - player.transform.position);
+                _positionOffset.z = 0;
+                _positionOffset.x = 0;
+
+                
+                switch (_currentState)
+                {
+                    case PointOfViewState.Left:
+                        _leftPovPosition = new Vector3(transform.position.x,
+                            player.transform.position.y + _positionOffset.y,
+                            transform.position.z);
+                        _rightPovPosition  = new Vector3(transform.position.x,
+                            player.transform.position.y - _positionOffset.y,
+                            transform.position.z);
+            
+                        _leftPovRotation = transform.rotation.eulerAngles;
+            
+                        revertedRotation.x *= -1;
+                        revertedRotation.y *= -1;
+
+                        _rightPovRotation = revertedRotation;
+                        break;
+                    case PointOfViewState.Right:
+                        _rightPovPosition  = new Vector3(transform.position.x,
+                            player.transform.position.y - _positionOffset.y,
+                            transform.position.z);
+                        _leftPovPosition  = new Vector3(transform.position.x,
+                            player.transform.position.y + _positionOffset.y,
+                            transform.position.z);
+            
+                        _rightPovRotation = transform.rotation.eulerAngles;
+            
+                        revertedRotation.x *= -1;
+                        revertedRotation.y *= -1;
+
+                        _leftPovRotation = revertedRotation;
+                        break;
+                }
+                
+                break;
+        }
+        
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKey(InputSetting.moveLeft))
+        {
+            _currentState = PointOfViewState.Left;
+        }
+
+        if (Input.GetKey(InputSetting.moveRight))
+        {
+            _currentState = PointOfViewState.Right;
+        }
+            
+        
+        switch (_currentState)
+        {
+            case PointOfViewState.Left:
                 transform.position = Vector3.Lerp(transform.position,
-                                                  _rightPovPosition,
-                                                  _conversionSpeed * Time.deltaTime);
+                    _leftPovPosition,
+                    translationSpeed * Time.deltaTime);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                     Quaternion.Euler(_rightPovRotation),
-                                                     _conversionSpeed * Time.deltaTime);
+                    Quaternion.Euler(_leftPovRotation),
+                    rotationSpeed * Time.deltaTime);
+                break;
+                
+            case PointOfViewState.Right:
+                transform.position = Vector3.Lerp(transform.position,
+                    _rightPovPosition,
+                    translationSpeed * Time.deltaTime);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(_rightPovRotation),
+                    rotationSpeed * Time.deltaTime);
                 break;
         }
     }
-    //**************************************** À¯´ÏÆ¼ Loop ÇÔ¼öµé ****************************************//
+
+    //**************************************** ìœ ë‹ˆí‹° Loop í•¨ìˆ˜ë“¤ ****************************************//
 }

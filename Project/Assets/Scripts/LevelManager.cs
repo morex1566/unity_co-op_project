@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    // INFO : 장애물의 속도 등에 관한, 게임 속도.
     [SerializeField] public float GameSpeed = 0f;
+    private MapData mapData;
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -13,6 +14,13 @@ public class LevelManager : MonoBehaviour
         if(GameSpeed == 0f)
         {
             GameSpeed = 50f;
+        }
+
+        mapData = FileLoadManager.LoadMapData("Streaming-Heart.wav.txt");
+
+        if (mapData.clip == null)
+        {
+            Debug.Log("error");
         }
     }
 }
