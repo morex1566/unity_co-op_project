@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Networking;
 using System.IO;
-using System.Threading.Tasks;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public struct MapData
@@ -13,6 +9,25 @@ public struct MapData
     public string Filepath;
     public AudioClip clip;
     public Texture2D map;
+
+    public static bool operator ==(MapData a, MapData b)
+    {
+        if (a.Filename != b.Filename) { return false; }
+        if (a.Filepath != b.Filepath) { return false; }
+        if (a.clip != b.clip) { return false; }
+        if (a.map != b.map) { return false; }
+
+        return true;
+    }
+    public static bool operator!=(MapData a, MapData b)
+    {
+        if (a.Filename == b.Filename) { return false; }
+        if (a.Filepath == b.Filepath) {return false;}
+        if (a.clip == b.clip) { return false;}
+        if (a.map == b.map) { return false;}
+        
+        return true;
+    }
 }
 
 public static class FileLoadManager

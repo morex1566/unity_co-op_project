@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 
-public class CameraMovement : MonoBehaviour
+public class LevelCameraMovement : MonoBehaviour
 {
     enum PointOfViewState
     {
@@ -58,6 +58,7 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 revertedRotation = transform.rotation.eulerAngles;
         
+        // ACTION : player와 camera간의 offset, Inspector에서 선택한 축을 기준으로 반전되는 위치, 회전값 저장
         switch (baseAxisState)
         {
             case MovementAxisState.X:
@@ -207,7 +208,7 @@ public class CameraMovement : MonoBehaviour
         {
             _currentState = PointOfViewState.Right;
         }
-            
+        
         
         switch (_currentState)
         {
