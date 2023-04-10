@@ -1,78 +1,237 @@
-using UnityEngine;
+/*
+ *  파일 설명   : 플레이어를 기준, InputSetting의 키를 입력하면, 카메라 시점을 변경.
+ */
 
+using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class CameraMovement : MonoBehaviour
 {
-    enum PovState
+    enum PointOfViewState
     {
         Left,
         Right
     }
-    [SerializeField] private PovState _povState;
 
+    // CAUTION : 축의 + -는 앙페
+    enum MovementAxisState
+    {
+        X,
+        Y,
+        Z
+    }
+
+    [SerializeField] private float translationSpeed;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private GameObject player;
+    [FormerlySerializedAs("baseAxis")] [SerializeField] private MovementAxisState baseAxisState;
+
+    private PointOfViewState _baseState;
+    private PointOfViewState _currentState;
+    
+    private Vector3 _positionOffset;
+
+    // INFO : 'PovState.Left'에 관한, '시점정보 변수'.
     private Vector3     _leftPovPosition;
     private Vector3     _leftPovRotation;
 
+    // INFO : 'PovState.Right'에 관한, '시점정보 변수'.
     private Vector3     _rightPovPosition;
     private Vector3     _rightPovRotation;
 
-    [SerializeField] private float _conversionSpeed;
-    
+    // INFO : 장애물 상호작용 시, '화면 흔들림 계수'.
 
-    void Awake()
+    public static Vector3 VectorAbs(Vector3 vector)
     {
-        _povState = PovState.Left;
-        _leftPovPosition = transform.position;
-        _leftPovRotation = transform.rotation.eulerAngles;
-
-
-        _rightPovPosition = transform.position;
-        _rightPovPosition.x = -transform.position.x;
-
-        _rightPovRotation = transform.rotation.eulerAngles;
-        _rightPovRotation.y = -transform.rotation.eulerAngles.y;
-        _rightPovRotation.z = -transform.rotation.eulerAngles.z;
-
-        _conversionSpeed = 1.0f;
+        return new Vector3(MathF.Abs(vector.x), Mathf.Abs(vector.y), MathF.Abs(vector.z));
     }
-    void Update()
+
+    public static Vector3 RotationAbs(Vector3 rotation)
     {
-        InputUpdate();
+        return new Vector3(MathF.Abs(rotation.x), Mathf.Abs(rotation.y), MathF.Abs(rotation.z));
+    }
 
-        switch (_povState)
+    //**************************************** 유니티 Loop 함수들 ****************************************//
+    void Start()
+    {
+        Vector3 revertedRotation = transform.rotation.eulerAngles;
+        
+        switch (baseAxisState)
         {
-            case PovState.Left:
-                transform.position = Vector3.Lerp(transform.position,
-                                                  _leftPovPosition,
-                                                  _conversionSpeed * Time.deltaTime);
+            case MovementAxisState.X:
+                _currentState = (player.transform.position.z > transform.position.z) ? PointOfViewState.Right : PointOfViewState.Left;
+                
+                _positionOffset = VectorAbs(transform.position - player.transform.position);
+                _positionOffset.x = 0;
+                _positionOffset.y = 0;
 
-                transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                     Quaternion.Euler(_leftPovRotation),
-                                                     _conversionSpeed * Time.deltaTime);
+                switch (_currentState)
+                {
+                    case PointOfViewState.Left:
+                        _leftPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z + _positionOffset.z);
+
+                        _rightPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z - _positionOffset.z);
+
+                        _leftPovRotation = transform.rotation.eulerAngles;
+
+                        revertedRotation.x *= -1;
+                        revertedRotation.z *= -1;
+
+                        _rightPovRotation = revertedRotation;
+
+                        break;
+                    case PointOfViewState.Right:
+                        _rightPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z - _positionOffset.z);
+                        _leftPovPosition = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            player.transform.position.z + _positionOffset.z);
+
+                        _rightPovRotation = transform.rotation.eulerAngles;
+
+                        revertedRotation.x *= -1;
+                        revertedRotation.z *= -1;
+
+                        _leftPovRotation = revertedRotation;
+                        break;
+                }
+
                 break;
-            case PovState.Right:
-                transform.position = Vector3.Lerp(transform.position,
-                                                  _rightPovPosition,
-                                                  _conversionSpeed * Time.deltaTime);
+            
+            case MovementAxisState.Y:
+                _currentState = (player.transform.position.x > transform.position.x) ? PointOfViewState.Right : PointOfViewState.Left;
+                
+                _positionOffset = VectorAbs(transform.position - player.transform.position);
+                _positionOffset.y = 0;
+                _positionOffset.z = 0;
 
-                transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                     Quaternion.Euler(_rightPovRotation),
-                                                     _conversionSpeed * Time.deltaTime);
+                switch (_currentState)
+                {
+                    case PointOfViewState.Right:
+                        _rightPovPosition = new Vector3(player.transform.position.x - _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                            
+                        _leftPovPosition = new Vector3(player.transform.position.x + _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                        
+                        _rightPovRotation = transform.rotation.eulerAngles;
+                        
+                        revertedRotation.y *= -1;
+                        revertedRotation.z *= -1;
+
+                        _leftPovRotation = revertedRotation;
+
+                        break;
+                    case PointOfViewState.Left:
+                        _leftPovPosition = new Vector3(player.transform.position.x + _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                        _rightPovPosition = new Vector3(player.transform.position.x - _positionOffset.x,
+                            transform.position.y,
+                            transform.position.z);
+                        
+                        _leftPovRotation = transform.rotation.eulerAngles;
+                        
+                        revertedRotation.y *= -1;
+                        revertedRotation.z *= -1;
+
+                        _rightPovRotation = revertedRotation;
+                        break;
+                }
+
+                break;
+            case MovementAxisState.Z:
+                _currentState = (player.transform.position.y < transform.position.y) ? PointOfViewState.Right : PointOfViewState.Left;
+                
+                _positionOffset = VectorAbs(transform.position - player.transform.position);
+                _positionOffset.z = 0;
+                _positionOffset.x = 0;
+
+                
+                switch (_currentState)
+                {
+                    case PointOfViewState.Left:
+                        _leftPovPosition = new Vector3(transform.position.x,
+                            player.transform.position.y + _positionOffset.y,
+                            transform.position.z);
+                        _rightPovPosition  = new Vector3(transform.position.x,
+                            player.transform.position.y - _positionOffset.y,
+                            transform.position.z);
+            
+                        _leftPovRotation = transform.rotation.eulerAngles;
+            
+                        revertedRotation.x *= -1;
+                        revertedRotation.y *= -1;
+
+                        _rightPovRotation = revertedRotation;
+                        break;
+                    case PointOfViewState.Right:
+                        _rightPovPosition  = new Vector3(transform.position.x,
+                            player.transform.position.y - _positionOffset.y,
+                            transform.position.z);
+                        _leftPovPosition  = new Vector3(transform.position.x,
+                            player.transform.position.y + _positionOffset.y,
+                            transform.position.z);
+            
+                        _rightPovRotation = transform.rotation.eulerAngles;
+            
+                        revertedRotation.x *= -1;
+                        revertedRotation.y *= -1;
+
+                        _leftPovRotation = revertedRotation;
+                        break;
+                }
+                
                 break;
         }
+        
     }
-
-    private void InputUpdate()
+    
+    private void Update()
     {
         if (Input.GetKey(InputSetting.moveLeft))
         {
-            _povState = PovState.Left;
+            _currentState = PointOfViewState.Left;
         }
 
         if (Input.GetKey(InputSetting.moveRight))
         {
-            _povState = PovState.Right;
+            _currentState = PointOfViewState.Right;
+        }
+            
+        
+        switch (_currentState)
+        {
+            case PointOfViewState.Left:
+                transform.position = Vector3.Lerp(transform.position,
+                    _leftPovPosition,
+                    translationSpeed * Time.deltaTime);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(_leftPovRotation),
+                    rotationSpeed * Time.deltaTime);
+                break;
+                
+            case PointOfViewState.Right:
+                transform.position = Vector3.Lerp(transform.position,
+                    _rightPovPosition,
+                    translationSpeed * Time.deltaTime);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(_rightPovRotation),
+                    rotationSpeed * Time.deltaTime);
+                break;
         }
     }
+
+    //**************************************** 유니티 Loop 함수들 ****************************************//
 }
