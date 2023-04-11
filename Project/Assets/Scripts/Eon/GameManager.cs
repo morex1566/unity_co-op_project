@@ -1,41 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
-public interface ILevel
-{
-    public void OnPauseTimer();
-    public void OnResumeTimer();
-    public void OnStartTimerFor(float time);
-    public float OnGetTime();
-
-    public void AddGameObjectsToLevel(List<GameObject> objs);
-    public void AddGameObjectToLevel(GameObject obj);
-}
-
-public interface ILevelPlatformSpawner : ILevel
-{
-    // INFO 사용되는 Prefab들...
-    GameObject PlatformPrefab { get; }
-    float MapSpeed { get; }
-    float PlatformWidth { get; }
-    float PlatformLength { get; }
-    float PlatformHeight { get; }
-    float LevelStartPos { get; }
-    float PlatformLayerCount { get; }
-}
-
-public interface ILevelObstacleSpawner : ILevel
-{
-    GameObject FragileObstaclePrefab { get; }
-    GameObject StaticObstaclePrefab { get; }
-    float SyncSpeed { get; }
-    float FragileObstacleSize { get; }
-    float StaticObstacleSize { get; }
-}
-
-public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleSpawner
+public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleSpawner, ILevelManager
 {
     public static GameManager Instance = null;
     
@@ -56,7 +25,7 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
     [SerializeField] private float platformLength;
     [SerializeField] private float platformHeight;
     [SerializeField] private float levelStartPos;
-    [SerializeField] private float platformLayerCount;
+    [SerializeField] private int platformLayerCount;
         
     [Header("LevelObstacleSpawner Setting")]
     [Space(5)]
@@ -68,7 +37,7 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
     [Header("Song Information")]
     [Space(5)]
     [HideInInspector][SerializeField] private AudioSource audioSource;
-    [HideInInspector][SerializeField] private string name;
+    [FormerlySerializedAs("name")] [HideInInspector][SerializeField] private string songName;
     
     // INFO : Script Cache
     private LevelTimer _levelTimer;
@@ -85,7 +54,7 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
     public float PlatformLength => platformLength;
     public float PlatformHeight => platformHeight;
     public float LevelStartPos => levelStartPos;
-    public float PlatformLayerCount => platformLayerCount;
+    public int PlatformLayerCount => platformLayerCount;
     
     // INFO : ILevelObstacleSpawner 구현
     public GameObject FragileObstaclePrefab => fragileObstaclePrefab;
@@ -111,8 +80,6 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
         _levelPlatformSpawner = levelPlatformSpawner.GetComponent<LevelPlatformSpawner>();
         _levelObstacleSpawner = levelObstacleSpawner.GetComponent<LevelObstacleSpawner>();
         audioSource = GetComponent<AudioSource>();
-
-        level = Instantiate(level);
     }
 
     private void Start()
@@ -146,7 +113,7 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
         _mapData = FileLoadManager.LoadMapData("Streaming-Heart.wav.txt");
         if (_mapData != null)
         {
-            name = _mapData.Filename;
+            songName = _mapData.Filename;
             audioSource.clip = _mapData.clip;
 
             return true;
@@ -192,5 +159,19 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
     public void AddGameObjectToLevel(GameObject obj)
     {
         obj.transform.SetParent(level.transform);
+    }
+    
+    public GameObject GetLevel()
+    {
+        return level;
+    }
+
+    public Vector3 GetCenterPointAtLevel()
+    {
+        float x = 0;
+        float y = (float)((platformWidth * 0.5f * 0.5f) * Math.Sqrt(3)) * 2;
+        float z = levelStartPos + (platformLayerCount * platformLength * 0.5f);
+
+        return new Vector3(x, y, z);
     }
 }

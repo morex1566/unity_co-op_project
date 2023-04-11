@@ -10,11 +10,11 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float Horizontal = Input.GetAxis("Horizontal");
-        Vector3 Position = transform.position;
-        Position.x += -1*Horizontal * moveSpeed * Time.deltaTime;
-
-        transform.position = Position;
+        // float Horizontal = Input.GetAxis("Horizontal");
+        // Vector3 Position = transform.position;
+        // Position.x += -1*Horizontal * moveSpeed * Time.deltaTime;
+        //
+        // transform.position = Position;
     }
 
     private void OnTriggerEnter(Collider other)
