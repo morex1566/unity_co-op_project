@@ -22,8 +22,8 @@ public class PlayerAction : MonoBehaviour
         if (other.tag == "Block")
         {
             Debug.Log("hi");
-            GameObject[] gameObjects = MeshCut.Cut(other.gameObject, transform.position, Vector3.down, other.gameObject.GetComponent<MeshRenderer>().material);
-           // GameManager.instance.HealthCheck();
+            //GameObject[] gameObjects = MeshCut.Cut(other.gameObject, transform.position, Vector3.down, other.gameObject.GetComponent<MeshRenderer>().material);
+            GameManager.Instance.HealthCheck();
         }
     }
 }
