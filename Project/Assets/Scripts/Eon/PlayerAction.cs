@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
-    float moveSpeed=0.5f;
+    //float moveSpeed=0.5f;
 
     // Update is called once per frame
     void Update()
