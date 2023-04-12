@@ -12,6 +12,7 @@ public interface ILevel
     public void AddGameObjectsToLevel(List<GameObject> objs);
     public void AddGameObjectToLevel(GameObject obj);
     public GameObject GetLevel();
+    Vector3 GetCenterPointAtLevel();
 }
 
 public interface ILevelPlatformSpawner : ILevel
@@ -31,11 +32,14 @@ public interface ILevelObstacleSpawner : ILevel
     GameObject FragileObstaclePrefab { get; }
     GameObject StaticObstaclePrefab { get; }
     float SyncSpeed { get; }
+    float PlatformWidth { get; }
     float FragileObstacleSize { get; }
     float StaticObstacleSize { get; }
+    float LevelStartPos { get; }
+
 }
 
 public interface ILevelManager : ILevel
 {
-    Vector3 GetCenterPointAtLevel();
+    
 }
