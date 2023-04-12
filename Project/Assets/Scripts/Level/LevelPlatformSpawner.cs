@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelPlatformSpawner : MonoBehaviour
 {
     // GameManager 클래스의 ILevelPlatformSpawner 인터페이스
-    private ILevelPlatformSpawner _gameManager;
+    private IGameManagerPlatformSpawner _gameManager;
     
     private GameObject _platformPrefab;
     private float _platformWidth;  // x
@@ -23,7 +23,7 @@ public class LevelPlatformSpawner : MonoBehaviour
 
     private void Start()
     {
-        _gameManager = GameManager.Instance as ILevelPlatformSpawner;
+        _gameManager = GameManager.Instance as IGameManagerPlatformSpawner;
         
         // 게임 매니저에서 정보 가져오기
         _platformPrefab = _gameManager.PlatformPrefab;

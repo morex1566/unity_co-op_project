@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
-public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleSpawner, ILevelManager
+// TODO : 지금 GameManager는 모든 Scene에서 사용 가능할듯 합니다. 현재 Scene에서만 사용가능하도록 제한해야 할듯
+public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameManagerObstacleSpawner
 {
     public static GameManager Instance = null;
     
@@ -46,6 +47,57 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
 
     private MapData _mapData;
     private int _healthCount = 10;
+    
+    // INFO : IGameManager 구현
+    // INFO : 타이머를 멈춥니다.
+    public void OnPauseTimer()
+    {
+        _levelTimer.PauseTimer();
+    }
+    // INFO : 타이머를 재개합니다.
+    public void OnResumeTimer()
+    {
+        _levelTimer.ResumeTimer();
+    }
+    // INFO : 타이머를 시작합니다. (시간 설정)
+    public void OnStartTimerFor(float time)
+    {
+        StartCoroutine(_levelTimer.StartTimerFor(time));
+    }
+    // INFO : 타이머의 현재 시간을 얻습니다.
+    public float OnGetTime()
+    {
+        return _levelTimer.GetTime();
+    }
+    // ACTION : 추가한 GameObjects가 Level의 child가 됩니다.
+    public void AddGameObjectsToLevel(List<GameObject> objs)
+    {
+        foreach (var obj in objs)
+        {
+            obj.transform.SetParent(level.transform);
+        }
+    }
+    // ACTION : 추가한 GameObject가 Level의 child가 됩니다.
+    public void AddGameObjectToLevel(GameObject obj)
+    {
+        obj.transform.SetParent(level.transform);
+    }
+    public GameObject GetLevel()
+    {
+        return level;
+    }
+    public Vector3 GetCenterPointAtLevel()
+    {
+        float x = 0;
+        float y = (float)((platformWidth * 0.5f * 0.5f) * Math.Sqrt(3)) * 2;
+        float z = levelStartPos + (platformLayerCount * platformLength * 0.5f);
+
+        return new Vector3(x, y, z);
+    }
+    public MapData GetMapData()
+    {
+        return _mapData;
+    }
 
     // INFO : ILevelPlatformSpawner 구현
     public GameObject PlatformPrefab => platformPrefab;
@@ -120,58 +172,5 @@ public class GameManager : MonoBehaviour, ILevelPlatformSpawner, ILevelObstacleS
         }
 
         return false;
-    }
-
-    // INFO : 타이머를 멈춥니다.
-    public void OnPauseTimer()
-    {
-        _levelTimer.PauseTimer();
-    }
-
-    // INFO : 타이머를 재개합니다.
-    public void OnResumeTimer()
-    {
-        _levelTimer.ResumeTimer();
-    }
-
-    // INFO : 타이머를 시작합니다. (시간 설정)
-    public void OnStartTimerFor(float time)
-    {
-        StartCoroutine(_levelTimer.StartTimerFor(time));
-    }
-
-    // INFO : 타이머의 현재 시간을 얻습니다.
-    public float OnGetTime()
-    {
-        return _levelTimer.GetTime();
-    }
-    
-    // ACTION : 추가한 GameObjects가 Level의 child가 됩니다.
-    public void AddGameObjectsToLevel(List<GameObject> objs)
-    {
-        foreach (var obj in objs)
-        {
-            obj.transform.SetParent(level.transform);
-        }
-    }
-    
-    // ACTION : 추가한 GameObject가 Level의 child가 됩니다.
-    public void AddGameObjectToLevel(GameObject obj)
-    {
-        obj.transform.SetParent(level.transform);
-    }
-    
-    public GameObject GetLevel()
-    {
-        return level;
-    }
-
-    public Vector3 GetCenterPointAtLevel()
-    {
-        float x = 0;
-        float y = (float)((platformWidth * 0.5f * 0.5f) * Math.Sqrt(3)) * 2;
-        float z = levelStartPos + (platformLayerCount * platformLength * 0.5f);
-
-        return new Vector3(x, y, z);
     }
 }

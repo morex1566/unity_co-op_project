@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 60
-  inertiaWeight: 10
-  inertiaSpeed: 5
+  inertiaWeight: 20
+  inertiaSpeed: 1
 --- !u!1 &151457937
 GameObject:
   m_ObjectHideFlags: 0

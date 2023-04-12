@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class LevelObstacleSpawner : MonoBehaviour
 {
-    private ILevelObstacleSpawner gameManager;
+    private IGameManagerObstacleSpawner _gameManager;
     
+    // 맵 정보
+    private MapData _mapData;
+    
+    // Spawner관련 변수들 모음
     private GameObject _fragileObstaclePrefab;
     private GameObject _staticObstaclePrefab;
     private float _syncSpeed;
@@ -13,7 +17,7 @@ public class LevelObstacleSpawner : MonoBehaviour
     private float _fragileObstacleSize;
     private float _staticObstacleSize;
     private float _levelStartPos;
-    
+
     // 맵과 장애물 사이의 간격
     private float _spawnOffset;
 
@@ -23,16 +27,16 @@ public class LevelObstacleSpawner : MonoBehaviour
     private void Start()
     {
         // GameManager 클래스의 ILevelObstacleSpawner 인터페이스 참조
-        gameManager = (GameManager.Instance) as ILevelObstacleSpawner;
+        _gameManager = (GameManager.Instance) as IGameManagerObstacleSpawner;
         
         // 게임 매니저에서 정보 가져오기
-        _fragileObstaclePrefab = gameManager.FragileObstaclePrefab;
-        _staticObstaclePrefab = gameManager.StaticObstaclePrefab;
-        _syncSpeed = gameManager.SyncSpeed;
-        _fragileObstacleSize = gameManager.FragileObstacleSize;
-        _staticObstacleSize = gameManager.StaticObstacleSize;
-        _platformWidth = gameManager.PlatformWidth;
-        _levelStartPos = gameManager.LevelStartPos;
+        _fragileObstaclePrefab = _gameManager.FragileObstaclePrefab;
+        _staticObstaclePrefab = _gameManager.StaticObstaclePrefab;
+        _syncSpeed = _gameManager.SyncSpeed;
+        _fragileObstacleSize = _gameManager.FragileObstacleSize;
+        _staticObstacleSize = _gameManager.StaticObstacleSize;
+        _platformWidth = _gameManager.PlatformWidth;
+        _levelStartPos = _gameManager.LevelStartPos;
         
         // TODO : 이 부분 하드코딩 config
         _spawnOffset = 1f;
@@ -43,24 +47,17 @@ public class LevelObstacleSpawner : MonoBehaviour
         // _spawnPoints의 위치를 할당
         getSpawnPosition();
 
-        // test
+        // TODO : Test용. 이 부분 Delete
         foreach (var point in _spawnPoints)
         {
             GameObject cubeInstance = Instantiate(_fragileObstaclePrefab, point, Quaternion.identity);
         }
     }
-
-    private void Update()
-    {
-        
-    }
-
     private void createObstacle()
     {
         // TODO: 장애물 생성 코드
     }
-    
-    
+
     // CAUTION : 내부 for문 배치순서를 바꾸면 안됩니다. 바꾼다면 MapEditor의 장애물 놓는 곳도 변경
     private void getSpawnPosition()
     {
@@ -72,7 +69,7 @@ public class LevelObstacleSpawner : MonoBehaviour
         float heightOffset = (float)(((_platformWidth * 0.5f * 0.5f) * Math.Sqrt(3)) * 2) / sliceCount;
         float platformHeight = (float)((_platformWidth * 0.5f * 0.5f) * Math.Sqrt(3));
 
-        Vector3 centerPoint = gameManager.GetCenterPointAtLevel();
+        Vector3 centerPoint = _gameManager.GetCenterPointAtLevel();
         
         // 상단
         for (int i = 1; i < 6; i++)
@@ -95,7 +92,7 @@ public class LevelObstacleSpawner : MonoBehaviour
         {
             // point 지점 계산
             Vector3 spawnPoint = new Vector3(
-                (centerPoint.x) + (_platformWidth * 0.5f) + (diagonalWidthOffset * i),
+                (centerPoint.x) - (_platformWidth * 0.5f) - (diagonalWidthOffset * i),
                 (centerPoint.y) + (platformHeight * 2) - (heightOffset * i),
                 _levelStartPos
             );
@@ -117,7 +114,7 @@ public class LevelObstacleSpawner : MonoBehaviour
         for (int i = 1; i < 6; i++)
         {
             Vector3 spawnPoint = new Vector3(
-                (centerPoint.x) + (_platformWidth) - (diagonalWidthOffset * i),
+                (centerPoint.x) - (_platformWidth) + (diagonalWidthOffset * i),
                 (centerPoint.y) - (heightOffset * i),
                 _levelStartPos
             );
@@ -139,7 +136,7 @@ public class LevelObstacleSpawner : MonoBehaviour
         for (int i = 1; i < 6; i++)
         {
             Vector3 spawnPoint = new Vector3(
-                (centerPoint.x) + (_platformWidth * 0.5f) - (horizontalWidthOffset * i),
+                (centerPoint.x) - (_platformWidth * 0.5f) + (horizontalWidthOffset * i),
                 (centerPoint.y) - (platformHeight * 2),
                 _levelStartPos
             );
@@ -154,7 +151,7 @@ public class LevelObstacleSpawner : MonoBehaviour
         for (int i = 1; i < 6; i++)
         {
             Vector3 spawnPoint = new Vector3(
-                (centerPoint.x) - (_platformWidth * 0.5f) - (diagonalWidthOffset * i),
+                (centerPoint.x) + (_platformWidth * 0.5f) + (diagonalWidthOffset * i),
                 (centerPoint.y) - (platformHeight * 2) + (heightOffset * i),
                 _levelStartPos
             );
@@ -176,7 +173,7 @@ public class LevelObstacleSpawner : MonoBehaviour
         for (int i = 1; i < 6; i++)
         {
             Vector3 spawnPoint = new Vector3(
-                (centerPoint.x) - (_platformWidth) + (diagonalWidthOffset * i),
+                (centerPoint.x) + (_platformWidth) - (diagonalWidthOffset * i),
                 (centerPoint.y) + (heightOffset * i),
                 _levelStartPos
             );
