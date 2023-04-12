@@ -1,25 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // INFO : 애니메이션 관련 정보들 여기에!
     [SerializeField] private Animator _animator;
-
-
-    // INFO : Message 통신을 위한, '메인 카메라'.
     [SerializeField] private GameObject _mainCamera;
-
-
-    // INFO : 공격키 콤보 조건변수.
-    // ex) D키 연타 시, 왼쪽베기->오른쪽베기->왼쪽베기->오른쪼ㄱ....
+    
     [SerializeField] private bool  _leftComboEnabled;
     [SerializeField] private bool  _rightComboEnabled;
 
 
-    // INFO : 'KEY_EVENT'에 조작키와 그에 관한 method를 적고, Start()에서 바인딩.
     [SerializeField] private Dictionary<KeyCode, Action> _keyEvents;
     #region KEY_EVENT
 
@@ -67,10 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-
-
-    //**************************************** 유니티 Loop 함수들 ****************************************//
-
+    
     void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -83,8 +71,6 @@ public class PlayerMovement : MonoBehaviour
         {
             {InputSetting.leftSlash, onLeftSlashDown },
             {InputSetting.rightSlash, onRightSlashDown },
-            {InputSetting.moveLeft, onMoveLeft},
-            {InputSetting.moveRight, onMoveRight}
         };
     }
 
@@ -98,7 +84,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    //**************************************** 유니티 Loop 함수들 ****************************************//
-
+    
 }

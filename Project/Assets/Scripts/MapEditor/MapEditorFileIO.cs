@@ -120,9 +120,7 @@ public class MapEditorFileIO : MonoBehaviour
             string filename = FileBrowserHelpers.GetFilename(FileBrowser.Result[0]);
             string filepath = FileBrowser.Result[0];
             string copyPath = Path.Combine(Application.streamingAssetsPath, filename);
-
-            Texture2D texture;
-
+            
             yield return LoadTextFromPath(Application.streamingAssetsPath, filename);
         }
     }

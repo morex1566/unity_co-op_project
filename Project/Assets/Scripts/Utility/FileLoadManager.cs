@@ -19,14 +19,39 @@ public struct MapData
 
         return true;
     }
-    public static bool operator!=(MapData a, MapData b)
+    
+    public static bool operator !=(MapData a, MapData b)
     {
         if (a.Filename == b.Filename) { return false; }
-        if (a.Filepath == b.Filepath) {return false;}
-        if (a.clip == b.clip) { return false;}
-        if (a.map == b.map) { return false;}
-        
+        if (a.Filepath == b.Filepath) { return false; }
+        if (a.clip == b.clip) { return false; }
+        if (a.map == b.map) { return false; }
+
         return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        MapData other = (MapData)obj;
+        return this == other;
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 31 + Filename.GetHashCode();
+            hash = hash * 31 + Filepath.GetHashCode();
+            hash = hash * 31 + clip.GetHashCode();
+            hash = hash * 31 + map.GetHashCode();
+            return hash;
+        }
     }
 }
 
