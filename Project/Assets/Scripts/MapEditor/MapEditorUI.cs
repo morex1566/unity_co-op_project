@@ -208,6 +208,10 @@ public class MapEditorUI :  MonoBehaviour
             {
                 positionMarkerButton[i].GetComponent<Image>().color = Color.green;
             }
+            else
+            {
+                positionMarkerButton[i].GetComponent<Image>().color = Color.white;
+            }
         }
     }
     

@@ -211,7 +211,7 @@ public class MapEditorFileIO : MonoBehaviour
     public void CreateSaveFile(Slider timelineSlider, SongData songData)
     {
         // JSON 파일에 저장할 값을 담을 리스트
-        string path = Application.streamingAssetsPath + "/" + songData.Filename.ToString() + ".json";
+        string path = Application.streamingAssetsPath + "/" + songData.Filename.ToString() + ".txt";
         StreamWriter writer = new StreamWriter(path, false);
         
         Texture2D timelineTexture = timelineSlider.

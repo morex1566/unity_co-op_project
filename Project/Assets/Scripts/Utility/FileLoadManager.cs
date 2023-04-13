@@ -9,6 +9,7 @@ public struct MapData
     public string Filepath;
     public AudioClip clip;
     public Texture2D map;
+    public int timeline;
 
     public static bool operator ==(MapData a, MapData b)
     {
@@ -16,6 +17,7 @@ public struct MapData
         if (a.Filepath != b.Filepath) { return false; }
         if (a.clip != b.clip) { return false; }
         if (a.map != b.map) { return false; }
+        if (a.timeline != b.timeline) { return false;}
 
         return true;
     }
@@ -26,6 +28,7 @@ public struct MapData
         if (a.Filepath == b.Filepath) { return false; }
         if (a.clip == b.clip) { return false; }
         if (a.map == b.map) { return false; }
+        if (a.timeline != b.timeline) { return false;}
 
         return true;
     }
@@ -50,6 +53,8 @@ public struct MapData
             hash = hash * 31 + Filepath.GetHashCode();
             hash = hash * 31 + clip.GetHashCode();
             hash = hash * 31 + map.GetHashCode();
+            hash = hash * 31 + timeline.GetHashCode();
+            
             return hash;
         }
     }
@@ -57,8 +62,6 @@ public struct MapData
 
 public static class FileLoadManager
 {
-    private static int timeout;
-    
     // INFO : MapEditor에서 생성한 txt를 StreamingAssets 폴더에서 찾습니다. (filename 확장자포함)
     public static MapData LoadMapData(string filename)
     {
@@ -68,9 +71,6 @@ public static class FileLoadManager
 
         string[] datasets;
 
-        timeout = 10;
-        
-        
         if (extension != ".txt")
         {
             Debug.Log("it is not txt!");
@@ -88,7 +88,6 @@ public static class FileLoadManager
 
         mapData.Filepath = fullPath.Replace(".txt", "");
         mapData.Filename = filename;
-    
 
         UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + fullPath.Replace(".txt", ""), AudioType.WAV);
         www.SendWebRequest();
@@ -111,6 +110,8 @@ public static class FileLoadManager
         }
 
         mapData.map = new Texture2D(datasets.Length - 4, MapEditorUI.timelineYPixelCount);
+        mapData.timeline = datasets.Length - 4;
+        
         // 초기화
         for (int i = 0; i < datasets.Length - 4; i++)
         {

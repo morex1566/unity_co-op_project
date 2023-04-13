@@ -141,11 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cb1d0e79a921f48af728d7058f087a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPlatformSpawner: {fileID: 0}
-  levelObstacleSpawner: {fileID: 0}
+  levelPlatformSpawner: {fileID: 3758681619724577374}
+  levelObstacleSpawner: {fileID: 7604051329280200890}
   rotationSpeed: 60
-  inertiaWeight: 20
-  inertiaSpeed: 1
+  inertiaWeight: 5
+  inertiaSpeed: 10
 --- !u!1 &151457937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,6 +1190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5058215604143c04280dc7d56fe237fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1742378965}
   levelPlatformSpawner: {fileID: 3758681619724577374}
   levelObstacleSpawner: {fileID: 7604051329280200890}
   levelTimer: {fileID: 7365595580672257338}
@@ -1204,7 +1205,7 @@ MonoBehaviour:
   platformHeight: 1
   levelStartPos: -40
   platformLayerCount: 12
-  fragileObstaclePrefab: {fileID: 5880021193243406752, guid: cd0107aef144dbb42b79d000badcd8bb,
+  fragileObstaclePrefab: {fileID: 568431432707607819, guid: 19f6f6f2c454cbe4191733a1eefadc6f,
     type: 3}
   staticObstaclePrefab: {fileID: 1758087381043616150, guid: 9672b2e34b108934fa50e1b141eb4928,
     type: 3}
@@ -1701,7 +1702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2608dc5d8d607cc4db11a6b9c8b8ab4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!54 &1742378973
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -8,9 +8,9 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameManagerObstacleSpawner
 {
     public static GameManager Instance = null;
-    
-    [Header("Dependencies")]
-    [Space(5)]
+
+    [Header("Dependencies")] [Space(5)] 
+    [SerializeField] private GameObject player;
     [SerializeField] private GameObject levelPlatformSpawner;
     [SerializeField] private GameObject levelObstacleSpawner;
     [SerializeField] private GameObject levelTimer;
@@ -60,14 +60,14 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         _levelTimer.ResumeTimer();
     }
     // INFO : 타이머를 시작합니다. (시간 설정)
-    public void OnStartTimerFor(float time)
+    public void OnStartTimerFor(TimePer unit, float time)
     {
-        StartCoroutine(_levelTimer.StartTimerFor(time));
+        StartCoroutine(_levelTimer.StartTimerFor(unit, time));
     }
     // INFO : 타이머의 현재 시간을 얻습니다.
-    public float OnGetTime()
+    public float OnGetTime(TimePer unit)
     {
-        return _levelTimer.GetTime();
+        return _levelTimer.GetTime(unit);
     }
     // ACTION : 추가한 GameObjects가 Level의 child가 됩니다.
     public void AddGameObjectsToLevel(List<GameObject> objs)
@@ -94,11 +94,12 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 
         return new Vector3(x, y, z);
     }
-    public MapData GetMapData()
+    // ACTION : 플레이어와 장애물 스폰 포인트 사이의 거리
+    public float GetDistance()
     {
-        return _mapData;
+        return Math.Abs(Math.Abs(levelStartPos) - Math.Abs(player.transform.position.z));
     }
-
+    public MapData MapData => _mapData;
     // INFO : ILevelPlatformSpawner 구현
     public GameObject PlatformPrefab => platformPrefab;
     public float MapSpeed => mapSpeed;
@@ -132,21 +133,21 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         _levelPlatformSpawner = levelPlatformSpawner.GetComponent<LevelPlatformSpawner>();
         _levelObstacleSpawner = levelObstacleSpawner.GetComponent<LevelObstacleSpawner>();
         audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Start()
-    {
-        bool result;
         
         // TODO : 이부분 나중에 사용할 때 편집.
-        result = LoadLevelData();
+        bool result = loadLevelData();
         if (!result)
         {
             Debug.Log("LoadMapData error");   
         }
-        
+    }
+
+    private void Start()
+    {
         // ACTION : 시작하면 '[Header("Dependencies")]'에 있는 객체들에게 이벤트를 보냅니다.
-        OnStartTimerFor(10f);
+        OnStartTimerFor(TimePer.Milisec, _mapData.timeline);
+        
+        //audioSource.Play();
     }
 
     public void HealthCheck()
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     }
 
     // INFO : 여기서 우리가 만든 맵핑 데이터와 음악을 불러옵니다.
-    private bool LoadLevelData()
+    private bool loadLevelData()
     {
         _mapData = FileLoadManager.LoadMapData("Streaming-Heart.wav.txt");
         if (_mapData != null)

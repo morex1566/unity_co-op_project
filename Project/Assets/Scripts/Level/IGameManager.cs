@@ -6,15 +6,15 @@ public interface IGameManager
 {
     public void OnPauseTimer();
     public void OnResumeTimer();
-    public void OnStartTimerFor(float time);
-    public float OnGetTime();
+    public void OnStartTimerFor(TimePer unit, float time);
+    public float OnGetTime(TimePer unit);
  
     public void AddGameObjectsToLevel(List<GameObject> objs);
     public void AddGameObjectToLevel(GameObject obj);
     public GameObject GetLevel();
-    Vector3 GetCenterPointAtLevel();
-
-    MapData GetMapData();
+    public Vector3 GetCenterPointAtLevel();
+    MapData MapData { get; }
+    public float GetDistance();
 }
 
 public interface IGameManagerPlatformSpawner : IGameManager
@@ -33,6 +33,7 @@ public interface IGameManagerObstacleSpawner : IGameManager
 {
     GameObject FragileObstaclePrefab { get; }
     GameObject StaticObstaclePrefab { get; }
+    float MapSpeed { get; }
     float SyncSpeed { get; }
     float PlatformWidth { get; }
     float FragileObstacleSize { get; }
