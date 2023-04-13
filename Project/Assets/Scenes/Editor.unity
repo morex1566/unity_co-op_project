@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cb1d0e79a921f48af728d7058f087a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelPlatformSpawner: {fileID: 0}
+  levelObstacleSpawner: {fileID: 0}
   rotationSpeed: 60
   inertiaWeight: 20
   inertiaSpeed: 1
