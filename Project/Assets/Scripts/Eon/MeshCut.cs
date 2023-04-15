@@ -168,6 +168,7 @@ public class MeshCut
         Material[] mats = new Material[] { victim.GetComponent<MeshRenderer>().material, capMaterial };
 
         GameObject leftSideObj = victim;
+        leftSideObj.AddComponent<Rigidbody>();
 
         GameObject rightSideObj = new GameObject("rightSide", typeof(MeshFilter), typeof(MeshRenderer));
         rightSideObj.transform.position = victim_transform.position;

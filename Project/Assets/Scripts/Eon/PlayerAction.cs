@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
-    //float moveSpeed=0.5f;
+    float moveSpeed=0.5f;
 
 
     public Transform cuttingPlane;
@@ -41,8 +41,5 @@ public class PlayerAction : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
+ 
 }

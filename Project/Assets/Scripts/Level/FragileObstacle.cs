@@ -29,4 +29,5 @@ public class FragileObstacle : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

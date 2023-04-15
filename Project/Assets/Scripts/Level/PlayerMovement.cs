@@ -72,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
             {InputSetting.leftSlash, onLeftSlashDown },
             {InputSetting.rightSlash, onRightSlashDown },
         };
+
+        
     }
 
     void Update()
@@ -84,5 +86,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        Material material = renderer.materials[0];
+
+        if (other.tag == "Fragile Obstacle")
+        {
+           MeshCut.Cut(other.gameObject, other.transform.position, Vector3.right, material);
+        }
+    }
+
     
+
 }
