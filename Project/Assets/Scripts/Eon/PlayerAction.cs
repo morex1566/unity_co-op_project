@@ -1,5 +1,4 @@
 using LevelPlayerAction;
-using UnityEngine;
 
 public class PlayerAction
 {
@@ -10,13 +9,13 @@ public class PlayerAction
         _state = new Idle();
     }
 
-    public void HandleInput()
+    public void HandleInput(LevelPlayer player)
     {
-        _state.HandleInput(ref _state);
+        _state.HandleInput(ref player, ref _state);
     }
 
-    public void Update()
+    public void Update(LevelPlayer player)
     {
-        _state.Update(ref _state);
+        _state.Update(ref player, ref _state);
     }
 }

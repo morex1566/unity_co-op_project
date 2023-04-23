@@ -199,12 +199,12 @@ public class LevelCameraMovement : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKey(InputSetting.moveLeft))
+        if (Input.GetKey(InputSetting.MoveLeft))
         {
             _currentState = PointOfViewState.Left;
         }
 
-        if (Input.GetKey(InputSetting.moveRight))
+        if (Input.GetKey(InputSetting.MoveRight))
         {
             _currentState = PointOfViewState.Right;
         }

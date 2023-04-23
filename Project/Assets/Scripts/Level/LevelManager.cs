@@ -49,14 +49,14 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         // 오른쪽으로 회전
-        if (Input.GetKey(InputSetting.moveRight))
+        if (Input.GetKey(InputSetting.MoveRight))
         {
             _rotationState = RotationState.Right;
             transform.RotateAround(_rotationAxisPivot, Vector3.forward, rotationSpeed * Time.deltaTime);
         }
         
         // 왼쪽으로 회전
-        if (Input.GetKey(InputSetting.moveLeft))
+        if (Input.GetKey(InputSetting.MoveLeft))
         {
             _rotationState = RotationState.Left;
             transform.RotateAround(_rotationAxisPivot, Vector3.forward, -rotationSpeed * Time.deltaTime);
@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour
         }
 
         // 입력X 회전상태 변경
-        if (!Input.GetKey(InputSetting.moveLeft) && !Input.GetKey(InputSetting.moveRight))
+        if (!Input.GetKey(InputSetting.MoveLeft) && !Input.GetKey(InputSetting.MoveRight))
         {
             _rotationState = RotationState.None;
         }

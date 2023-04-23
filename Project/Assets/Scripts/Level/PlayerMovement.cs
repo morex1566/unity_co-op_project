@@ -2,32 +2,20 @@ using LevelPlayerMovement;
 
 public class PlayerMovement
 {
-    private static Idle _idle;
-    private static RightMove _rightMove;
-    private static LeftMove _leftMove;
-    private static Jump _jump;
-    private static Slide _slide;
-
     private PlayerMovementState _state;
 
     public PlayerMovement()
     {
-        _idle = new Idle();
-        _rightMove = new RightMove();
-        _leftMove = new LeftMove();
-        _jump = new Jump();
-        _slide = new Slide();
-
-        _state = _idle;
+        _state = new Idle();
     }
 
-    public void HandleInput()
+    public void HandleInput(LevelPlayer player)
     {
-        _state.HandleInput();
+        _state.HandleInput(ref player, ref _state);
     }
 
-    public void Update()
+    public void Update(LevelPlayer player)
     {
-        _state.Update();
+        _state.Update(ref player, ref _state);
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +11,9 @@ namespace LevelPlayerAction
             _revertTime = 0.5f;
         }
         
-        public abstract void HandleInput(ref PlayerActionState actionState);
-        public virtual void Update(ref PlayerActionState actionState){}
-        protected abstract void action();
-        
+        public abstract void HandleInput(ref LevelPlayer player, ref PlayerActionState actionState);
+        public virtual void Update(ref LevelPlayer player, ref PlayerActionState actionState){}
+
         protected IEnumerator<bool> revertIdle()
         {
             float elapsedTime = 0.0f;
@@ -37,21 +35,21 @@ namespace LevelPlayerAction
             action();
         }
         
-        public override void HandleInput(ref PlayerActionState actionState)
+        public override void HandleInput(ref LevelPlayer player, ref PlayerActionState actionState)
         {
-            if (Input.GetKeyDown(InputSetting.leftSlash))
+            if (Input.GetKeyDown(InputSetting.LeftSlash))
             {
-                actionState = new LeftSlash(ref actionState);
+                actionState = new LeftSlash(ref player, ref actionState);
             }
             else
-            if (Input.GetKeyDown(InputSetting.rightSlash))
+            if (Input.GetKeyDown(InputSetting.RightSlash))
             {
-                actionState = new RightSlash(ref actionState);
+                actionState = new RightSlash(ref player, ref actionState);
             }
         }
     
         // TODO : 애니메이션 관련 정보 여기에, ex) 다시 idle로 돌아오는 애니메이션
-        protected sealed override void action()
+        private void action()
         {
         
         }
@@ -61,26 +59,26 @@ namespace LevelPlayerAction
     {
         private IEnumerator<bool> _timeout;
 
-        public RightSlash(ref PlayerActionState actionState)
+        public RightSlash(ref LevelPlayer player, ref PlayerActionState actionState)
         {
-            action();
+            action(ref player);
             _timeout = revertIdle();
         }
         
-        public override void HandleInput(ref PlayerActionState actionState)
+        public override void HandleInput(ref LevelPlayer player, ref PlayerActionState actionState)
         {
-            if (Input.GetKeyDown(InputSetting.leftSlash))
+            if (Input.GetKeyDown(InputSetting.LeftSlash))
             {
-                actionState = new LeftSlash(ref actionState);
+                actionState = new LeftSlash(ref player, ref actionState);
             }
             else
-            if (Input.GetKeyDown(InputSetting.rightSlash))
+            if (Input.GetKeyDown(InputSetting.RightSlash))
             {
-                actionState = new RightSlash(ref actionState);
+                actionState = new RightSlash(ref player, ref actionState);
             }
         }
 
-        public override void Update(ref PlayerActionState actionState)
+        public override void Update(ref LevelPlayer player, ref PlayerActionState actionState)
         {
             _timeout.MoveNext();
             
@@ -88,9 +86,12 @@ namespace LevelPlayerAction
             {
                 actionState = new Idle();
             }
+            
+            // TODO : 이부분 애니메이션 넣으면 수정 바랍니다.
+            GameObject equipment = player.GetRightEquipment();
         }
     
-        protected sealed override void action()
+        private void action(ref LevelPlayer player)
         { 
             
         }
@@ -99,26 +100,26 @@ namespace LevelPlayerAction
     public class LeftSlash : PlayerActionState
     {
         private IEnumerator<bool> _timeout;
-        public LeftSlash(ref PlayerActionState actionState)
+        public LeftSlash(ref LevelPlayer player, ref PlayerActionState actionState)
         {
-            action();
+            action(ref player);
             _timeout = revertIdle();
         }
 
-        public override void HandleInput(ref PlayerActionState actionState)
+        public override void HandleInput(ref LevelPlayer player, ref PlayerActionState actionState)
         {
-            if (Input.GetKeyDown(InputSetting.leftSlash))
+            if (Input.GetKeyDown(InputSetting.LeftSlash))
             {
-                actionState = new LeftSlash(ref actionState);
+                actionState = new LeftSlash(ref player, ref actionState);
             }
             else
-            if (Input.GetKeyDown(InputSetting.rightSlash))
+            if (Input.GetKeyDown(InputSetting.RightSlash))
             {
-                actionState = new RightSlash(ref actionState);
+                actionState = new RightSlash(ref player, ref actionState);
             }
         }
         
-        public override void Update(ref PlayerActionState actionState)
+        public override void Update(ref LevelPlayer player, ref PlayerActionState actionState)
         {
             _timeout.MoveNext();
             
@@ -126,11 +127,15 @@ namespace LevelPlayerAction
             {
                 actionState = new Idle();
             }
+            
+            // TODO : 이부분 애니메이션 넣으면 수정 바랍니다.
+            GameObject equipment = player.GetLeftEquipment();
+            
         }
     
-        protected sealed override void action()
+        private void action(ref LevelPlayer player)
         {
-           
+       
         }
     }
 }
