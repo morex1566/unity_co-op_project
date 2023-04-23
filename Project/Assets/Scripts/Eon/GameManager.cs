@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 {
     public static GameManager Instance = null;
 
-    [Header("Dependencies")] [Space(5)] 
+    [Header("Dependencies")] 
+    [Space(5)] 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject levelPlatformSpawner;
     [SerializeField] private GameObject levelObstacleSpawner;

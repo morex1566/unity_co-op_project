@@ -1,18 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class PlayerMovementState : MonoBehaviour
+namespace LevelPlayerMovement
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract class PlayerMovementState
     {
-        
+        public abstract void HandleInput();
+        public virtual void Update(){}
+        protected abstract void move();
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    public class Idle : PlayerMovementState
     {
-        
+        public override void HandleInput()
+        {
+            
+        }
+
+        protected override void move()
+        {
+            
+        }
+    }
+
+    
+    public class LeftMove : PlayerMovementState
+    {
+        public override void HandleInput()
+        {
+            
+        }
+
+        protected override void move()
+        {
+            
+        }
+    }
+
+
+    public class RightMove : PlayerMovementState
+    {
+        public override void HandleInput()
+        {
+            
+        }
+
+        protected override void move()
+        {
+            
+        }
+    }
+
+    
+    public class Jump : PlayerMovementState
+    {
+        public override void HandleInput()
+        {
+            
+        }
+
+        protected override void move()
+        {
+            
+        }
+    }
+
+    
+    public class Slide : PlayerMovementState
+    {
+        public override void HandleInput()
+        {
+            
+        }
+
+        protected override void move()
+        {
+            
+        }
     }
 }

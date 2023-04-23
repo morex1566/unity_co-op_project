@@ -1,103 +1,33 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+using LevelPlayerMovement;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement
 {
-    [SerializeField] private Animator _animator;
-    [SerializeField] private GameObject _mainCamera;
-    
-    [SerializeField] private bool  _leftComboEnabled;
-    [SerializeField] private bool  _rightComboEnabled;
+    private static Idle _idle;
+    private static RightMove _rightMove;
+    private static LeftMove _leftMove;
+    private static Jump _jump;
+    private static Slide _slide;
 
+    private PlayerMovementState _state;
 
-    [SerializeField] private Dictionary<KeyCode, Action> _keyEvents;
-    #region KEY_EVENT
-
-    private void onLeftSlashDown()
+    public PlayerMovement()
     {
-        if (!_leftComboEnabled)
-        {
-            _animator.SetTrigger("LEFT_SLASH1");
-            _leftComboEnabled = true;
-            _rightComboEnabled = false;
-        }
-        else
-        {
-            _animator.SetTrigger("LEFT_SLASH2");
-            _leftComboEnabled = false;
-            _rightComboEnabled = false;
-        }
+        _idle = new Idle();
+        _rightMove = new RightMove();
+        _leftMove = new LeftMove();
+        _jump = new Jump();
+        _slide = new Slide();
+
+        _state = _idle;
     }
 
-    private void onRightSlashDown()
+    public void HandleInput()
     {
-        if (!_rightComboEnabled)
-        {
-            _animator.SetTrigger("RIGHT_SLASH1");
-            _rightComboEnabled = true;
-            _leftComboEnabled = false;
-        }
-        else
-        {
-            _animator.SetTrigger("RIGHT_SLASH2");
-            _rightComboEnabled = false;
-            _leftComboEnabled = false;
-        }
+        _state.HandleInput();
     }
 
-    private void onMoveLeft()
+    public void Update()
     {
-        _mainCamera.gameObject.SendMessage("SetLeftPov");
+        _state.Update();
     }
-
-    private void onMoveRight()
-    {
-        _mainCamera.gameObject.SendMessage("SetRightPov");
-    }
-
-    #endregion
-
-    
-    void Awake()
-    {
-        _animator = GetComponent<Animator>();
-        _mainCamera = GameObject.FindWithTag("MainCamera");
-
-        _leftComboEnabled = false;
-        _rightComboEnabled = false;
-
-        _keyEvents = new Dictionary<KeyCode, Action>()
-        {
-            {InputSetting.leftSlash, onLeftSlashDown },
-            {InputSetting.rightSlash, onRightSlashDown },
-        };
-
-        
-    }
-
-    void Update()
-    {
-        foreach(var keyEvent in _keyEvents)
-        {
-            if(Input.GetKeyDown(keyEvent.Key))
-            {
-                keyEvent.Value();
-            }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Renderer renderer = GetComponent<Renderer>();
-        Material material = renderer.materials[0];
-
-        if (other.tag == "Fragile Obstacle")
-        {
-           MeshCut.Cut(other.gameObject, other.transform.position, Vector3.right, material);
-        }
-    }
-
-    
-
 }

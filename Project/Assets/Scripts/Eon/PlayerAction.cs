@@ -1,45 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using LevelPlayerAction;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-public class PlayerAction : MonoBehaviour
+
+public class PlayerAction
 {
-    [SerializeField]
-    float moveSpeed=0.5f;
+    private PlayerActionState _state;
 
-
-    public Transform cuttingPlane;
-    public LayerMask cuttableLayer;
-
-    private MeshFilter meshFilter;
-    private MeshRenderer meshRenderer;
-
-    // Update is called once per frame
-    void Update()
+    public PlayerAction()
     {
-        float Horizontal = Input.GetAxis("Horizontal");
-        Vector3 Position = transform.position;
-        Position.x += -1 * Horizontal * moveSpeed * Time.deltaTime;
-
-        transform.position = Position;
+        _state = new Idle();
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.tag == "Block")
-    //    {
-
-    //        Debug.Log("hi");
-    //        //GameObject[] gameObjects = MeshCut.Cut(other.gameObject, transform.position, Vector3.down, other.gameObject.GetComponent<MeshRenderer>().material);
-    //        GameManager.Instance.HealthCheck();
-    //    }
-    //}
-
-    private void Start()
+    public void HandleInput()
     {
-        meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        _state.HandleInput(ref _state);
     }
 
- 
+    public void Update()
+    {
+        _state.Update(ref _state);
+    }
 }
