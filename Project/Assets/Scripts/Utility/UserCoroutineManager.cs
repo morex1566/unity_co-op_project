@@ -9,7 +9,7 @@ public static class CoroutineUtility
     {
         GameObject hostObject = new GameObject("UserCoroutine");
         _coroutineHost = hostObject.AddComponent<UserCoroutine>();
-        GameObject.DontDestroyOnLoad(hostObject);
+        UnityEngine.Object.DontDestroyOnLoad(hostObject);
     }
 
     public static Coroutine StartCoroutine(IEnumerator coroutine)

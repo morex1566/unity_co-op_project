@@ -186,6 +186,15 @@ public class LevelPlatformSpawner : MonoBehaviour
         
         objs.Add(leftBottom);
         
+        // 더미이니깐 전부 collider를 false로 해둡니다
+        foreach (var obj in objs)
+        {
+            if (obj.GetComponent<Collider>())
+            {
+                obj.GetComponent<Collider>().enabled = false;
+            }
+        }
+        
         _gameManager.AddGameObjectsToLevel(objs);
     }
     
@@ -195,12 +204,14 @@ public class LevelPlatformSpawner : MonoBehaviour
         float lastPos = getCurrLastHexagonLayer();
         Vector3 nextPos;
 
+        // 계산하기 위한 Platform들을 잠시 빼냅니다
         List<GameObject> platforms = new List<GameObject>();
         for (int i = 0; i < 6; i++)
         {
             platforms.Add(_currReleasedPlatforms.Dequeue());
         }
         
+        // 끝에 도달하면 처음 위치로 되돌아갑니다
         if (platforms[0].transform.position.z >= _levelEndPos + _platformLength)
         {
             foreach (var platform in platforms)
@@ -209,13 +220,18 @@ public class LevelPlatformSpawner : MonoBehaviour
                 nextPos.z = lastPos;
 
                 platform.transform.position = nextPos;
+                
+                platform.SetActive(true);
             }
         }
         
+        // 다시 Platform들을 현재 Queue에 Enqueue
+        // 이제 Queue의 뒤에는 항상 시작지점의 Layer가 위치합니다
         for (int i = 0; i < 6; i++)
         {
             _currReleasedPlatforms.Enqueue(platforms[i]);
         }
+        
         
         foreach (var platform in _currReleasedPlatforms)
         {

@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         // ACTION : 시작하면 '[Header("Dependencies")]'에 있는 객체들에게 이벤트를 보냅니다.
         OnStartTimerFor(TimePer.Milisec, _mapData.timeline);
         
-        //audioSource.Play();
+        audioSource.Play();
     }
 
     public void HealthCheck()
