@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPlatformSpawner: {fileID: 3758681619724577374}
   levelObstacleSpawner: {fileID: 7604051329280200890}
-  rotationSpeed: 60
+  rotationSpeed: 180
   inertiaWeight: 5
   inertiaSpeed: 10
 --- !u!1 &151457937

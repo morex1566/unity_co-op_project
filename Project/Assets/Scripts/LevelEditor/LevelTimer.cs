@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using System.Collections;
+using System.Threading.Tasks;
 
 public enum TimePer
 {
@@ -13,14 +13,21 @@ public class LevelTimer : MonoBehaviour
     private float _currTime;
     private bool _isPaused;
 
+    public static Task Timer;
+
     private void Awake()
     {
         _currTime = 0;
         _isPaused = false;
     }
 
+    public void StartTimerFor(TimePer unit, float time)
+    {
+        Timer = startTimer(unit, time);
+    }
+
     // ACTION : 타이머 시간설정 + 작동
-    public IEnumerator StartTimerFor(TimePer unit, float time)
+    private async Task startTimer(TimePer unit, float time)
     {
         while (_currTime < time)
         {
@@ -28,7 +35,7 @@ public class LevelTimer : MonoBehaviour
             {
                 _currTime += Time.deltaTime * (float)unit;
             }
-            yield return null;
+            await Task.Yield();
         }
     }
     

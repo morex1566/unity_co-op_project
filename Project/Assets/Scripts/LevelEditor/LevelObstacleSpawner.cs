@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPool<T> where T : new()
@@ -103,9 +100,10 @@ public class LevelObstacleSpawner : MonoBehaviour
     // TODO : 여기에 static이랑 hole도 추가해주세요 싱크 맞춰야함
     private void createObstacle(float time)
     {
-        double sync = _gameManager.GetDistance() / _mapSpeed;
+        double sync = (_gameManager.GetDistance() / _mapSpeed);
+        
+        Debug.Log(time);
 
-  
         // 부서지는 오브젝트 생성
         while (_fragileSpawnTimeline.Count > 0 && _fragileSpawnTimeline.Peek().Key - (sync) <= time)
         {

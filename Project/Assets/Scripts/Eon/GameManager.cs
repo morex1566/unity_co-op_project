@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     // INFO : 타이머를 시작합니다. (시간 설정)
     public void OnStartTimerFor(TimePer unit, float time)
     {
-        StartCoroutine(_levelTimer.StartTimerFor(unit, time));
+        _levelTimer.StartTimerFor(unit, time);
     }
     // INFO : 타이머의 현재 시간을 얻습니다.
     public float OnGetTime(TimePer unit)
