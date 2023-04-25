@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class InputSetting
 {
-    public static KeyCode leftSlash         = KeyCode.A;
-    public static KeyCode rightSlash        = KeyCode.D;
-    public static KeyCode moveLeft          = KeyCode.LeftArrow;
-    public static KeyCode moveRight         = KeyCode.RightArrow;
+    public static readonly KeyCode LeftSlash         = KeyCode.A;
+    public static readonly KeyCode RightSlash        = KeyCode.D;
+    public static readonly KeyCode MoveLeft          = KeyCode.LeftArrow;
+    public static readonly KeyCode MoveRight         = KeyCode.RightArrow;
+    public static readonly KeyCode Jump              = KeyCode.UpArrow;
+    public static readonly KeyCode Slide             = KeyCode.DownArrow;
 }

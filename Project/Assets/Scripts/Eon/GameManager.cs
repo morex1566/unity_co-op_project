@@ -9,11 +9,9 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 {
     public static GameManager Instance = null;
 
-    [Header("Dependencies")] [Space(5)] 
+    [Header("Dependencies")] 
+    [Space(5)] 
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject levelPlatformSpawner;
-    [SerializeField] private GameObject levelObstacleSpawner;
-    [SerializeField] private GameObject levelTimer;
     [SerializeField] private GameObject health;
     [SerializeField] private GameObject level;
 
@@ -62,12 +60,12 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     // INFO : 타이머를 시작합니다. (시간 설정)
     public void OnStartTimerFor(TimePer unit, float time)
     {
-        StartCoroutine(_levelTimer.StartTimerFor(unit, time));
+        _levelTimer.StartTimerFor(unit, time);
     }
     // INFO : 타이머의 현재 시간을 얻습니다.
     public float OnGetTime(TimePer unit)
     {
-        return _levelTimer.GetTime(unit);
+        return _levelTimer.Current();
     }
     // ACTION : 추가한 GameObjects가 Level의 child가 됩니다.
     public void AddGameObjectsToLevel(List<GameObject> objs)
@@ -115,6 +113,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     public float SyncSpeed => syncSpeed;
     public float FragileObstacleSize => fragileObstacleSize;
     public float StaticObstacleSize => staticObstacleSize;
+    public float AtTime => _levelTimer.At();
 
     private void Awake()
     {
@@ -129,9 +128,6 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
             return;
         }
         
-        _levelTimer = levelTimer.GetComponent<LevelTimer>();
-        _levelPlatformSpawner = levelPlatformSpawner.GetComponent<LevelPlatformSpawner>();
-        _levelObstacleSpawner = levelObstacleSpawner.GetComponent<LevelObstacleSpawner>();
         audioSource = GetComponent<AudioSource>();
         
         // TODO : 이부분 나중에 사용할 때 편집.
@@ -140,14 +136,26 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         {
             Debug.Log("LoadMapData error");   
         }
+
+        _levelTimer = new LevelTimer();
+        _levelObstacleSpawner = new LevelObstacleSpawner();
+        _levelObstacleSpawner.Initialize();
+        _levelPlatformSpawner = new LevelPlatformSpawner();
+        _levelPlatformSpawner.Initialize();
     }
 
     private void Start()
     {
+        audioSource.Play();
+
         // ACTION : 시작하면 '[Header("Dependencies")]'에 있는 객체들에게 이벤트를 보냅니다.
         OnStartTimerFor(TimePer.Milisec, _mapData.timeline);
-        
-        //audioSource.Play();
+        _levelObstacleSpawner.Start();
+    }
+
+    private void Update()
+    {
+        _levelPlatformSpawner.Update();
     }
 
     public void HealthCheck()
@@ -173,5 +181,10 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         }
 
         return false;
+    }
+
+    private void OnDestroy()
+    {
+        _levelObstacleSpawner.CancelStart();
     }
 }

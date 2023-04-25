@@ -1,10 +1,10 @@
-using LevelPlayerAction;
+using LevelPlayerMovement;
 
-public class PlayerAction
+public class PlayerMovement
 {
-    private PlayerActionState _state;
+    private PlayerMovementState _state;
 
-    public PlayerAction()
+    public PlayerMovement()
     {
         _state = new Idle();
     }

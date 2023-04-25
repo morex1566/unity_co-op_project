@@ -1895,7 +1895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e95286c50862d54d8fcc6f8aea9a056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 5
 --- !u!114 &829362676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3723,8 +3722,6 @@ MonoBehaviour:
   cameraHeightMin: 9
   cameraHeightMax: 21
   cameraMoveSpeed: 5
-  cameraMoveXLimit: 10
-  cameraMoveYLimit: 10
 --- !u!1 &1787879749 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 112442367213190652, guid: b654c8b509d7f1245b5071ee6189a2a3,
