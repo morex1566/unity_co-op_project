@@ -8,35 +8,40 @@ public enum TimePer
     Sec = 1
 }
 
-public class LevelTimer : MonoBehaviour
+public class LevelTimer
 {
-    private float _currTime;
+    private float _current;
     private bool _isPaused;
+    private float _at;
 
-    public static Task Timer;
-
-    private void Awake()
+    private Task _timer;
+    public LevelTimer()
     {
-        _currTime = 0;
+        _current = 0;
         _isPaused = false;
     }
 
     public void StartTimerFor(TimePer unit, float time)
     {
-        Timer = startTimer(unit, time);
+        _at = time;
+        _timer = startTimer(unit, time);
     }
 
     // ACTION : 타이머 시간설정 + 작동
     private async Task startTimer(TimePer unit, float time)
     {
-        while (_currTime < time)
+        _at = time;
+        
+        while (_current < time)
         {
             if (!_isPaused)
             {
-                _currTime += Time.deltaTime * (float)unit;
+                _current += Time.deltaTime * (float)unit;
             }
             await Task.Yield();
         }
+
+        _at = 0;
     }
     
     // ACTION : 타이머 정지
@@ -44,8 +49,14 @@ public class LevelTimer : MonoBehaviour
     // ACTION : 타이머 재개
     public void ResumeTimer(){_isPaused = false;}
     // ACTION : 현재 시간
-    public float GetTime(TimePer unit)
+    public float Current()
     {
-        return (float)Math.Round(_currTime * (float)unit);
+        return (float)Math.Round(_current);
+    }
+
+    // ACTION : 입력된 타이머 시간
+    public float At()
+    {
+        return _at;
     }
 }

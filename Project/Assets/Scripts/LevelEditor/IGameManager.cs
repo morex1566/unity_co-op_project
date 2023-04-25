@@ -38,5 +38,6 @@ public interface IGameManagerObstacleSpawner : IGameManager
     float FragileObstacleSize { get; }
     float StaticObstacleSize { get; }
     float LevelStartPos { get; }
+    float AtTime { get; }
 
 }
