@@ -58,7 +58,6 @@ namespace LevelPlayerAction
     public class RightSlash : PlayerActionState
     {
         private IEnumerator<bool> _timeout;
-        private static readonly int Slash = Animator.StringToHash("Slash");
 
         public RightSlash(ref LevelPlayer player, ref PlayerActionState actionState)
         {
@@ -87,21 +86,17 @@ namespace LevelPlayerAction
             {
                 actionState = new Idle();
             }
-            
-            // TODO : 이부분 애니메이션 넣으면 수정 바랍니다.
-            GameObject equipment = player.GetRightEquipment();
         }
     
         private void action(ref LevelPlayer player)
         { 
-            player.GetRightEquipment().GetComponent<Animator>().SetTrigger(Slash);
+            
         }
     }
 
     public class LeftSlash : PlayerActionState
     {
         private IEnumerator<bool> _timeout;
-        private static readonly int Slash = Animator.StringToHash("Slash");
 
         public LeftSlash(ref LevelPlayer player, ref PlayerActionState actionState)
         {
@@ -130,15 +125,12 @@ namespace LevelPlayerAction
             {
                 actionState = new Idle();
             }
-            
-            // TODO : 이부분 애니메이션 넣으면 수정 바랍니다.
-            GameObject equipment = player.GetLeftEquipment();
-            
+  
         }
     
         private void action(ref LevelPlayer player)
         {
-            player.GetRightEquipment().GetComponent<Animator>().SetTrigger(Slash);
+            
         }
     }
 }
