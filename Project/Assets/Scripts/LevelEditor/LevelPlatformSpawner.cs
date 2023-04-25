@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class LevelPlatformSpawner : MonoBehaviour
+public class LevelPlatformSpawner
 {
     // GameManager 클래스의 ILevelPlatformSpawner 인터페이스
     private IGameManagerPlatformSpawner _gameManager;
@@ -21,7 +21,7 @@ public class LevelPlatformSpawner : MonoBehaviour
     
     private Queue<GameObject> _currReleasedPlatforms;
 
-    private void Start()
+    public void Initialize()
     {
         _gameManager = GameManager.Instance as IGameManagerPlatformSpawner;
         
@@ -36,7 +36,6 @@ public class LevelPlatformSpawner : MonoBehaviour
 
         _levelStartPos = _gameManager.LevelStartPos;
         _levelEndPos = _levelStartPos + (_platformLength * (_platformLayerCount - 1));
-        Debug.Log(_levelEndPos);
 
         _currReleasedPlatforms = new Queue<GameObject>();
 
@@ -48,7 +47,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
         movePlatforms();
     }
@@ -70,14 +69,14 @@ public class LevelPlatformSpawner : MonoBehaviour
         );
         
         // 하단
-        GameObject bottom = Instantiate(_platformPrefab);
+        GameObject bottom = UnityEngine.Object.Instantiate(_platformPrefab);
         bottom.transform.localScale = normalizedScale;
         bottom.transform.position = new Vector3(0, 0, z);
         
         objs.Add(bottom);
         _currReleasedPlatforms.Enqueue(bottom);
         // 우측하단
-        GameObject rightBottom = Instantiate(_platformPrefab);
+        GameObject rightBottom = UnityEngine.Object.Instantiate(_platformPrefab);
         rightBottom.transform.localScale = normalizedScale;
         rightBottom.transform.position = new Vector3(-width, height, z);
         rightBottom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -60));
@@ -86,7 +85,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         _currReleasedPlatforms.Enqueue(rightBottom);
 
         // 우측상단
-        GameObject rightTop = Instantiate(_platformPrefab);
+        GameObject rightTop = UnityEngine.Object.Instantiate(_platformPrefab);
         rightTop.transform.localScale = normalizedScale;
         rightTop.transform.position = new Vector3(-width, height * 3, z);
         rightTop.transform.rotation = Quaternion.Euler(new Vector3(0,0,-120));
@@ -95,7 +94,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         _currReleasedPlatforms.Enqueue(rightTop);
 
         // 상단
-        GameObject top = Instantiate(_platformPrefab);
+        GameObject top = UnityEngine.Object.Instantiate(_platformPrefab);
         top.transform.localScale = normalizedScale;
         top.transform.position = new Vector3(0, height * 4, z);
         top.transform.rotation = quaternion.Euler(new Vector3(0, 0, 0));
@@ -104,7 +103,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         _currReleasedPlatforms.Enqueue(top);
 
         // 좌측상단
-        GameObject leftTop = Instantiate(_platformPrefab);
+        GameObject leftTop = UnityEngine.Object.Instantiate(_platformPrefab);
         leftTop.transform.localScale = normalizedScale;
         leftTop.transform.position = new Vector3(width, height * 3, z);
         leftTop.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 120));
@@ -113,7 +112,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         _currReleasedPlatforms.Enqueue(leftTop);
 
         // 좌측하단
-        GameObject leftBottom = Instantiate(_platformPrefab);
+        GameObject leftBottom = UnityEngine.Object.Instantiate(_platformPrefab);
         leftBottom.transform.localScale = normalizedScale;
         leftBottom.transform.position = new Vector3(width, height, z);
         leftBottom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 60));
@@ -140,14 +139,14 @@ public class LevelPlatformSpawner : MonoBehaviour
         );
         
         // 하단
-        GameObject bottom = Instantiate(_platformPrefab);
+        GameObject bottom = UnityEngine.Object.Instantiate(_platformPrefab);
         bottom.transform.localScale = normalizedScale;
         bottom.transform.position = new Vector3(0, 0, z);
         
         objs.Add(bottom);
         
         // 우측하단
-        GameObject rightBottom = Instantiate(_platformPrefab);
+        GameObject rightBottom = UnityEngine.Object.Instantiate(_platformPrefab);
         rightBottom.transform.localScale = normalizedScale;
         rightBottom.transform.position = new Vector3(-width, height, z);
         rightBottom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -60));
@@ -155,7 +154,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         objs.Add(rightBottom);
 
         // 우측상단
-        GameObject rightTop = Instantiate(_platformPrefab);
+        GameObject rightTop = UnityEngine.Object.Instantiate(_platformPrefab);
         rightTop.transform.localScale = normalizedScale;
         rightTop.transform.position = new Vector3(-width, height * 3, z);
         rightTop.transform.rotation = Quaternion.Euler(new Vector3(0,0,-120));
@@ -163,7 +162,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         objs.Add(rightTop);
 
         // 상단
-        GameObject top = Instantiate(_platformPrefab);
+        GameObject top = UnityEngine.Object.Instantiate(_platformPrefab);
         top.transform.localScale = normalizedScale;
         top.transform.position = new Vector3(0, height * 4, z);
         top.transform.rotation = quaternion.Euler(new Vector3(0, 0, 0));
@@ -171,7 +170,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         objs.Add(top);
 
         // 좌측상단
-        GameObject leftTop = Instantiate(_platformPrefab);
+        GameObject leftTop = UnityEngine.Object.Instantiate(_platformPrefab);
         leftTop.transform.localScale = normalizedScale;
         leftTop.transform.position = new Vector3(width, height * 3, z);
         leftTop.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 120));
@@ -179,7 +178,7 @@ public class LevelPlatformSpawner : MonoBehaviour
         objs.Add(leftTop);
 
         // 좌측하단
-        GameObject leftBottom = Instantiate(_platformPrefab);
+        GameObject leftBottom = UnityEngine.Object.Instantiate(_platformPrefab);
         leftBottom.transform.localScale = normalizedScale;
         leftBottom.transform.position = new Vector3(width, height, z);
         leftBottom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 60));
