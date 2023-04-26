@@ -1,13 +1,12 @@
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.Serialization;
 
 
 namespace Title
 {
     public enum BackgroundTexture
     {
-        Intro,
         Title
     }
     
@@ -17,18 +16,20 @@ namespace Title
 
         [Header("Dependencies")] 
         [Space(5)]
-        [SerializeField] private Texture introBackground;
-        [SerializeField] private Texture titleBackground;
+        [SerializeField] private Texture lobbyBackgroundTexture;
 
-        [Header("Event Setting")] [Space(5)] 
-        [SerializeField] private float flashDuration;
+        [Header("Lobby Setting")] 
+        [Space(5)] 
+        [SerializeField] private float backgroundYMoveLimit;
+        [SerializeField] private float backgroundXMoveLimit;
+        [SerializeField] private float backgroundMoveSpeed;
+        
+        
 
-        private Texture[] _sceneTexture;
-        
-        public Texture IntroBackground => introBackground;
-        public Texture TitleBackground => titleBackground;
-        public float FlashDuration => flashDuration;
-        
+        public Texture LobbyBackgroundTexture => lobbyBackgroundTexture;
+        public float BackgroundYMoveLimit => backgroundYMoveLimit;
+        public float BackgroundXMoveLimit => backgroundXMoveLimit;
+        public float BackgroundMoveSpeed => backgroundMoveSpeed;
         private void Awake()
         {
             // 싱글톤 인스턴싱
@@ -37,10 +38,6 @@ namespace Title
             {
                 return;
             }
-
-            _sceneTexture = new Texture[2];
-            _sceneTexture[(int)BackgroundTexture.Intro] = introBackground;
-            _sceneTexture[(int)BackgroundTexture.Title] = titleBackground;
         }
 
         private bool instantiate()
@@ -60,6 +57,11 @@ namespace Title
             }
 
             return result;
+        }
+
+        private void Update()
+        {
+            
         }
     }
 }
