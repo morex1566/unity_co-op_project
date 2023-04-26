@@ -1,7 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 
 namespace Title
 {
@@ -9,7 +6,15 @@ namespace Title
     {
         Title
     }
-    
+
+    public enum AudioBandCount
+    {
+        ThirtySix = 36,
+        Sixty = 60,
+        Ninety = 90,
+        OneHundredTwenty = 120
+    }
+
     public class TitleManager : MonoBehaviour
     {
         public static TitleManager Instance = null;
@@ -17,19 +22,26 @@ namespace Title
         [Header("Dependencies")] 
         [Space(5)]
         [SerializeField] private Texture lobbyBackgroundTexture;
+        [SerializeField] private AudioSource audioSource;
 
         [Header("Lobby Setting")] 
         [Space(5)] 
         [SerializeField] private float backgroundYMoveLimit;
         [SerializeField] private float backgroundXMoveLimit;
         [SerializeField] private float backgroundMoveSpeed;
+        [Tooltip("기본값은 0.1 입니다.")]
+        [SerializeField] private float logoBounceWeight;
+        [SerializeField] private float logoBounceBPS;
+        [SerializeField] private AudioBandCount audioBandCount;
         
-        
-
         public Texture LobbyBackgroundTexture => lobbyBackgroundTexture;
         public float BackgroundYMoveLimit => backgroundYMoveLimit;
         public float BackgroundXMoveLimit => backgroundXMoveLimit;
         public float BackgroundMoveSpeed => backgroundMoveSpeed;
+        public AudioSource AudioSource => audioSource;
+        public float LogoBounceWeight => logoBounceWeight;
+        public float LogoBounceBPS => logoBounceBPS;
+        public AudioBandCount AudioBandCount => audioBandCount;
         private void Awake()
         {
             // 싱글톤 인스턴싱
@@ -39,7 +51,7 @@ namespace Title
                 return;
             }
         }
-
+        
         private bool instantiate()
         {
             bool result = false;
@@ -59,9 +71,14 @@ namespace Title
             return result;
         }
 
-        private void Update()
+        public void OnMusicStart()
         {
-            
+            audioSource.Play();
+        }
+
+        public void OnMusicStop()
+        {
+            audioSource.Stop();
         }
     }
 }

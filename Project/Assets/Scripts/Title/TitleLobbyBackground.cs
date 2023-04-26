@@ -6,9 +6,8 @@ namespace Title
 {
     public class TitleLobbyBackground : MonoBehaviour
     {
-        private TitleManager _titleManager;
-
         // Dependencies
+        private TitleManager _titleManager;
         private Texture             _backgroundTexture;
         private RectTransform       _backgroundTransform;
         
