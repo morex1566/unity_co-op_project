@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Title.unity
-    guid: 6f4a782dc78a87346bd764664e30805f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/SelectMap.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
