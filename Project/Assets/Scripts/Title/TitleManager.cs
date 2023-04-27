@@ -15,6 +15,13 @@ namespace Title
         OneHundredTwenty = 120
     }
 
+    public enum AudioSamplerCount
+    {
+        SixtyFour = 64,
+        TwoHundredTwentyFour = 256,
+        FiveHundredTweleve = 512
+    }
+
     public class TitleManager : MonoBehaviour
     {
         public static TitleManager Instance = null;
@@ -33,6 +40,8 @@ namespace Title
         [SerializeField] private float logoBounceWeight;
         [SerializeField] private float logoBounceBPS;
         [SerializeField] private AudioBandCount audioBandCount;
+        [SerializeField] private AudioSamplerCount audioSamplerCount;
+        [SerializeField] private float audioBandMaxScale;
         
         public Texture LobbyBackgroundTexture => lobbyBackgroundTexture;
         public float BackgroundYMoveLimit => backgroundYMoveLimit;
@@ -42,6 +51,8 @@ namespace Title
         public float LogoBounceWeight => logoBounceWeight;
         public float LogoBounceBPS => logoBounceBPS;
         public AudioBandCount AudioBandCount => audioBandCount;
+        public AudioSamplerCount AudioSamplerCount => audioSamplerCount;
+        public float AudioBandMaxScale => audioBandMaxScale;
         private void Awake()
         {
             // 싱글톤 인스턴싱
