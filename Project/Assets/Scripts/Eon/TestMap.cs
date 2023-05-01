@@ -6,30 +6,16 @@ public class TestMap : MonoBehaviour
 {
     Animator anim;
 
-    private void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
+    [SerializeField]
+    GameObject health;
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag =="Fragile Obstacle")
+        if (collision.gameObject.tag == "Fragile Obstacle")
         {
-            Renderer renderer = collision.gameObject.GetComponent<Renderer>();
-            Material material = renderer.materials[0];
-            MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
+            Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            Debug.Log("qqq");
         }
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            anim.SetTrigger("LeftAttack");
-        }
-
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            anim.SetTrigger("RightAttack");
-        }
-    }
 }

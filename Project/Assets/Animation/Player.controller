@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TestAttackAnim
+  m_Name: LeftAttack
   m_Speed: 3
   m_CycleOffset: 0
   m_Transitions: []
@@ -147,10 +147,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -7429881243015495374}
-    m_Position: {x: 230, y: -40, z: 0}
+    m_Position: {x: 280, y: -190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5969103858050160909}
-    m_Position: {x: 235, y: 65, z: 0}
+    m_Position: {x: 390, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8233056340876592590}
     m_Position: {x: 271.3978, y: 143.61905, z: 0}
