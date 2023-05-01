@@ -10,4 +10,7 @@ public class InputSetting
     public static readonly KeyCode MoveRight         = KeyCode.RightArrow;
     public static readonly KeyCode Jump              = KeyCode.UpArrow;
     public static readonly KeyCode Slide             = KeyCode.DownArrow;
+    
+    // Title
+    public static readonly KeyCode ExitEvent = KeyCode.Escape;
 }

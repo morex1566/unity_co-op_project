@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Title
@@ -11,10 +12,9 @@ namespace Title
         [Space(5)]
         [Tooltip("Beat Bar들을 자식으로하는 부모 오브젝트")]
         [SerializeField] private GameObject audioPeer;
+        [FormerlySerializedAs("logoImage")]
         [Tooltip("Logo의 texture를 가지고 있는 객체")]
-        [SerializeField] private GameObject logoImage;
-        [Tooltip("현재 beat를 나타내는 texture")]
-        [SerializeField] private Texture audioBand;
+        [SerializeField] private GameObject logo;
         [Tooltip("현재 Logo의 테두리 두께")]
         [SerializeField] private float borderPadding;
 
@@ -42,9 +42,9 @@ namespace Title
         private void Update()
         {
             // TODO : sampling 부분을 스레딩 처리하는게 성능상 더 좋을지도
-            if (_titleManager.AudioSource.isPlaying)
+            if (BackgroundProcess.Instance.IsPlaying())
             {
-                _titleManager.AudioSource.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
+                BackgroundProcess.Instance.Audio.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
                 updateAudioBands();
             }
         }
@@ -52,7 +52,7 @@ namespace Title
         private void createAudioBands()
         {
             float angleStep = 360f / _bandCount;
-            float logoRadius = logoImage.GetComponent<RectTransform>().sizeDelta.x / 2 - borderPadding;
+            float logoRadius = logo.GetComponent<RectTransform>().sizeDelta.x / 2 - borderPadding;
             
             // band가 생성될 위치를 지정합니다.
             for (int i = 0; i < _bandCount; i++)
@@ -97,13 +97,29 @@ namespace Title
             for(int i = 0; i<_bands.Count; i++)
             {
                 Vector3 nextScale = _bands[i].localScale;
-                nextScale.y = _samples[i] * _audioBandMaxScale;
-
-                if (nextScale.y < _audioBandMaxScale / 4)
-                {
-                    nextScale.y *= 2f;
-                }
+                float currentSample = _samples[i] * _audioBandMaxScale;
+                float nextSample = i < _samples.Length - 1 ? _samples[i+1] : currentSample;
                 
+                // 선형 보간
+                float lerpedSample = Mathf.Lerp(currentSample, nextSample, 0.5f);
+
+                nextScale.y = lerpedSample;
+                
+                // 증폭 1
+                if (i > 30)
+                {
+                    nextScale.y *= 5;
+                }
+                else // 증폭 2
+                if (i > 15)
+                {
+                    nextScale.y *= 3;
+                }
+                else // 증폭 3
+                {
+                    nextScale.y *= 1.5f;
+                }
+
                 _bands[i].localScale = nextScale;
             }
         }

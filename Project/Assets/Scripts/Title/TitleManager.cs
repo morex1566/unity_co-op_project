@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Utility;
 
 namespace Title
 {
@@ -29,8 +31,9 @@ namespace Title
         [Header("Dependencies")] 
         [Space(5)]
         [SerializeField] private Texture lobbyBackgroundTexture;
-        [SerializeField] private AudioSource audioSource;
-
+        [SerializeField] private GameObject exitMenu;
+        [SerializeField] private Canvas uiLayer;
+        
         [Header("Lobby Setting")] 
         [Space(5)] 
         [SerializeField] private float backgroundYMoveLimit;
@@ -47,7 +50,6 @@ namespace Title
         public float BackgroundYMoveLimit => backgroundYMoveLimit;
         public float BackgroundXMoveLimit => backgroundXMoveLimit;
         public float BackgroundMoveSpeed => backgroundMoveSpeed;
-        public AudioSource AudioSource => audioSource;
         public float LogoBounceWeight => logoBounceWeight;
         public float LogoBounceBPS => logoBounceBPS;
         public AudioBandCount AudioBandCount => audioBandCount;
@@ -62,7 +64,16 @@ namespace Title
                 return;
             }
         }
-        
+
+        private void Update()
+        {
+            // 종료 메뉴틀 부릅니다.
+            if (Input.GetKeyDown(InputSetting.ExitEvent))
+            {
+                OnExitMenuCreate();
+            }
+        }
+
         private bool instantiate()
         {
             bool result = false;
@@ -81,15 +92,19 @@ namespace Title
 
             return result;
         }
-
-        public void OnMusicStart()
+        
+        private void OnExitMenuCreate()
         {
-            audioSource.Play();
+            if (!ExitMenu.Instance)
+            {
+                GameObject exit = Instantiate(exitMenu, uiLayer.transform, false);
+                exit.GetComponent<ExitMenu>().ExitEventHandler += OnGameExit;
+            }
         }
-
-        public void OnMusicStop()
+        
+        private void OnGameExit()
         {
-            audioSource.Stop();
+            Application.Quit();
         }
     }
 }

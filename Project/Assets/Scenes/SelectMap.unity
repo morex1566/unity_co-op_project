@@ -636,7 +636,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1444376607}
-  - {fileID: 516947024}
   m_Father: {fileID: 1952031637}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -745,13 +744,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 240755475}
-  m_Father: {fileID: 353700094}
-  m_RootOrder: 1
+  m_Father: {fileID: 1032396549}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -9600, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &516947025
 MonoBehaviour:
@@ -796,8 +795,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 714620328}
   m_HandleRect: {fileID: 714620327}
   m_Direction: 0
-  m_Value: -0.00000006357829
-  m_Size: 0.2
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -962,7 +961,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 975490782}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectMapScript, Assembly-CSharp
         m_MethodName: OnLoadScene1
         m_Mode: 1
@@ -1619,7 +1618,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 975490782}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectMapScript, Assembly-CSharp
         m_MethodName: OnLoadScene3
         m_Mode: 1
@@ -1753,7 +1752,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 975490782}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectMapScript, Assembly-CSharp
         m_MethodName: OnLoadScene5
         m_Mode: 1
@@ -2002,50 +2001,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968851947}
   m_CullTransparentMesh: 1
---- !u!1 &975490781
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 975490783}
-  - component: {fileID: 975490782}
-  m_Layer: 0
-  m_Name: GameRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &975490782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975490781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b961cd78a09164fa51872606044463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &975490783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975490781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 904.6907, y: -77.039696, z: 774.01953}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1008009831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,6 +2172,7 @@ RectTransform:
   - {fileID: 1912521648}
   - {fileID: 612488432}
   - {fileID: 767173377}
+  - {fileID: 516947024}
   m_Father: {fileID: 1444376607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2551,9 +2507,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 3}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1444376608
 MonoBehaviour:
@@ -2728,7 +2684,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 975490782}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectMapScript, Assembly-CSharp
         m_MethodName: OnLoadScene4
         m_Mode: 1
@@ -2862,7 +2818,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 975490782}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectMapScript, Assembly-CSharp
         m_MethodName: OnLoadScene2
         m_Mode: 1
