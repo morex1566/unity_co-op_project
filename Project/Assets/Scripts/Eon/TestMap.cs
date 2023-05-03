@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class TestMap : MonoBehaviour
 {
+    Animator anim;
 
-    public GameObject map;
-    void Start()
+    [SerializeField]
+    GameObject health;
+
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.tag == "Fragile Obstacle")
+        {
+            Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            Debug.Log("qqq");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
