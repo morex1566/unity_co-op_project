@@ -187,4 +187,5 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         _levelObstacleSpawner.CancelStart();
     }
+
 }

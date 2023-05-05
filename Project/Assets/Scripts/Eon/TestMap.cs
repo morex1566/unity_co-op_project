@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class TestMap : MonoBehaviour
 {
-    Animator anim;
 
     [SerializeField]
     GameObject health;
+
+    [SerializeField]
+    GameObject stopImg;
+
+    [SerializeField]
+    AudioSource audio;
+
+    public AudioMixer audioMixer;
+
+    public Slider BgmSlider;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -17,5 +28,56 @@ public class TestMap : MonoBehaviour
             Debug.Log("qqq");
         }
     }
+    bool isPause = true;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPause)
+            {
+                pause();
+            }
+            else
+            {
+                Resume();
+            }
+        }
+
+    
+    }
+
+    void pause()
+    {
+        Time.timeScale = 0;
+        stopImg.SetActive(true);
+        audio.Pause();
+        isPause = false;
+    }
+
+ 
+
+    public void SetBgmVolume()
+    {
+        audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        stopImg.SetActive(false);
+        audio.Play();
+        isPause = true;
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Editor");
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
