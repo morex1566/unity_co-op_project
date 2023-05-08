@@ -8,6 +8,7 @@ TagManager:
   - LevelManager
   - Fragile Obstacle
   - Block
+  - Static Obstacle
   layers:
   - Default
   - TransparentFX

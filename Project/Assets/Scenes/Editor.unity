@@ -3637,13 +3637,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1742378965}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1742378972}
+        m_TargetAssemblyTypeName: TestMap, Assembly-CSharp
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3713,7 +3713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 2102858293}
   stopImg: {fileID: 707253197}
-  audio: {fileID: 1348260061}
+  _audio: {fileID: 1348260061}
   audioMixer: {fileID: 24100000, guid: a97ffb843655dce4c82f005eb4607bb9, type: 2}
   BgmSlider: {fileID: 1055974206}
 --- !u!95 &1742378973
