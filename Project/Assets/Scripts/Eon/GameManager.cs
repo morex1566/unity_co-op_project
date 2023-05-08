@@ -130,8 +130,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         
         audioSource = GetComponent<AudioSource>();
         
-        // TODO : 이부분 나중에 사용할 때 편집.
-        bool result = loadLevelData();
+        bool result = LoadLevelData();
         if (!result)
         {
             Debug.Log("LoadMapData error");   
@@ -169,14 +168,30 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     }
 
     // INFO : 여기서 우리가 만든 맵핑 데이터와 음악을 불러옵니다.
-    private bool loadLevelData()
+    // public bool LoadLevelData(MapData mapData)
+    // {
+    //     _mapData = mapData;
+    //     if (_mapData != null)
+    //     {
+    //         songName = _mapData.Filename;
+    //         audioSource.clip = _mapData.clip;
+    //
+    //         return true;
+    //     }
+    //
+    //     return false;
+    // }
+
+    // INFO : 여기서 우리가 만든 맵핑 데이터와 음악을 불러옵니다.
+    public bool LoadLevelData()
     {
-        _mapData = FileLoadManager.LoadMapData("Streaming-Heart.wav.txt");
+        var stageData = FindObjectOfType<StageData>();
+        _mapData = stageData.MapData;
         if (_mapData != null)
         {
             songName = _mapData.Filename;
             audioSource.clip = _mapData.clip;
-
+        
             return true;
         }
 
@@ -187,5 +202,4 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         _levelObstacleSpawner.CancelStart();
     }
-
 }
