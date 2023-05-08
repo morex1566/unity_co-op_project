@@ -42,35 +42,37 @@ namespace Title
             _pivotBackgroundPos = _backgroundTargetPos;
         }
 
+        
+        // TODO : 해상도가 바뀌는 경우도 생각해서 작성
         private void Update()
         {
-            float mouseX = Input.GetAxisRaw("Mouse X");
-            float mouseY = Input.GetAxisRaw("Mouse Y");
-            
-            
-            // background texture를 움직입니다
-            if (mouseX != 0)
-            {
-                // limit 지점까지만 움직일 수 있게 합니다
-                if (Math.Abs((_backgroundTargetPos.x + _backgroundMoveSpeed * mouseX) - _pivotBackgroundPos.x) <= _backgroundXMoveLimit)
-                {
-                    _backgroundTargetPos.x += _backgroundMoveSpeed * mouseX;
-                }
-            }
-
-            // background texture를 움직입니다
-            if (mouseY != 0)
-            {
-                // limit 지점까지만 움직일 수 있게 합니다
-                if (Math.Abs((_backgroundTargetPos.y + _backgroundMoveSpeed * mouseY) -_pivotBackgroundPos.y) <= _backgroundYMoveLimit)
-                {
-                    _backgroundTargetPos.y += _backgroundMoveSpeed * mouseY;
-                }
-            }
-            
-            // 계산한 값을 토대로 부드럽게 움직입니다
-            Vector3 movePos = Vector3.Lerp(_backgroundTransform.position, _backgroundTargetPos, 0.5f);
-            _backgroundTransform.position = movePos;
+            // float mouseX = Input.GetAxisRaw("Mouse X");
+            // float mouseY = Input.GetAxisRaw("Mouse Y");
+            //
+            //
+            // // background texture를 움직입니다
+            // if (mouseX != 0)
+            // {
+            //     // limit 지점까지만 움직일 수 있게 합니다
+            //     if (Math.Abs((_backgroundTargetPos.x + _backgroundMoveSpeed * mouseX) - _pivotBackgroundPos.x) <= _backgroundXMoveLimit)
+            //     {
+            //         _backgroundTargetPos.x += _backgroundMoveSpeed * mouseX;
+            //     }
+            // }
+            //
+            // // background texture를 움직입니다
+            // if (mouseY != 0)
+            // {
+            //     // limit 지점까지만 움직일 수 있게 합니다
+            //     if (Math.Abs((_backgroundTargetPos.y + _backgroundMoveSpeed * mouseY) -_pivotBackgroundPos.y) <= _backgroundYMoveLimit)
+            //     {
+            //         _backgroundTargetPos.y += _backgroundMoveSpeed * mouseY;
+            //     }
+            // }
+            //
+            // // 계산한 값을 토대로 부드럽게 움직입니다
+            // Vector3 movePos = Vector3.Lerp(_backgroundTransform.position, _backgroundTargetPos, 0.5f);
+            // _backgroundTransform.position = movePos;
         }
 
     }

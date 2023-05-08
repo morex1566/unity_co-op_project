@@ -30,6 +30,8 @@ namespace Title
             _logo = transform.GetChild(1).gameObject;
             _version = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
             _animator = GetComponent<Animator>();
+            
+        
         }
 
         // Start is called before the first frame update
@@ -37,7 +39,7 @@ namespace Title
         {
             _titleManager = TitleManager.Instance;
 
-            _animator.updateMode = AnimatorUpdateMode.AnimatePhysics;
+            // _animator.updateMode = AnimatorUpdateMode.AnimatePhysics;
             
             _version.text = VersionInfo.Current;
             _logoPivotScale = _logoTransform.localScale;

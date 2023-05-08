@@ -1,18 +1,38 @@
+/*
+ *      파일 설명 : UI생성 및 입력 제어
+ *      주의 사항 : LoadMapDatas() 함수는 항상 Awake()의 가장 처음 호출해주세요!
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SwipeUI : MonoBehaviour
 {
+    [Header("Dependencies")]
+    [Space(5)]
+    [SerializeField] private GameObject imageCircle;
+    [SerializeField] private GameObject stage;
+    
+    // stage가 생성될 곳
+    [SerializeField] private GameObject stageContent;
+    
+    // imageCircle이 생성될 곳
+    [SerializeField] private GameObject panelCircleContent;
+    
     [SerializeField]
     Scrollbar scrollbar;
-    [SerializeField]
-    Transform[] circleContents;
+    private Transform[] circleContents;
     [SerializeField]
     float swipeTime = 0.2f;
     [SerializeField]
     float swipeDistance = 10.0f;
+
+    private List<MapData> _maps = new List<MapData>();
 
     float[] scrollPageValues;
     float valueDistance = 0;
@@ -25,15 +45,7 @@ public class SwipeUI : MonoBehaviour
 
     private void Awake()
     {
-        scrollPageValues = new float[transform.childCount];
-        valueDistance = 1f / (scrollPageValues.Length - 1f);
-
-        for(int i=0; i<scrollPageValues.Length; ++i)
-        {
-            scrollPageValues[i] = valueDistance * i;
-        }
-
-        maxPage = transform.childCount;
+        LoadMapDatas();
     }
     void Start()
     {
@@ -64,7 +76,7 @@ public class SwipeUI : MonoBehaviour
         else if(Input.GetMouseButtonUp(0))
         {
             endTouchX = Input.mousePosition.x;
-
+            
             UpdateSwipe();
         }
     }
@@ -74,6 +86,7 @@ public class SwipeUI : MonoBehaviour
         if(Mathf.Abs(startTouchX - endTouchX) < swipeDistance)
         {
             StartCoroutine(OnSwipeOneStep(currentPage));
+            
             return;
         }
 
@@ -88,7 +101,7 @@ public class SwipeUI : MonoBehaviour
         else
         {
             if (currentPage == maxPage - 1) return;
-
+            
             currentPage++;
         }
 
@@ -100,6 +113,7 @@ public class SwipeUI : MonoBehaviour
         float start = scrollbar.value;
         float current = 0;
         float percent = 0;
+        
 
         isSwipeMode = true;
 
@@ -131,7 +145,57 @@ public class SwipeUI : MonoBehaviour
             }
         }
     }
-   
 
-    
+
+    /// <summary>
+    /// Streaming Asset에 만들어진 맵 파일들을 읽고, UI를 생성
+    /// </summary>
+    private void LoadMapDatas()
+    {
+        // 맵 파일 전체 불러오기
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Application.streamingAssetsPath);
+            FileInfo[] files = dirInfo.GetFiles("*.txt");
+
+            foreach (var file in files)
+            {
+                _maps.Add(new MapData(FileLoadManager.LoadMapData(file.Name)));
+            }
+
+            maxPage = _maps.Count;
+        }
+
+        // 맵 파일 정보를 UI에 저장
+        {
+            
+        }
+        
+        // UI생성
+        {
+            // index 생성
+            circleContents = new Transform[maxPage];
+            
+            // 스크롤되는 페이지의 value값을 저장
+            scrollPageValues = new float[maxPage];
+            
+           
+            for(int i=0; i< maxPage; ++i)
+            {
+                // 스크롤바 설정
+                valueDistance = 1f / (maxPage - 1f);
+
+                scrollPageValues[i] = valueDistance * i;
+            }
+            
+            
+            // 인스턴싱
+            for (int i = 0; i < maxPage; i++)
+            {
+                GameObject stageInstance =  Instantiate(stage, stageContent.transform);
+                stageInstance.GetComponentInChildren<StageData>().MapData = _maps[i];
+                GameObject circleInstance = Instantiate(imageCircle, panelCircleContent.transform);
+                circleContents[i] = circleInstance.transform;
+            }
+        }
+    }
 }

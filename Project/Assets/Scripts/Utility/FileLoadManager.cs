@@ -11,6 +11,11 @@ public struct MapData
     public Texture2D map;
     public int timeline;
 
+    public MapData(MapData mapData)
+    {
+        this = mapData;
+    }
+
     public static bool operator ==(MapData a, MapData b)
     {
         if (a.Filename != b.Filename) { return false; }

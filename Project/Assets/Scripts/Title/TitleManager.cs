@@ -68,7 +68,7 @@ namespace Title
         private void Update()
         {
             // 종료 메뉴틀 부릅니다.
-            if (Input.GetKeyDown(InputSetting.ExitEvent))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 OnExitMenuCreate();
             }
@@ -95,7 +95,7 @@ namespace Title
         
         private void OnExitMenuCreate()
         {
-            if (!ExitMenu.Instance)
+            if (!ExitMenu.Instance && !TitleLobbyMenuBar.Instance)
             {
                 GameObject exit = Instantiate(exitMenu, uiLayer.transform, false);
                 exit.GetComponent<ExitMenu>().ExitEventHandler += OnGameExit;
