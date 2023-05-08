@@ -137,9 +137,12 @@ namespace LevelPlayerMovement
         
         public override void Update(ref LevelPlayer player, ref PlayerMovementState currentState)
         {
-            if (!Input.anyKeyDown && _isCheckable && IsGrounded(ref player))
+            if (!Input.anyKeyDown && _isCheckable)
             {
-                currentState = new Idle();
+                if (IsGrounded(ref player))
+                {
+                    currentState = new Idle();
+                }
             }
         }
 
@@ -148,6 +151,7 @@ namespace LevelPlayerMovement
             Rigidbody rigidbody = player.GetRigidbody();
 
             rigidbody.AddForce(new Vector3(0, player.JumpPower, 0));
+            
             CoroutineUtility.Initialize();
             CoroutineUtility.StartCoroutine(SetIsCheckable());
         }
@@ -161,7 +165,7 @@ namespace LevelPlayerMovement
     
             RaycastHit hit;
             bool isGrounded = Physics.Raycast(player.FootPosition, Vector3.down, out hit, rayLength, groundLayerMask);
-    
+
             return isGrounded;
         }
 

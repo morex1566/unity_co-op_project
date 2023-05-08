@@ -15,8 +15,7 @@ public class LevelManager : MonoBehaviour
     
     [Header("Dependencies")]
     [Space(5)]
-    [SerializeField] private GameObject levelPlatformSpawner;
-    [SerializeField] private GameObject levelObstacleSpawner;
+
 
     [Header("Level Rotation Setting")]
     [Space(5)]

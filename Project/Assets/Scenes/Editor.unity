@@ -142,8 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cb1d0e79a921f48af728d7058f087a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPlatformSpawner: {fileID: 0}
-  levelObstacleSpawner: {fileID: 0}
   rotationSpeed: 180
   inertiaWeight: 5
   inertiaSpeed: 10
@@ -4623,6 +4621,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2149506386902809000, guid: e48187cb5b0f246449f25a9489e3ffc2,
         type: 3}
+      propertyPath: jumpPower
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149506386902809000, guid: e48187cb5b0f246449f25a9489e3ffc2,
+        type: 3}
       propertyPath: leftEquipment
       value: 
       objectReference: {fileID: 0}
@@ -4634,7 +4637,7 @@ PrefabInstance:
     - target: {fileID: 2149506386902809003, guid: e48187cb5b0f246449f25a9489e3ffc2,
         type: 3}
       propertyPath: m_Mass
-      value: 10000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2149506386902809004, guid: e48187cb5b0f246449f25a9489e3ffc2,
         type: 3}
