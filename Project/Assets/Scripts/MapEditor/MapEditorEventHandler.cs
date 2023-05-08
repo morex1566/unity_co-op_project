@@ -7,6 +7,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [ExecuteInEditMode]
 public class MapEditorEventHandler : MonoBehaviour
@@ -23,6 +24,14 @@ public class MapEditorEventHandler : MonoBehaviour
         editorUI = GameObject.Find("UI").GetComponent<MapEditorUI>();
         editorAnimation = GameObject.Find("Editor").GetComponent<MapEditorAnimation>();
         editorFileIO = GameObject.Find("Editor").GetComponent<MapEditorFileIO>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Title");
+        }
     }
 
     #region BUTTON_EVENT

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+
 public class TestMap : MonoBehaviour
 {
 
@@ -13,8 +15,8 @@ public class TestMap : MonoBehaviour
     [SerializeField]
     GameObject stopImg;
 
-    [SerializeField]
-    AudioSource audio;
+    [FormerlySerializedAs("audio")] [SerializeField]
+    AudioSource _audio;
 
     public AudioMixer audioMixer;
 
@@ -23,6 +25,12 @@ public class TestMap : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Fragile Obstacle")
+        {
+            Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            Debug.Log("qqq");
+        }
+        
+        if (collision.gameObject.tag == "Static Obstacle")
         {
             Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
             Debug.Log("qqq");
@@ -51,7 +59,7 @@ public class TestMap : MonoBehaviour
     {
         Time.timeScale = 0;
         stopImg.SetActive(true);
-        audio.Pause();
+        _audio.Pause();
         isPause = false;
     }
 
@@ -66,8 +74,14 @@ public class TestMap : MonoBehaviour
     {
         Time.timeScale = 1;
         stopImg.SetActive(false);
-        audio.Play();
+        _audio.Play();
         isPause = true;
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Title");
     }
 
     public void Restart()

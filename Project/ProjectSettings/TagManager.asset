@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - LevelManager
   - Fragile Obstacle
+  - Block
+  - Static Obstacle
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Button
   - 
   - 
   - 
