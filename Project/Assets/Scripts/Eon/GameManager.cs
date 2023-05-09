@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject health;
     [SerializeField] private GameObject level;
+    [SerializeField] private GameObject resultBoard;
 
     [Header("LevelPlatformSpawner Setting")]
     [Space(5)]
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     
     [Header("Song Information")]
     [Space(5)]
-    [HideInInspector][SerializeField] private AudioSource audioSource;
+    private AudioSource _audioSource;
     [FormerlySerializedAs("name")] [HideInInspector][SerializeField] private string songName;
     
     // INFO : Script Cache
@@ -128,7 +130,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
             return;
         }
         
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         
         bool result = LoadLevelData();
         if (!result)
@@ -145,7 +147,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 
     private void Start()
     {
-        audioSource.Play();
+        _audioSource.Play();
 
         // ACTION : 시작하면 '[Header("Dependencies")]'에 있는 객체들에게 이벤트를 보냅니다.
         OnStartTimerFor(TimePer.Milisec, _mapData.timeline);
@@ -190,7 +192,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         if (_mapData != null)
         {
             songName = _mapData.Filename;
-            audioSource.clip = _mapData.clip;
+            _audioSource.clip = _mapData.clip;
         
             return true;
         }
@@ -201,5 +203,69 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     private void OnDestroy()
     {
         _levelObstacleSpawner.CancelStart();
+    }
+
+    /// <summary>
+    /// 음악 소리를 Fade-Out하며 종료합니다
+    /// </summary>
+    /// <param name="duration">진행되는 시간</param>
+    /// <param name="targetVolume">목표 음량</param>
+    public IEnumerator OnMusicFadeOut(float duration, float targetVolume = 0f)
+    {
+        while (_audioSource.volume > targetVolume)
+        {
+            _audioSource.volume -= Time.deltaTime / duration;
+            yield return null;
+        }
+    }
+    
+    /// <summary>
+    /// 음악 소리를 Fade-In하며 시작합니다
+    /// </summary>
+    /// <param name="duration">진행되는 시간</param>
+    /// <param name="targetVolume">목표 음량</param>
+    public IEnumerator OnMusicFadeIn(float duration, float targetVolume = 1.0f)
+    {
+        // TODO : maxVolume부분 하드코딩 수정 필요
+        while (_audioSource.volume < targetVolume)
+        {
+            _audioSource.volume += Time.deltaTime / duration;
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// ResultBoard를 활성화 시키는 이벤트 함수
+    /// </summary>
+    public void OnCreateResultBoard()
+    {
+        // 내부 함수
+        IEnumerator createResultBoard()
+        {
+            // 장애물이 완전히 도착할 때까지 대기
+            yield return new WaitForSeconds(GetDistance() / mapSpeed * 1.5f);
+        
+            resultBoard.SetActive(true);
+        
+            // 소리 음량 감소
+            StartCoroutine(OnMusicFadeOut(0.5f, 0.2f));
+        }
+        
+        StartCoroutine(createResultBoard());
+    }
+
+
+    /// <returns> Fragile Obstacle의 갯수 </returns>
+    public int GetMaxCombo()
+    {
+        return _levelObstacleSpawner.FragileObstacleCount;
+    }
+
+
+    /// <returns> 내가 Cut한 Fragile Obstacle의 갯수 </returns>
+    /// TODO : 이부분 Sword에서 가져와서 수정하는거?
+    public int GetCombo()
+    {
+        return 0;
     }
 }

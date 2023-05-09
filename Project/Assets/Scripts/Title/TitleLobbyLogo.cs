@@ -44,7 +44,7 @@ namespace Title
             // TODO : sampling 부분을 스레딩 처리하는게 성능상 더 좋을지도
             if (BackgroundProcess.Instance.IsPlaying())
             {
-                BackgroundProcess.Instance.Audio.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
+                BackgroundProcess.Instance.AudioSource.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
                 updateAudioBands();
             }
         }

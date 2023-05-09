@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,10 @@ public class ObjectPool<T> where T : new()
     }
 }
 
+/// <summary>
+/// Level Scene의 장애물을 생성하는 클래스
+/// </summary>
+/// <remarks> 사용 전, Initialize()함수 호출 필수</remarks>
 public class LevelObstacleSpawner
 {
     private IGameManagerObstacleSpawner _gameManager;
@@ -64,6 +69,8 @@ public class LevelObstacleSpawner
     private Task _spawner;
     private CancellationTokenSource _spawnerCancellation;
 
+    public int FragileObstacleCount;
+
 
     // INFO : GameManager의 MapData를 기반으로, 장애물 Timeline, spawn point를 맵핑합니다.
     public void Initialize()
@@ -83,7 +90,7 @@ public class LevelObstacleSpawner
         _levelStartPos = _gameManager.LevelStartPos;
         
         // TODO : 이 부분 하드코딩 config
-        _spawnOffset = 1f;
+        _spawnOffset = 3f;
 
         _mapSpeed = _gameManager.MapSpeed;
         
@@ -98,6 +105,8 @@ public class LevelObstacleSpawner
         // _spawnPoints의 위치를 할당
         getSpawnPosition();
         CreateSpawnTimeline(0);
+
+        FragileObstacleCount = _fragileSpawnTimeline.Count;
 
         _isInit = true;
     }
@@ -196,13 +205,14 @@ public class LevelObstacleSpawner
             
             await Task.Yield();
         }
+        
+        // 모든 obstacle 생성 완료. result board 생성 이벤트 호출
+        done();
     }
-
     public void CancelStart()
     {
         _spawnerCancellation.Cancel();
     }
-
     private void CreateSpawnTimeline(int start)
     {
         for (int i = 0; i < _mapData.timeline; i++)
@@ -240,7 +250,6 @@ public class LevelObstacleSpawner
             }
         }
     }
-
     // CAUTION : 내부 for문 배치순서를 바꾸면 안됩니다. 바꾼다면 MapEditor의 장애물 놓는 곳도 변경
     private void getSpawnPosition()
     {
@@ -373,5 +382,14 @@ public class LevelObstacleSpawner
             
             _spawnPoints.Add(spawnPoint);
         }
+    }
+
+    /// <summary>
+    /// CALL BY : 매핑된 장애물이 전부 소환한 뒤에 호출
+    /// </summary>
+    private void done()
+    {
+        // GameManager에게 종료 UI요청
+        GameManager.Instance.OnCreateResultBoard();
     }
 }

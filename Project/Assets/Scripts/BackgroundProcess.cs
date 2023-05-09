@@ -6,18 +6,18 @@ public class BackgroundProcess
 {
     private static BackgroundProcess _instance = null;
     private static GameObject _audioGameObject = null;
-    private AudioSource _audio;
+    private AudioSource _audioSource;
     private GameObject _quitMenu;
     private GameObject _loadPage;
 
     private float _maxVolume;
-    public AudioSource Audio => _audio;
+    public AudioSource AudioSource => _audioSource;
     
     private BackgroundProcess()
     {
         _audioGameObject = new GameObject("BackgroundAudio");
-        _audio = _audioGameObject.AddComponent<AudioSource>();
-        _audio.clip = Resources.Load<AudioClip>("lobby");
+        _audioSource = _audioGameObject.AddComponent<AudioSource>();
+        _audioSource.clip = Resources.Load<AudioClip>("lobby");
         
         UnityEngine.Object.DontDestroyOnLoad(_audioGameObject);
         // UnityEngine.Object.DontDestroyOnLoad(_quitMenu);
@@ -40,30 +40,30 @@ public class BackgroundProcess
 
     public bool IsPlaying()
     {
-        return _audio.isPlaying;
+        return _audioSource.isPlaying;
     }
     public void OnPlayMusic()
     {
-        _audio.Play();
+        _audioSource.Play();
     }
     public void OnStopMusic()
     {
-        _audio.Stop();
+        _audioSource.Stop();
     }
     public IEnumerator MusicFadeOut(float duration)
     {
-        while (_audio.volume > 0)
+        while (_audioSource.volume > 0)
         {
-            _audio.volume -= Time.deltaTime / duration;
+            _audioSource.volume -= Time.deltaTime / duration;
             yield return null;
         }
     }
     public IEnumerator MusicFadeIn(float duration)
     {
-        while (_audio.volume < _maxVolume)
+        while (_audioSource.volume < _maxVolume)
         {
-            _audio.volume += Time.deltaTime / duration;
+            _audioSource.volume += Time.deltaTime / duration;
             yield return null;
         }
-    } 
+    }
 }
