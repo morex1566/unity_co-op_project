@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 // TODO : 지금 GameManager는 모든 Scene에서 사용 가능할듯 합니다. 현재 Scene에서만 사용가능하도록 제한해야 할듯
@@ -179,7 +178,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         if (health.transform.childCount == 0)
         {
-            OnCreateResultBoard();
+            OnCreateResultBoard(0f);
         }
     }
 
@@ -251,7 +250,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     /// <summary>
     /// ResultBoard를 활성화 시키는 이벤트 함수
     /// </summary>
-    public void OnCreateResultBoard()
+    public void OnCreateResultBoard(float duration = 0.5f)
     {
         // 내부 함수
         IEnumerator createResultBoard()
@@ -262,7 +261,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
             resultBoard.SetActive(true);
         
             // 소리 음량 감소
-            StartCoroutine(OnMusicFadeOut(0.5f, 0.2f));
+            StartCoroutine(OnMusicFadeOut(duration, 0.2f));
         }
         
         StartCoroutine(createResultBoard());

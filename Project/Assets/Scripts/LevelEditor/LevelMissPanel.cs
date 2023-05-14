@@ -10,7 +10,7 @@ public class LevelMissPanel : MonoBehaviour
     {
         Debug.Log("Miss");
         
-        if (other.tag == "Fragile Obstacle")
+        if (other.tag == "Fragile Obstacle" )
         {
             FindObjectOfType<Sword>().ComboCount = 0;
 

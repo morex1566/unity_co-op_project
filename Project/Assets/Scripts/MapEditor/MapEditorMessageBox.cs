@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +12,6 @@ public class MapEditorMessageBox : MonoBehaviour
         textmeshpro = transform.GetChild(0).gameObject.GetComponent<TMP_Text>();
         rectTransform = transform.GetComponent<RectTransform>();
         
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(true);
     }
 }
