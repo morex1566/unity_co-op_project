@@ -65,6 +65,11 @@ namespace Title
             }
         }
 
+        private void Start()
+        {
+            StartCoroutine(BackgroundProcess.Instance.MusicFadeIn(1.0f));
+        }
+
         private void Update()
         {
             // 종료 메뉴틀 부릅니다.

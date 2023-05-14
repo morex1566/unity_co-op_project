@@ -9,6 +9,8 @@ TagManager:
   - Fragile Obstacle
   - Block
   - Static Obstacle
+  - Pause
+  - Result
   layers:
   - Default
   - TransparentFX

@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [Space(5)]
     [SerializeField] private GameObject fragileObstaclePrefab;
     [SerializeField] private GameObject staticObstaclePrefab;
+    [SerializeField] private GameObject spawnPointPrefab;
     [SerializeField] private float fragileObstacleSize;
     [SerializeField] private float staticObstacleSize;
     
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 
     private MapData _mapData;
     private int _healthCount = 10;
+    public int StartDelay = 30;
     
     
     
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         return Math.Abs(Math.Abs(levelStartPos) - Math.Abs(player.transform.position.z));
     }
     public MapData MapData => _mapData;
+    public AudioSource AudioSource => _audioSource;
 
     public int HealthCount => _healthCount;
     // INFO : ILevelPlatformSpawner 구현
@@ -116,6 +119,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     // INFO : ILevelObstacleSpawner 구현
     public GameObject FragileObstaclePrefab => fragileObstaclePrefab;
     public GameObject StaticObstaclePrefab => staticObstaclePrefab;
+    public GameObject SpawnPointPrefab => spawnPointPrefab;
     public float SyncSpeed => syncSpeed;
     public float FragileObstacleSize => fragileObstacleSize;
     public float StaticObstacleSize => staticObstacleSize;
@@ -151,26 +155,32 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 
     private void Start()
     {
-        _audioSource.Play();
-
+        StartCoroutine(StartPlayAt(StartDelay));
+        
         // ACTION : 시작하면 '[Header("Dependencies")]'에 있는 객체들에게 이벤트를 보냅니다.
-        OnStartTimerFor(TimePer.Milisec, _mapData.timeline);
+        OnStartTimerFor(TimePer.Milisec, _mapData.timeline + StartDelay);
         _levelObstacleSpawner.Start();
+    }
+
+    private IEnumerator StartPlayAt(float delay)
+    {
+        yield return new WaitForSeconds(delay / 10);
+        
+        _audioSource.Play();
     }
 
     private void Update()
     {
         _levelPlatformSpawner.Update();
+        HealthCheck();
     }
 
     public void HealthCheck()
     {
-        if (_healthCount == 1)
+        if (health.transform.childCount == 0)
         {
-            SceneManager.LoadScene("Editor");
+            OnCreateResultBoard();
         }
-        health.transform.GetChild(_healthCount - 1).gameObject.SetActive(false);
-        _healthCount--;
     }
 
     // INFO : 여기서 우리가 만든 맵핑 데이터와 음악을 불러옵니다.
@@ -271,5 +281,10 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     public int GetCombo()
     {
         return 0;
+    }
+
+    public int GetHealthCount()
+    {
+        return health.transform.childCount;
     }
 }

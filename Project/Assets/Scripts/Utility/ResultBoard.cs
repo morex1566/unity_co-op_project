@@ -11,6 +11,8 @@ namespace Utility
 {
     public class ResultBoard : MonoBehaviour
     {
+        public static ResultBoard Instance;
+        
         [Header("Dependencies")] 
         [Space(5)] 
         [SerializeField] private TextMeshProUGUI mapName;
@@ -37,6 +39,17 @@ namespace Utility
 
         private void Awake()
         {
+            // 싱글톤
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else if(Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
             _MapName = Regex.Replace(GameManager.Instance.MapData.Filename, @"(\.txt|\.wav|\.mp3)", "");
             _PlayAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             _MaxCombo = FindObjectOfType<Sword>().GetMaxCombo();
@@ -55,7 +68,7 @@ namespace Utility
                 grade.text = _Grade;
                 score.text = _Score.ToString();
                 maxCombo.text = _MaxCombo.ToString();
-                hpRemain.text = GameManager.Instance.HealthCount.ToString();
+                hpRemain.text = GameManager.Instance.GetHealthCount().ToString();
                 playAt.text = _PlayAt;
                 accurancy.text = (_accurancy * 100) + "%";
             }
@@ -69,12 +82,18 @@ namespace Utility
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            updateInput();
+        }
+
+        private void updateInput()
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
             {
+                onDestroy();
                 SceneManager.LoadScene("SelectMap");
             }
         }
-
+        
         private void calculateAccurancy()
         {
             int totalHit = FindObjectOfType<Sword>().GetTotalHit();
@@ -139,6 +158,11 @@ namespace Utility
 
             // 애니메이션 완료 후 최종 값 설정
             scoreGraph.fillAmount = targetFillAmount;
+        }
+
+        private void onDestroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

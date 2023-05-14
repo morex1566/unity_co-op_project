@@ -20,6 +20,7 @@ namespace Title
         // TODO : 연결해주세요
         public void OnClick()
         {
+            BackgroundProcess.Instance.OnStopMusic();
             SceneManager.LoadScene("MapEditor");
         }
 

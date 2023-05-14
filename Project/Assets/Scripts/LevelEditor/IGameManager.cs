@@ -32,6 +32,7 @@ public interface IGameManagerObstacleSpawner : IGameManager
 {
     GameObject FragileObstaclePrefab { get; }
     GameObject StaticObstaclePrefab { get; }
+    GameObject SpawnPointPrefab { get; }
     float MapSpeed { get; }
     float SyncSpeed { get; }
     float PlatformWidth { get; }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +31,8 @@ public class ObjectPool<T> where T : new()
 public class LevelObstacleSpawner
 {
     private IGameManagerObstacleSpawner _gameManager;
+
+    private GameObject _spawnPointPrefab;
     
     // 맵 정보
     private MapData _mapData;
@@ -62,8 +63,8 @@ public class LevelObstacleSpawner
     private Queue<KeyValuePair<int, int>> _holeObstacleTimline;
 
     private List<GameObject> _currReleasedObstacles;
-    private List<Vector3> _spawnPoints;
-    
+    private List<GameObject> _spawnPoints;
+
     // 초기화되었는지 확인합니다. Start()를 호출할 때, 필요합니다.
     private bool _isInit = false;
     private Task _spawner;
@@ -83,6 +84,7 @@ public class LevelObstacleSpawner
         // 게임 매니저에서 정보 가져오기
         _fragileObstaclePrefab = _gameManager.FragileObstaclePrefab;
         _staticObstaclePrefab = _gameManager.StaticObstaclePrefab;
+        _spawnPointPrefab = _gameManager.SpawnPointPrefab;
         _syncSpeed = _gameManager.SyncSpeed;
         _fragileObstacleSize = _gameManager.FragileObstacleSize;
         _staticObstacleSize = _gameManager.StaticObstacleSize;
@@ -95,7 +97,7 @@ public class LevelObstacleSpawner
         _mapSpeed = _gameManager.MapSpeed;
         
         _currReleasedObstacles = new List<GameObject>();
-        _spawnPoints = new List<Vector3>();
+        _spawnPoints = new List<GameObject>();
 
         _fragileSpawnTimeline = new Queue<KeyValuePair<int, int>>();
         _staticObstacleTimeline = new Queue<KeyValuePair<int, KeyValuePair<int, int>>>();
@@ -104,7 +106,7 @@ public class LevelObstacleSpawner
         
         // _spawnPoints의 위치를 할당
         getSpawnPosition();
-        CreateSpawnTimeline(0);
+        CreateSpawnTimeline(GameManager.Instance.StartDelay);
 
         FragileObstacleCount = _fragileSpawnTimeline.Count;
 
@@ -129,24 +131,28 @@ public class LevelObstacleSpawner
             int sync = (int)((_gameManager.GetDistance() / _mapSpeed) * 10);
             float time = _gameManager.OnGetTime(TimePer.Milisec);
             
+            Debug.Log(time);
+            Debug.Log(sync);
+
             // 종료되었는지 확인
             if (token.IsCancellationRequested) { return; }
 
             // 부서지는 오브젝트 생성
             while (_fragileSpawnTimeline.Count > 0 && _fragileSpawnTimeline.Peek().Key - (sync) <= time)
             {
-                
+                Debug.Log(_fragileSpawnTimeline.Peek().Key);
+                Debug.Log(_fragileSpawnTimeline.Peek().Key - (sync));
                 // 장애물의 회전목표 계산
-                Vector3 start = _spawnPoints[_fragileSpawnTimeline.Peek().Value];
+                Vector3 start = _spawnPoints[_fragileSpawnTimeline.Peek().Value].transform.position;
                 Vector3 dest = _gameManager.GetCenterPointAtLevel();
-                        dest.z = _spawnPoints[0].z; 
+                        dest.z = _spawnPoints[0].transform.position.z; 
                 Vector3 dir = dest - start;
                 
                 // 장애물을 인스턴싱합니다
                 GameObject obstacle = UnityEngine.Object.Instantiate(
                     _fragileObstaclePrefab,
-                    _spawnPoints[_fragileSpawnTimeline.Peek().Value],
-                    Quaternion.LookRotation(dir));
+                    _spawnPoints[_fragileSpawnTimeline.Peek().Value].transform.position,
+                    _spawnPoints[_fragileSpawnTimeline.Peek().Value].transform.rotation);
                 
                 // 관리될 수 있도록 컨테이너에 삽입
                 _currReleasedObstacles.Add(obstacle);
@@ -160,13 +166,13 @@ public class LevelObstacleSpawner
             while (_staticObstacleTimeline.Count > 0 && _staticObstacleTimeline.Peek().Key - (sync) <= time)
             {
                 // 정적 오브젝트의 회전값 계산
-                Vector3 start = _spawnPoints[_staticObstacleTimeline.Peek().Value.Key];
-                Vector3 dest = _spawnPoints[_staticObstacleTimeline.Peek().Value.Value];
+                Vector3 start = _spawnPoints[_staticObstacleTimeline.Peek().Value.Key].transform.position;
+                Vector3 dest = _spawnPoints[_staticObstacleTimeline.Peek().Value.Value].transform.position;
                 Quaternion rot = Quaternion.LookRotation(start - dest);
                 
                 // _spawnPoints들의 중앙
                 Vector3 spawnPoint = _gameManager.GetCenterPointAtLevel();
-                        spawnPoint.z = _spawnPoints[0].z;
+                        spawnPoint.z = _spawnPoints[0].transform.position.z;
                         
                 // 장애물을 인스턴싱 합니다
                 GameObject obstacle = UnityEngine.Object.Instantiate(_staticObstaclePrefab, spawnPoint, rot);
@@ -184,8 +190,8 @@ public class LevelObstacleSpawner
             {
                 // 쏴야 할 Ray의 방향 
                 Vector3 start = _gameManager.GetCenterPointAtLevel();
-                        start.z = _spawnPoints[0].z + 2;
-                Vector3 dest = _spawnPoints[_holeObstacleTimline.Peek().Value];
+                        start.z = _spawnPoints[0].transform.position.z + 2;
+                Vector3 dest = _spawnPoints[_holeObstacleTimline.Peek().Value].transform.position;
                         dest.z += 2;
                 Vector3 dir = dest - start;
 
@@ -213,7 +219,7 @@ public class LevelObstacleSpawner
     {
         _spawnerCancellation.Cancel();
     }
-    private void CreateSpawnTimeline(int start)
+    private void CreateSpawnTimeline(int delay)
     {
         for (int i = 0; i < _mapData.timeline; i++)
         {
@@ -225,12 +231,12 @@ public class LevelObstacleSpawner
 
                 if (color.Equals(Color.red))
                 {
-                    _fragileSpawnTimeline.Enqueue(new KeyValuePair<int, int>(i, j));
+                    _fragileSpawnTimeline.Enqueue(new KeyValuePair<int, int>(i + delay, j));
                 }
                 else 
                 if (color.Equals(Color.blue))
                 {
-                    _holeObstacleTimline.Enqueue(new KeyValuePair<int, int>(i, j));
+                    _holeObstacleTimline.Enqueue(new KeyValuePair<int, int>(i + delay, j));
                 }
                 else 
                 if (color.Equals(Color.green) && !staticObstacleFound)
@@ -242,7 +248,7 @@ public class LevelObstacleSpawner
                         if (color.Equals(Color.green)) { point2 = k; }
                     }
                     
-                    _staticObstacleTimeline.Enqueue(new KeyValuePair<int, KeyValuePair<int, int>>(i,
+                    _staticObstacleTimeline.Enqueue(new KeyValuePair<int, KeyValuePair<int, int>>(i + delay,
                                                         new KeyValuePair<int, int>(point1, point2)));
 
                     staticObstacleFound = true;
@@ -275,7 +281,9 @@ public class LevelObstacleSpawner
             // 장애물과 platform 사이의 offset 계산
             spawnPoint = spawnPoint - (Vector3.down * _spawnOffset);
             
-            _spawnPoints.Add(spawnPoint);
+            GameObject point = UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.identity);
+            _gameManager.AddGameObjectToLevel(point);
+            _spawnPoints.Add(point);
         }
         
         // 좌측 하단
@@ -296,8 +304,13 @@ public class LevelObstacleSpawner
             Vector3 rotatedUp = rotation * dir;  
 
             spawnPoint = spawnPoint - (rotatedUp * _spawnOffset);
+
+            GameObject point =
+                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, 60)));
+            _gameManager.AddGameObjectToLevel(point);
+            _spawnPoints.Add(point);
             
-            _spawnPoints.Add(spawnPoint);
+            
         }
         
         // 좌측 상단
@@ -319,7 +332,10 @@ public class LevelObstacleSpawner
 
             spawnPoint = spawnPoint - (rotatedUp * _spawnOffset);
             
-            _spawnPoints.Add(spawnPoint);
+            GameObject point =
+                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, 120)));
+            _gameManager.AddGameObjectToLevel(point);
+            _spawnPoints.Add(point);
         }
         
         // 상단
@@ -335,7 +351,10 @@ public class LevelObstacleSpawner
             // 장애물과 platform 사이의 offset 계산
             spawnPoint = spawnPoint - (Vector3.up * _spawnOffset);
             
-            _spawnPoints.Add(spawnPoint);
+            GameObject point =
+                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
+            _gameManager.AddGameObjectToLevel(point);
+            _spawnPoints.Add(point);
         }
 
         // 우측 상단
@@ -358,7 +377,10 @@ public class LevelObstacleSpawner
 
             spawnPoint = spawnPoint - (rotatedUp * _spawnOffset);
             
-            _spawnPoints.Add(spawnPoint);
+            GameObject point =
+                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, -120)));
+            _gameManager.AddGameObjectToLevel(point);
+            _spawnPoints.Add(point);
         }
         
         // 우측 하단
@@ -380,7 +402,10 @@ public class LevelObstacleSpawner
 
             spawnPoint = spawnPoint - (rotatedUp * _spawnOffset);
             
-            _spawnPoints.Add(spawnPoint);
+            GameObject point =
+                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, -60)));
+            _gameManager.AddGameObjectToLevel(point);
+            _spawnPoints.Add(point);
         }
     }
 

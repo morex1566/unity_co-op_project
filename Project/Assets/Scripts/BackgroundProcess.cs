@@ -11,7 +11,7 @@ public class BackgroundProcess
     private GameObject _loadPage;
 
     private float _maxVolume;
-    public AudioSource AudioSource => _audioSource;
+    public AudioSource AudioSource { get { return _audioSource; } set { _audioSource = value; } }
     
     private BackgroundProcess()
     {
@@ -57,9 +57,13 @@ public class BackgroundProcess
             _audioSource.volume -= Time.deltaTime / duration;
             yield return null;
         }
+
+        _audioSource.Stop();
     }
     public IEnumerator MusicFadeIn(float duration)
     {
+        _audioSource.Play();
+        
         while (_audioSource.volume < _maxVolume)
         {
             _audioSource.volume += Time.deltaTime / duration;
