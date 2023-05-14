@@ -15,7 +15,9 @@ public class Object : MonoBehaviour
     }
     private void Update()
     {
-        transform.Translate(Vector3.forward * speed);
+        if(player.transform.position.z-1 > transform.position.z)
+            transform.Translate(Vector3.forward * speed);
+        Debug.Log("player: " + player.transform.position.z + "object: " + transform.position.z);
         if(player.transform.position.z+10 <gameObject.transform.position.z)
         {
             Destroy(gameObject);

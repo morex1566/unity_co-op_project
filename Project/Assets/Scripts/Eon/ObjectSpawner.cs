@@ -6,6 +6,9 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField]
     GameObject box;
 
+    [SerializeField]
+    GameObject player;
+
     float randomXPositon =0;
 
     private void Start()
@@ -15,9 +18,10 @@ public class ObjectSpawner : MonoBehaviour
 
     IEnumerator MakeObject()
     {
-        randomXPositon = Random.Range(-1, -9);
-        Instantiate(box, new Vector3(randomXPositon, 19.15f, -24.265f), Quaternion.identity);
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(MakeObject());
+        //randomXPositon = Random.Range(2, -2);
+        Instantiate(box, new Vector3(player.transform.position.x+1, 1f, -15f), Quaternion.identity);
+        Instantiate(box, new Vector3(player.transform.position.x - 1, 1f, -15f), Quaternion.identity);
+        yield return null;
+        //StartCoroutine(MakeObject());
     }
 }
