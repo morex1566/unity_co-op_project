@@ -42,11 +42,13 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     
     // INFO : Script Cache
     private LevelTimer _levelTimer;
-    private LevelPlatformSpawner _levelPlatformSpawner;
-    private LevelObstacleSpawner _levelObstacleSpawner;
+    public LevelPlatformSpawner _levelPlatformSpawner;
+    public LevelObstacleSpawner _levelObstacleSpawner;
 
     private MapData _mapData;
     private int _healthCount = 10;
+    
+    
     
     // INFO : IGameManager 구현
     // INFO : 타이머를 멈춥니다.
@@ -100,6 +102,8 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         return Math.Abs(Math.Abs(levelStartPos) - Math.Abs(player.transform.position.z));
     }
     public MapData MapData => _mapData;
+
+    public int HealthCount => _healthCount;
     // INFO : ILevelPlatformSpawner 구현
     public GameObject PlatformPrefab => platformPrefab;
     public float MapSpeed => mapSpeed;

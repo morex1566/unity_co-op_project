@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -10,13 +11,23 @@ public class Sword : MonoBehaviour
     TMP_Text comboText;
 
     int comboCount = 0;
+    private int maxComboCount = 0;
+    private int totalHit;
+
+    private Collider _hitBox;
+    
+    public int ComboCount { get { return comboCount;} set { comboCount = value; } }
+
+    private void Awake()
+    {
+        _hitBox = GetComponent<BoxCollider>();
+    }
 
     private void Start()
     {
         comboText.text = comboCount.ToString();
     }
-
-
+    
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Fragile Obstacle" && 
@@ -26,12 +37,45 @@ public class Sword : MonoBehaviour
             Debug.Log("충돌");
             Renderer renderer = collision.gameObject.GetComponent<Renderer>();
             Material material = renderer.materials[0];
-            MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
-
-            comboText.text = comboCount++.ToString();
             
+            
+            collision.gameObject.transform.SetParent(null);
+            collision.enabled = false;
+            
+            MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
+            
+            // 콤보 관련 정리
+            {
+                totalHit++;
+                
+                if (comboCount >= maxComboCount)
+                {
+                    maxComboCount++;
+                }
+                
+                comboCount++;
+            }
+            
+            comboText.text = comboCount.ToString();
         }
     }
+
+    public int GetCombo()
+    {
+        return comboCount;
+    }
+
+    public int GetTotalHit()
+    {
+        return totalHit;
+    }
+
+    public int GetMaxCombo()
+    {
+        return maxComboCount;
+    }
+    
+    
 
     private void Update()
     {
@@ -45,5 +89,10 @@ public class Sword : MonoBehaviour
         {
             playerAnim.SetTrigger("RightAttack");
         }
+    }
+
+    private void onAttack(bool toggle)
+    {
+        _hitBox.enabled = toggle;
     }
 }

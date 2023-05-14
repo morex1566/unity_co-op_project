@@ -780,7 +780,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6842949711413020248}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1099,12 +1099,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f464cc46c9b93c4ab7c2dbfd0a025f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCombo: 0
-  comboCount: 0
-  maxHp: 0
-  hpRemain: 0
-  tagPanel: {fileID: 0}
-  tags: []
+  mapName: {fileID: 6842949711195357241}
+  grade: {fileID: 6842949710975062520}
+  score: {fileID: 6842949710946730406}
+  maxCombo: {fileID: 6842949711846875271}
+  hpRemain: {fileID: 6842949711838385663}
+  playAt: {fileID: 6842949710212378620}
+  accurancy: {fileID: 6842949711413020254}
+  scoreGraph: {fileID: 6842949711737752851}
+  TagPanel: {fileID: 6842949711879334359}
 --- !u!1 &6842949711737752861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+  m_Color: {r: 0.4562153, g: 1, b: 0.4198113, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1172,13 +1175,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e86a39ec6eebb7d4484feddbca288269, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6842949711838385657
@@ -2051,7 +2054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6842949712240277033
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2213,7 +2216,7 @@ PrefabInstance:
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}
@@ -2223,7 +2226,7 @@ PrefabInstance:
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}
@@ -2273,12 +2276,12 @@ PrefabInstance:
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1525962997753763102, guid: 1f904638872ea5348924a5f778f3ad04,
         type: 3}

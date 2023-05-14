@@ -90,7 +90,7 @@ public class LevelObstacleSpawner
         _levelStartPos = _gameManager.LevelStartPos;
         
         // TODO : 이 부분 하드코딩 config
-        _spawnOffset = 3f;
+        _spawnOffset = 2f;
 
         _mapSpeed = _gameManager.MapSpeed;
         
