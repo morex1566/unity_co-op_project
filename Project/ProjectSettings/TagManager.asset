@@ -9,6 +9,9 @@ TagManager:
   - Fragile Obstacle
   - Block
   - Static Obstacle
+  - Pause
+  - Result
+  - Popup
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Button
-  - 
+  - Popup
   - 
   - 
   - 

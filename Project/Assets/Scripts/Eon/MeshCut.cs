@@ -174,6 +174,7 @@ public class MeshCut
         rightSideObj.transform.rotation = victim_transform.rotation;
         rightSideObj.GetComponent<MeshFilter>().mesh = right_HalfMesh;
         rightSideObj.AddComponent<Rigidbody>();
+        rightSideObj.AddComponent<RightSide>();
 
         //leftside 콜라이더 타입 저장 후 대입
         Collider leftSideCollider = leftSideObj.GetComponent<Collider>();

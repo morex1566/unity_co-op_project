@@ -5,6 +5,7 @@
  *  주의 사항 :  Event 함수 등록할 때, function chaining하면 stack-tracing하기 힘들어 집니다....
  */
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,11 @@ public class MapEditorEventHandler : MonoBehaviour
         editorUI = GameObject.Find("UI").GetComponent<MapEditorUI>();
         editorAnimation = GameObject.Find("Editor").GetComponent<MapEditorAnimation>();
         editorFileIO = GameObject.Find("Editor").GetComponent<MapEditorFileIO>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update()

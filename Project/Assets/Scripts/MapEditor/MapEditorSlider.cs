@@ -42,7 +42,7 @@ public class MapEditorSlider : MonoBehaviour,  IPointerDownHandler, IPointerUpHa
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        messageBox.SetActive(false);
+        messageBox.SetActive(true);
         msgAccessor.textmeshpro.text = valueText;
     }
 
