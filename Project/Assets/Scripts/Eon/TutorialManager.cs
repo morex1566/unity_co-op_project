@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class Tutorial : MonoBehaviour
+public class TutorialManager : MonoBehaviour
 {
     public float arrowTime = 10f;
     public float fadeTime = 1f;

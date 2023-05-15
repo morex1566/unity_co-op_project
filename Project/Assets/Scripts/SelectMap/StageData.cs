@@ -13,7 +13,10 @@ public class StageData : MonoBehaviour
     {
         // File의 이름을 등록
         string modifiedFilename = Regex.Replace(MapData.Filename, @"(\.txt|\.wav|\.mp3)", "");
-        image.GetComponentInChildren<TextMeshProUGUI>().text = modifiedFilename;
+        if (image)
+        {
+            image.GetComponentInChildren<TextMeshProUGUI>().text = modifiedFilename;
+        }
     }
 
     public void OnPlayMap()
