@@ -67,8 +67,18 @@ public class MapEditorManager : MonoBehaviour
         {
             eventHandler.SetSongCurrentTime(song.source.time);
         }
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (song.source.isPlaying)
+            {
+                song.source.Stop();
+            }
+            else
+            {
+                PlaySongAt(GameObject.Find("UI").GetComponent<MapEditorUI>().GetSongCurrentRealTime());
+            }
+        }
     }
 
     public void PlaySongAt(float time)

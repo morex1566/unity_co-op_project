@@ -17,6 +17,7 @@ public class SwipeUI : MonoBehaviour
     [Space(5)]
     [SerializeField] private GameObject imageCircle;
     [SerializeField] private GameObject stage;
+    [SerializeField] private GameObject tutorial;
     
     // stage가 생성될 곳
     [SerializeField] private GameObject stageContent;
@@ -79,6 +80,15 @@ public class SwipeUI : MonoBehaviour
             
             UpdateSwipe();
         }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            UpdateSwipe(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            UpdateSwipe(false);
+        }
+        
     }
 
     void UpdateSwipe()
@@ -105,6 +115,24 @@ public class SwipeUI : MonoBehaviour
             currentPage++;
         }
 
+        StartCoroutine(OnSwipeOneStep(currentPage));
+    }
+
+    void UpdateSwipe(bool isLeft)
+    {
+        if(isLeft == true)
+        {
+            if (currentPage == 0) return;
+
+            currentPage--;
+        }
+        else
+        {
+            if (currentPage == maxPage - 1) return;
+            
+            currentPage++;
+        }
+        
         StartCoroutine(OnSwipeOneStep(currentPage));
     }
 
@@ -162,14 +190,9 @@ public class SwipeUI : MonoBehaviour
                 _maps.Add(new MapData(FileLoadManager.LoadMapData(file.Name)));
             }
 
-            maxPage = _maps.Count;
+            maxPage = _maps.Count + 1;
         }
 
-        // 맵 파일 정보를 UI에 저장
-        {
-            
-        }
-        
         // UI생성
         {
             // index 생성
@@ -191,8 +214,18 @@ public class SwipeUI : MonoBehaviour
             // 인스턴싱
             for (int i = 0; i < maxPage; i++)
             {
+                // 튜토리얼용
+                if (i == 0)
+                {
+                    GameObject tutorialInstance =  Instantiate(tutorial, stageContent.transform);
+                    GameObject circle = Instantiate(imageCircle, panelCircleContent.transform);
+                    circleContents[i] = circle.transform;
+                    
+                    continue;
+                }
+                
                 GameObject stageInstance =  Instantiate(stage, stageContent.transform);
-                stageInstance.GetComponentInChildren<StageData>().MapData = _maps[i];
+                stageInstance.GetComponentInChildren<StageData>().MapData = _maps[i - 1];
                 GameObject circleInstance = Instantiate(imageCircle, panelCircleContent.transform);
                 circleContents[i] = circleInstance.transform;
             }
