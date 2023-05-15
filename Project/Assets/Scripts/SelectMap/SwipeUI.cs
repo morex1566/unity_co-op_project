@@ -191,8 +191,8 @@ public class SwipeUI : MonoBehaviour
             }
 
             // 튜토리얼용
-            // maxPage = _maps.Count + 1;
-            maxPage = _maps.Count;
+             maxPage = _maps.Count + 1;
+            // maxPage = _maps.Count;
         }
 
         // UI생성
@@ -216,18 +216,18 @@ public class SwipeUI : MonoBehaviour
             // 인스턴싱
             for (int i = 0; i < maxPage; i++)
             {
-                // // 튜토리얼용
-                // if (i == 0)
-                // {
-                //     GameObject tutorialInstance =  Instantiate(tutorial, stageContent.transform);
-                //     GameObject circle = Instantiate(imageCircle, panelCircleContent.transform);
-                //     circleContents[i] = circle.transform;
-                //     
-                //     continue;
-                // }
+                // 튜토리얼용
+                if (i == 0)
+                {
+                    GameObject tutorialInstance =  Instantiate(tutorial, stageContent.transform);
+                    GameObject circle = Instantiate(imageCircle, panelCircleContent.transform);
+                    circleContents[i] = circle.transform;
+                    
+                    continue;
+                }
                 
                 GameObject stageInstance =  Instantiate(stage, stageContent.transform);
-                stageInstance.GetComponentInChildren<StageData>().MapData = _maps[i];
+                stageInstance.GetComponentInChildren<StageData>().MapData = _maps[i - 1];
                 GameObject circleInstance = Instantiate(imageCircle, panelCircleContent.transform);
                 circleContents[i] = circleInstance.transform;
             }

@@ -64,8 +64,7 @@ public class TestMap : MonoBehaviour
         isPause = false;
     }
 
- 
-
+    
     public void SetBgmVolume()
     {
         audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
