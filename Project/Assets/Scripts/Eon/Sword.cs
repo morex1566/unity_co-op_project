@@ -1,42 +1,100 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
+
 public class Sword : MonoBehaviour
 {
-    [SerializeField]
-    Animator playerAnim;
+    [SerializeField] Animator playerAnim;
 
-    [SerializeField]
-    TMP_Text comboText;
+    [SerializeField] TMP_Text comboText;
+
+    [SerializeField] private AudioSource hitSound;
+
+    [SerializeField] private GameObject healthPrefab;
+
 
     int comboCount = 0;
+    private int maxComboCount = 0;
+    private int totalHit;
+
+    private Collider _hitBox;
+
+    public int ComboCount { get { return comboCount; } set { comboCount = value; } }
+
+    private void Awake()
+    {
+        _hitBox = GetComponent<BoxCollider>();
+    }
 
     private void Start()
     {
         comboText.text = comboCount.ToString();
     }
 
-
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Fragile Obstacle" && 
-             (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") ||
+        if (collision.gameObject.tag == "Fragile Obstacle" &&
+            (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") ||
              playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack")))
         {
             Debug.Log("충돌");
             Renderer renderer = collision.gameObject.GetComponent<Renderer>();
             Material material = renderer.materials[0];
+
+
+            collision.gameObject.transform.SetParent(null);
+            collision.enabled = false;
+
+            hitSound.Play();
+
             MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
 
-            comboText.text = comboCount++.ToString();
-            
+            // 콤보 관련 정리
+            {
+                totalHit++;
+
+                if (comboCount >= maxComboCount)
+                {
+                    maxComboCount++;
+                }
+
+                comboCount++;
+
+                // // combo가 10단위마다 체력이 참
+                // // TODO : 체력 최대 제한 여기 수정
+                // {
+                //     if (comboCount % 10 == 0)
+                //     {
+                //         if (GameManager.Instance.Health.transform.childCount < 10)
+                //         {
+                //             Instantiate(healthPrefab, GameManager.Instance.Health.transform);
+                //         }
+                //     }
+                // }
+            }
+
+            comboText.text = comboCount.ToString();
         }
     }
 
+    public int GetCombo()
+    {
+        return comboCount;
+    }
+
+    public int GetTotalHit()
+    {
+        return totalHit;
+    }
+
+    public int GetMaxCombo()
+    {
+        return maxComboCount;
+    }
+
+
     private void Update()
     {
-       
         if (Input.GetKeyDown(KeyCode.A))
         {
             playerAnim.SetTrigger("LeftAttack");
@@ -46,5 +104,10 @@ public class Sword : MonoBehaviour
         {
             playerAnim.SetTrigger("RightAttack");
         }
+    }
+
+    private void onAttack(bool toggle)
+    {
+        _hitBox.enabled = toggle;
     }
 }

@@ -1,22 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Utility;
 
 public class TestMap : MonoBehaviour
 {
 
     [SerializeField]
     GameObject health;
-
+    
     [SerializeField]
     GameObject stopImg;
 
     [FormerlySerializedAs("audio")] [SerializeField]
     AudioSource _audio;
+
+    [SerializeField] private AudioSource hitSound;
+
+    [SerializeField] private Collider swordCollider;
 
     public AudioMixer audioMixer;
 
@@ -24,15 +27,10 @@ public class TestMap : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Fragile Obstacle")
-        {
-            Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
-            Debug.Log("qqq");
-        }
-        
         if (collision.gameObject.tag == "Static Obstacle")
         {
             Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            hitSound.Play();
             Debug.Log("qqq");
         }
     }
@@ -42,13 +40,16 @@ public class TestMap : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPause)
+            if (!ResultBoard.Instance)
             {
-                pause();
-            }
-            else
-            {
-                Resume();
+                if (isPause)
+                {
+                    pause();
+                }
+                else
+                {
+                    Resume();
+                }
             }
         }
 
@@ -82,6 +83,16 @@ public class TestMap : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Title");
+    }
+    
+    private void OnAttackTrue()
+    {
+        swordCollider.enabled = true;
+    }
+
+    private void OnAttackFalse()
+    {
+        swordCollider.enabled = false;
     }
 
     public void Restart()

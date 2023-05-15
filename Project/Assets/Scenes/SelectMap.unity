@@ -1113,6 +1113,8 @@ MonoBehaviour:
   imageCircle: {fileID: 6441698422087401741, guid: 68e930381e0c87147887a459edb6d8b9,
     type: 3}
   stage: {fileID: 8087034736912471367, guid: 092f13ba755939a48b1a9a3e7d31a2d7, type: 3}
+  tutorial: {fileID: 8087034736912471367, guid: fd12597d272ff744890fa870e03b5efa,
+    type: 3}
   stageContent: {fileID: 1062966088}
   panelCircleContent: {fileID: 1042456665}
   scrollbar: {fileID: 362166609}
@@ -1836,6 +1838,7 @@ MonoBehaviour:
   imageCircle: {fileID: 6441698422087401741, guid: 68e930381e0c87147887a459edb6d8b9,
     type: 3}
   stage: {fileID: 8087034736912471367, guid: 092f13ba755939a48b1a9a3e7d31a2d7, type: 3}
+  tutorial: {fileID: 0}
   stageContent: {fileID: 1997327672}
   panelCircleContent: {fileID: 1042456665}
   scrollbar: {fileID: 311061689}
