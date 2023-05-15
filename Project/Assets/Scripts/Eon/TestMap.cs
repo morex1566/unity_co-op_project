@@ -17,6 +17,8 @@ public class TestMap : MonoBehaviour
     [FormerlySerializedAs("audio")] [SerializeField]
     AudioSource _audio;
 
+    [SerializeField] private AudioSource hitSound;
+
     [SerializeField] private Collider swordCollider;
 
     public AudioMixer audioMixer;
@@ -28,6 +30,7 @@ public class TestMap : MonoBehaviour
         if (collision.gameObject.tag == "Static Obstacle")
         {
             Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            hitSound.Play();
             Debug.Log("qqq");
         }
     }
