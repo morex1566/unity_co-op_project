@@ -10,6 +10,8 @@ public class Sword : MonoBehaviour
     [SerializeField]
     TMP_Text comboText;
 
+    [SerializeField] private AudioSource hitSound;
+
     int comboCount = 0;
     private int maxComboCount = 0;
     private int totalHit;
@@ -41,6 +43,8 @@ public class Sword : MonoBehaviour
             
             collision.gameObject.transform.SetParent(null);
             collision.enabled = false;
+            
+            hitSound.Play();
             
             MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
             

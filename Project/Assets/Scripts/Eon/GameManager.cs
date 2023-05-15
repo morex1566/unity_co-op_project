@@ -172,13 +172,15 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         _levelPlatformSpawner.Update();
         HealthCheck();
+        
+        Debug.Log(health.transform.childCount);
     }
 
     public void HealthCheck()
     {
-        if (health.transform.childCount == 0)
+        if (health.transform.childCount <= 0)
         {
-            OnCreateResultBoard(0f);
+            OnCreateResultBoard();
         }
     }
 
@@ -256,7 +258,14 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         IEnumerator createResultBoard()
         {
             // 장애물이 완전히 도착할 때까지 대기
-            yield return new WaitForSeconds(GetDistance() / mapSpeed * 1.5f);
+            if (health.transform.childCount <= 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            else
+            {
+                yield return new WaitForSeconds(GetDistance() / mapSpeed * 1.5f);
+            }
         
             resultBoard.SetActive(true);
         

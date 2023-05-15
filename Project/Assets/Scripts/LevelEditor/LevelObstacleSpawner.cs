@@ -130,9 +130,6 @@ public class LevelObstacleSpawner
         {
             int sync = (int)((_gameManager.GetDistance() / _mapSpeed) * 10);
             float time = _gameManager.OnGetTime(TimePer.Milisec);
-            
-            Debug.Log(time);
-            Debug.Log(sync);
 
             // 종료되었는지 확인
             if (token.IsCancellationRequested) { return; }
@@ -140,8 +137,6 @@ public class LevelObstacleSpawner
             // 부서지는 오브젝트 생성
             while (_fragileSpawnTimeline.Count > 0 && _fragileSpawnTimeline.Peek().Key - (sync) <= time)
             {
-                Debug.Log(_fragileSpawnTimeline.Peek().Key);
-                Debug.Log(_fragileSpawnTimeline.Peek().Key - (sync));
                 // 장애물의 회전목표 계산
                 Vector3 start = _spawnPoints[_fragileSpawnTimeline.Peek().Value].transform.position;
                 Vector3 dest = _gameManager.GetCenterPointAtLevel();
