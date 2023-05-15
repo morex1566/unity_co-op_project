@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8087034736912471366}
   - component: {fileID: 8087034736912471360}
   - component: {fileID: 8087034736912471361}
-  - component: {fileID: 6069389648142271756}
+  - component: {fileID: 887345591716903543}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6069389648142271756
+--- !u!114 &887345591716903543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,9 +212,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8087034736912471367}
-        m_TargetAssemblyTypeName: StageData, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 887345591716903543}
+        m_TargetAssemblyTypeName: Tutorial, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
