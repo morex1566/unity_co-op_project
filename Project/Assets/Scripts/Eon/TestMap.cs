@@ -10,7 +10,7 @@ public class TestMap : MonoBehaviour
 
     [SerializeField]
     GameObject health;
-
+    
     [SerializeField]
     GameObject stopImg;
 

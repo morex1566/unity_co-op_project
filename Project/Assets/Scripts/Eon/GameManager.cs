@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     private int _healthCount = 10;
     public int StartDelay = 30;
     
+    public GameObject Health { get { return health; } set { health = value; } }
+    
     
     
     // INFO : IGameManager 구현
@@ -172,8 +174,6 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         _levelPlatformSpawner.Update();
         HealthCheck();
-        
-        Debug.Log(health.transform.childCount);
     }
 
     public void HealthCheck()
