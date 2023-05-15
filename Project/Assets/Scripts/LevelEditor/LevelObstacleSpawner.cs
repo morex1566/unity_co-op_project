@@ -412,4 +412,46 @@ public class LevelObstacleSpawner
         // GameManager에게 종료 UI요청
         GameManager.Instance.OnCreateResultBoard();
     }
+
+    /// <summary>
+    /// Timeline을 구하기 위해 사용
+    /// </summary>
+    /// <returns>마지막 obstacle의 time</returns>
+    public int LastObstacleTime()
+    {
+        int lastTime = 0;
+
+        int fragileLastTime = 0;
+        foreach (var element in _fragileSpawnTimeline)
+        {
+            fragileLastTime = element.Key;
+        }
+
+        int staticLastTime = 0;
+        foreach (var element in _staticObstacleTimeline)
+        {
+            staticLastTime = element.Key;
+        }
+
+        int holeLastTime = 0;
+        foreach (var element in _holeObstacleTimline)
+        {
+            holeLastTime = element.Key;
+        }
+
+        lastTime = fragileLastTime;
+
+        if (lastTime < staticLastTime)
+        {
+            lastTime = staticLastTime;
+        }
+
+        if (lastTime < holeLastTime)
+        {
+            lastTime = holeLastTime;
+        }
+
+
+        return lastTime;
+    }
 }
