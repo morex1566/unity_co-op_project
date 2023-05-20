@@ -2599,6 +2599,8 @@ MonoBehaviour:
     type: 3}
   fragileObstacleSize: 1
   staticObstacleSize: 1
+  hitPopup: {fileID: 2703915269820462964, guid: d8d2cfe8276e8c843af948626a5f24bc,
+    type: 3}
   songName: 
   StartDelay: 30
 --- !u!4 &1348260060

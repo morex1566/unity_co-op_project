@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [SerializeField] private GameObject level;
     [SerializeField] private GameObject resultBoard;
 
+    
     [Header("LevelPlatformSpawner Setting")]
     [Space(5)]
     [SerializeField] private GameObject platformPrefab;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [SerializeField] private float levelStartPos;
     [SerializeField] private int platformLayerCount;
         
+    
     [Header("LevelObstacleSpawner Setting")]
     [Space(5)]
     [SerializeField] private GameObject fragileObstaclePrefab;
@@ -34,14 +36,22 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [SerializeField] private GameObject spawnPointPrefab;
     [SerializeField] private float fragileObstacleSize;
     [SerializeField] private float staticObstacleSize;
+
+    
+    [Header("UI 설정")] [Space(5)] 
+    [Tooltip("플레이어가 장애물을 부술 때 나타나는 점수 UI")]
+    [SerializeField] private GameObject hitPopup;
+    
     
     [Header("Song Information")]
     [Space(5)]
     private AudioSource _audioSource;
     [FormerlySerializedAs("name")] [HideInInspector][SerializeField] private string songName;
+
     
     // INFO : Script Cache
     private LevelTimer _levelTimer;
+    private HitPopup _hitPopup;
     public LevelPlatformSpawner _levelPlatformSpawner;
     public LevelObstacleSpawner _levelObstacleSpawner;
 
@@ -53,7 +63,6 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     
     
     
-    // INFO : IGameManager 구현
     // INFO : 타이머를 멈춥니다.
     public void OnPauseTimer()
     {
@@ -104,10 +113,12 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         return Math.Abs(Math.Abs(levelStartPos) - Math.Abs(player.transform.position.z));
     }
+    
+    // INFO : etc...
     public MapData MapData => _mapData;
     public AudioSource AudioSource => _audioSource;
-
     public int HealthCount => _healthCount;
+
     // INFO : ILevelPlatformSpawner 구현
     public GameObject PlatformPrefab => platformPrefab;
     public float MapSpeed => mapSpeed;
@@ -117,6 +128,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     public float LevelStartPos => levelStartPos;
     public int PlatformLayerCount => platformLayerCount;
     
+    
     // INFO : ILevelObstacleSpawner 구현
     public GameObject FragileObstaclePrefab => fragileObstaclePrefab;
     public GameObject StaticObstaclePrefab => staticObstaclePrefab;
@@ -125,6 +137,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     public float FragileObstacleSize => fragileObstacleSize;
     public float StaticObstacleSize => staticObstacleSize;
     public float AtTime => _levelTimer.At();
+    
 
     private void Awake()
     {
@@ -146,6 +159,8 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         {
             Debug.Log("LoadMapData error");   
         }
+
+        _hitPopup = hitPopup.GetComponent<HitPopup>();
 
         _levelTimer = new LevelTimer();
         _levelObstacleSpawner = new LevelObstacleSpawner();
@@ -294,5 +309,15 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     public int GetHealthCount()
     {
         return health.transform.childCount;
+    }
+    
+    /// <summary>
+    /// 팝업 UI를 Scene에 인스턴싱합니다.
+    /// <param name="transform_">팝업이 생성되는 위치, 회전정보</param>
+    /// <param name="text_">팝업의 내용</param>
+    /// </summary>
+    public void ShowPopup(Transform transform_, string text_)
+    {
+        _hitPopup.ShowPopup(transform_, text_);
     }
 }
