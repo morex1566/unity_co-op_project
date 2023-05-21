@@ -52,8 +52,6 @@ public class HitPopup : MonoBehaviour
     private IEnumerator atDestroy(float waitTime = 0f)
     {
         yield return new WaitForSeconds(waitTime == 0f ? lifespan : waitTime);
-     
-        Debug.Log("done");
         
         Destroy(gameObject);
     }

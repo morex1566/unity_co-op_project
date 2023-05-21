@@ -54,10 +54,7 @@ namespace Title
             float angleStep = 360f / _bandCount;
             float scaleFactor = Mathf.Min(Screen.width / 1920f, Screen.height / 1080f);
             float logoRadius = Mathf.Abs(GetComponent<RectTransform>().sizeDelta.x - borderPadding) * scaleFactor / 2;
-            
-            Debug.Log(GetComponent<RectTransform>().sizeDelta.x );
-            Debug.Log(scaleFactor);
-            
+
             // band가 생성될 위치를 지정합니다.
             for (int i = 0; i < _bandCount; i++)
             {

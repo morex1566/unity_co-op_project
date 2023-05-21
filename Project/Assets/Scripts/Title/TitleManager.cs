@@ -69,6 +69,7 @@ namespace Title
         private void Start()
         {
             StartCoroutine(BackgroundProcess.Instance.MusicFadeIn(1.0f));
+            
         }
 
         private void Update()
@@ -77,6 +78,11 @@ namespace Title
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 OnExitMenuCreate();
+            }
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                AlarmPopupManager.EnqueueAlarm("테스트", null, null, null);
             }
         }
 
