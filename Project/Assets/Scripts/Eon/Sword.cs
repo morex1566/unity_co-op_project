@@ -37,7 +37,6 @@ public class Sword : MonoBehaviour
             (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") ||
              playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack")))
         {
-            Debug.Log("충돌");
             Renderer renderer = collision.gameObject.GetComponent<Renderer>();
             Material material = renderer.materials[0];
 
@@ -59,18 +58,13 @@ public class Sword : MonoBehaviour
                 }
 
                 comboCount++;
-
-                // // combo가 10단위마다 체력이 참
-                // // TODO : 체력 최대 제한 여기 수정
-                // {
-                //     if (comboCount % 10 == 0)
-                //     {
-                //         if (GameManager.Instance.Health.transform.childCount < 10)
-                //         {
-                //             Instantiate(healthPrefab, GameManager.Instance.Health.transform);
-                //         }
-                //     }
-                // }
+            }
+            
+            // UI 관련 정리
+            {
+                // 적중 시, 점수 ui 출력
+                // TODO : 점수 시스템에 대해서 설정해야할듯.
+                GameManager.Instance.ShowPopup(collision.gameObject.transform, comboCount.ToString());
             }
 
             comboText.text = comboCount.ToString();

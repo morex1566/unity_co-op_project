@@ -9,8 +9,6 @@ public class LevelMissPanel : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Miss");
-        
         if (other.tag == "Fragile Obstacle" )
         {
             FindObjectOfType<Sword>().ComboCount = 0;
