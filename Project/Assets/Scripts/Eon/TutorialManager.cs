@@ -20,12 +20,14 @@ public class TutorialManager : MonoBehaviour
     public GameObject ObjectSpawner;
     public GameObject level;
     public GameObject end;
+    public Object boxObject; 
 
     string[] textList =
     {
         "←, → 키를 이용해 좌우로 움직이세요",
         "↑ 키를 이용해 점프하세요",
-        "A, D버튼을 이용해 블록을 파괴하세요"
+        "A, D버튼을 이용해 블록을 파괴하세요",
+        "튜토리얼 완료",
     };
 
     public TMP_Text tutoText;
@@ -59,7 +61,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     Debug.Log(actionCount);
                     actionCount++;
-                    if(actionCount>0)
+                    if(actionCount>0 && !complete)
                     {
                         StartCoroutine(FadeOut(3));
                     }
@@ -68,15 +70,19 @@ public class TutorialManager : MonoBehaviour
 
             case (2):
                 ObjectSpawner.SetActive(true);
+                Object box = FindObjectOfType<Object>();
                 level.transform.position = Vector3.zero;
                 level.transform.rotation= Quaternion.Euler(0,0,0);
                 level.GetComponent<LevelManager>().enabled = false;
-                if (Input.GetKeyDown(KeyCode.A))
-                    left = true;
-                else if (Input.GetKeyDown(KeyCode.D))
-                    right = true;
+                if (box.boxStop)
+                {
+                    if (Input.GetKeyDown(KeyCode.A))
+                        left = true;
+                    else if (Input.GetKeyDown(KeyCode.D))
+                        right = true;
+                }
 
-                if (left && right)
+                if (left && right && !complete)
                     StartCoroutine(FadeOut());    
                 break;
 
@@ -130,6 +136,6 @@ public class TutorialManager : MonoBehaviour
 
     public void Title()
     {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("SelectMap");
     }
 }

@@ -46,7 +46,7 @@ public class Sword : MonoBehaviour
 
             hitSound.Play();
 
-            MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
+            MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.up, material);
 
             // 콤보 관련 정리
             {
