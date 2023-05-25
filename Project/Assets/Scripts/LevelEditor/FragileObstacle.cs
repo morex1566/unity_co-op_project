@@ -7,9 +7,23 @@ public class FragileObstacle : MonoBehaviour
 
     private float _mapSpeed;
 
+    [SerializeField] Transform arrow;
+    [SerializeField] Material leftMat;
+    int randomNum;
+    public string direction;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        randomNum = Random.Range(0, 2);
+        if (randomNum == 0)
+            direction = "Right";
+        else
+        {
+            direction = "Left";
+            arrow.GetComponent<MeshRenderer>().material = leftMat;
+        }
         _gameManager = GameManager.Instance as IGameManagerPlatformSpawner;
         _mapSpeed = _gameManager.MapSpeed;
     }
