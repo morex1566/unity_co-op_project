@@ -68,7 +68,7 @@ namespace Utility
                 grade.text = _Grade;
                 score.text = _Score.ToString();
                 maxCombo.text = _MaxCombo.ToString();
-                hpRemain.text = GameManager.Instance.GetHealthCount().ToString();
+                hpRemain.text = FindObjectOfType<Health>().GetHealthNum().ToString();//GameManager.Instance.GetHealthCount().ToString();
                 playAt.text = _PlayAt;
                 accurancy.text = (_accurancy * 100) + "%";
             }

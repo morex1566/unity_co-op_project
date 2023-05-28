@@ -12,6 +12,8 @@ public class Sword : MonoBehaviour
 
     [SerializeField] private GameObject healthPrefab;
 
+    [SerializeField] Health health;
+
 
     int comboCount = 0;
     private int maxComboCount = 0;
@@ -51,6 +53,9 @@ public class Sword : MonoBehaviour
                 hitSound.Play();
 
                 MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.up, material);
+
+                //체력
+                health.AddHp();
 
                 // 콤보 관련 정리
                 {

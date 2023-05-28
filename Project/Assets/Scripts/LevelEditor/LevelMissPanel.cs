@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelMissPanel : MonoBehaviour
 {
-    [SerializeField] private GameObject health;
+    [SerializeField] private Health health;
     [SerializeField] private TextMeshProUGUI combo;
     [SerializeField] private AudioSource missSound;
     
@@ -16,8 +16,9 @@ public class LevelMissPanel : MonoBehaviour
             missSound.Play();
 
             combo.text = FindObjectOfType<Sword>().ComboCount.ToString();
-            
-            Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+
+            //Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            health.SubHp();
             
             Destroy(other.gameObject);
         }

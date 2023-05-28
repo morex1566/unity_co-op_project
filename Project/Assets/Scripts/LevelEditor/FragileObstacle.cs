@@ -16,8 +16,8 @@ public class FragileObstacle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        randomNum = Random.Range(0, 2);
-        if (randomNum == 0)
+        randomNum = Random.Range(0, 20);
+        if (randomNum <10)
             direction = "Right";
         else
         {

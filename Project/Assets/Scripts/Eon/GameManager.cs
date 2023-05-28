@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [Header("Dependencies")] 
     [Space(5)] 
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject health;
+    //[SerializeField] private GameObject health;
+    [SerializeField] private Health health;
     [SerializeField] private GameObject level;
     [SerializeField] private GameObject resultBoard;
 
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     private int _healthCount = 10;
     public int StartDelay = 30;
     
-    public GameObject Health { get { return health; } set { health = value; } }
+    //public GameObject Health { get { return health; } set { health = value; } }
     
     
     
@@ -193,7 +194,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
 
     public void HealthCheck()
     {
-        if (health.transform.childCount <= 0)
+        if(health.GetHealthNum()<=0)//if (health.transform.childCount <= 0)
         {
             OnCreateResultBoard();
         }
@@ -273,7 +274,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
         IEnumerator createResultBoard()
         {
             // 장애물이 완전히 도착할 때까지 대기
-            if (health.transform.childCount <= 0)
+            if(health.GetHealthNum()<=0) //(health.transform.childCount <= 0)
             {
                 yield return new WaitForSeconds(0.1f);
             }

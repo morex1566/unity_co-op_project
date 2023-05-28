@@ -70,16 +70,28 @@ public class TutorialManager : MonoBehaviour
 
             case (2):
                 ObjectSpawner.SetActive(true);
-                Object box = FindObjectOfType<Object>();
+                //Object box = FindObjectOfType<Object>();
+                Object[] box = FindObjectsOfType<Object>();
+
+                Renderer[] renderer = { box[0].gameObject.GetComponent<Renderer>(), box[1].gameObject.GetComponent<Renderer>() };
+                Material[] material = { renderer[0].materials[0], renderer[1].materials[0] };//renderer.materials[0];
+
                 level.transform.position = Vector3.zero;
                 level.transform.rotation= Quaternion.Euler(0,0,0);
                 level.GetComponent<LevelManager>().enabled = false;
-                if (box.boxStop)
+                if (box[0].boxStop)
                 {
                     if (Input.GetKeyDown(KeyCode.A))
+                    {
                         left = true;
+                        MeshCut.Cut(box[1].gameObject, box[1].transform.position, Vector3.right, material[1]);
+                     
+                    }
                     else if (Input.GetKeyDown(KeyCode.D))
+                    {
                         right = true;
+                        MeshCut.Cut(box[0].gameObject, box[0].transform.position, Vector3.right, material[0]);
+                    }
                 }
 
                 if (left && right && !complete)
