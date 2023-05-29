@@ -12,6 +12,8 @@ public class Sword : MonoBehaviour
 
     [SerializeField] private GameObject healthPrefab;
 
+    [SerializeField] Health health;
+
 
     int comboCount = 0;
     private int maxComboCount = 0;
@@ -39,35 +41,42 @@ public class Sword : MonoBehaviour
              playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack")) &&
              hitFlag)
         {
-            Renderer renderer = collision.gameObject.GetComponent<Renderer>();
-            Material material = renderer.materials[0];
-
-
-            collision.gameObject.transform.SetParent(null);
-            collision.enabled = false;
-
-            hitSound.Play();
-
-            MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.right, material);
-
-            // 콤보 관련 정리
+            string blockDirection = collision.GetComponent<FragileObstacle>().direction;
+            if ((playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") && blockDirection == "Right") ||
+             (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") && blockDirection == "Left"))
             {
-                totalHit++;
+                Renderer renderer = collision.gameObject.GetComponent<Renderer>();
+                Material material = renderer.materials[0];
 
-                if (comboCount >= maxComboCount)
+
+                collision.gameObject.transform.SetParent(null);
+                collision.enabled = false;
+
+                hitSound.Play();
+
+                MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.up, material);
+
+                //체력
+                health.AddHp();
+
+                // 콤보 관련 정리
                 {
-                    maxComboCount++;
+                    totalHit++;
+
+                    if (comboCount >= maxComboCount)
+                    {
+                        maxComboCount++;
+                    }
+
+                    comboCount++;
                 }
 
-                comboCount++;
-            }
-            
-            // UI 관련 정리
-            {
-                // 적중 시, 점수 ui 출력
-                // TODO : 점수 시스템에 대해서 설정해야할듯.
-                GameManager.Instance.ShowPopup(collision.gameObject.transform, comboCount.ToString());
-            }
+                // UI 관련 정리
+                {
+                    // 적중 시, 점수 ui 출력
+                    // TODO : 점수 시스템에 대해서 설정해야할듯.
+                    GameManager.Instance.ShowPopup(collision.gameObject.transform, comboCount.ToString());
+                }
 
             comboText.text = comboCount.ToString();
 

@@ -9,7 +9,7 @@ public class TestMap : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject health;
+    Health health;
     
     [SerializeField]
     GameObject stopImg;
@@ -29,9 +29,9 @@ public class TestMap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Static Obstacle")
         {
-            Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
+            health.SubHp();
+            //Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
             hitSound.Play();
-            Debug.Log("qqq");
         }
     }
     bool isPause = true;
