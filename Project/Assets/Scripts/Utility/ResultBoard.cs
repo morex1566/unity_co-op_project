@@ -120,9 +120,13 @@ namespace Utility
             {
                 _Grade = "B";
             }
-            else
+            else if (accurancy >= 0.7f)
             {
                 _Grade = "C";
+            }
+            else
+            {
+                _Grade = "F";
             }
         }
 

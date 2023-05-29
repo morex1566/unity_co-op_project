@@ -43,7 +43,7 @@ public class Sword : MonoBehaviour
         {
             string blockDirection = collision.GetComponent<FragileObstacle>().direction;
             if ((playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") && blockDirection == "Right") ||
-             (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") && blockDirection == "Left"))
+                (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") && blockDirection == "Left"))
             {
                 Renderer renderer = collision.gameObject.GetComponent<Renderer>();
                 Material material = renderer.materials[0];
@@ -78,9 +78,10 @@ public class Sword : MonoBehaviour
                     GameManager.Instance.ShowPopup(collision.gameObject.transform, comboCount.ToString());
                 }
 
-            comboText.text = comboCount.ToString();
+                comboText.text = comboCount.ToString();
 
-            hitFlag = false;
+                hitFlag = false;
+            }
         }
     }
 
