@@ -94,7 +94,6 @@ namespace Title
             
                 _animator.SetTrigger(AsideLogo);
                 toolBar.GetComponent<TitleToolbar>().OnOff(true);
-                focusPanel.GetComponent<TitleFocusPanel>().OnOff(true);
             }
         }
 

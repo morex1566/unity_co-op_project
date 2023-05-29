@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,8 +20,10 @@ namespace Title
         [Tooltip("Timer GameObject에 포인터가 Enter되면 생기는 Select효과 알파값")]
         [Range(0f, 1f)]
         [SerializeField] private float alpha;
-    
-    
+        
+        [Tooltip("현재 시간")]
+        [SerializeField] private TextMeshProUGUI time;
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             // StartCoroutine(onFadeIn());
@@ -35,6 +39,11 @@ namespace Title
             
         }
 
+        private void Update()
+        {
+            TimeSpan currentTime = DateTime.Now.TimeOfDay;
+            time.text = currentTime.ToString(@"hh\:mm\:ss");
+        }
 
         private IEnumerator onFadeIn()
         {

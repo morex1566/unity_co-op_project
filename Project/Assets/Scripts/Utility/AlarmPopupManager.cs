@@ -55,7 +55,6 @@ namespace Utility
         /// </summary>
         public static void EnqueueAlarm(string text, GameObject icon, Action startEvent, Action endEvent)
         {
-
             GameObject popup = Instantiate(_instance.alarmUI, _instance.pivot);
             {
                 // 알림 팝업 정보들 초기화

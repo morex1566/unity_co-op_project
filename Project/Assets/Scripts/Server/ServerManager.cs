@@ -3,11 +3,12 @@
  */
 
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Networking;
+using Utility;
 
 namespace Server
 {
@@ -25,8 +26,8 @@ namespace Server
     /// </summary>
     public enum RankingCommand
     {
-        Add,
-        Load
+        AddRank,
+        LoadRank
     }
 
     /// <summary>
@@ -38,14 +39,15 @@ namespace Server
     /// </summary>
     public struct AccountPacket
     {
-        public string StatusCode;
-        public string Msg;
+        public int statusCode;
+        public string msg;
     }
 
     public struct RankingPacket
     {
-        public string StatusCode;
-        public string Msg;
+        public string UserName;
+        public string SongName;
+        public string Score;
     }
     
     public class ServerManager : MonoBehaviour
@@ -59,6 +61,8 @@ namespace Server
         [SerializeField] private string gatewayURL;
 
 
+        public static ServerManager Instance;
+
         private readonly Dictionary<AccountCommand, string> _accountCommandMap = new Dictionary<AccountCommand, string>()
         {
             {AccountCommand.Login, "Login"},
@@ -67,35 +71,81 @@ namespace Server
         
         private readonly Dictionary<RankingCommand, string> _rankingCommandMap = new Dictionary<RankingCommand, string>()
         {
-            {RankingCommand.Add, "Add"},
-            {RankingCommand.Load, "Load"}
+            {RankingCommand.AddRank, "AddRank"},
+            {RankingCommand.LoadRank, "LoadRank"}
         };
 
+        public IEnumerator Login(string userName, string id, string password, Action<bool> callback)
+        {
+            bool result = false;
+            
+            AlarmPopupManager.EnqueueAlarm("로그인 중입니다...", null, null, null);
+            yield return StartCoroutine(serverRequest(AccountCommand.Login, userName, id, password, value =>
+            {
+                // 성공
+                if (value >= 500)
+                {
+                    result = true;
+                    AlarmPopupManager.EnqueueAlarm("로그인!", null, null, null);
+                    callback?.Invoke(true);
+                }
+                // 실패
+                else
+                {
+                    result = false;
+                    AlarmPopupManager.EnqueueAlarm("실패ㅠㅠ, 아이디와 비밀번호를 확인해주세요", null, null, null);
+                    callback?.Invoke(false);
+                }
+            }));
 
-        /// <summary>
-        /// 서버에게 Request합니다.
-        /// </summary>
-        /// <param name="command">Request할 명령타입</param>
-        public void ServerCommand(AccountCommand command, string userName, string id, string password)
-            => StartCoroutine(serverRequest(command, userName, id, password));
-        /// <summary>
-        /// 서버에게 Request합니다.
-        /// </summary>
-        /// <param name="command">Request할 명령타입</param>
-        // public void ServerCommand(RankingCommand command, string userName, int score) => StartCoroutine(serverRequest(command, userName, score));
+            yield return result;
+        }
+        
+        public void Register(string userName, string id, string password)
+        {
+            AlarmPopupManager.EnqueueAlarm("계정을 생성중입니다...", null, null, null);
+            StartCoroutine(serverRequest(AccountCommand.Register, userName, id, password, value =>
+            {
+                // 성공
+                if (value >= 500)
+                {
+                    AlarmPopupManager.EnqueueAlarm("생성 완료!", null, null, null);
+                }
+                // 실패
+                else
+                {
+                    AlarmPopupManager.EnqueueAlarm("이미 존재하는 계정...", null, null, null);
+                }
+            }));
+        }
 
+        public void AddRank(string userName, string songName, string score)
+        {
+            AlarmPopupManager.EnqueueAlarm("점수를 등록중입니다...", null, null, null);
+
+        }
+
+        public void LoadRank(string songName)
+        {
+            StartCoroutine(serverRequest(RankingCommand.LoadRank, "Test_User", songName, "10"));
+        }
         
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+
+            if (!Instance)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
         }
 
-        private void Start()
-        {
-            
-        }
-        
-        private IEnumerator serverRequest(AccountCommand command, string userName, string id, string password)
+        private IEnumerator serverRequest(AccountCommand command, string userName, string id, string password, Action<int> callback)
         {
             WWWForm body = new WWWForm();
             body.AddField("EventType", "Account");
@@ -104,25 +154,57 @@ namespace Server
             body.AddField("ID", id);
             body.AddField("Password", password);
 
-            UnityWebRequest request = UnityWebRequest.Post(gatewayURL, body);
-
-            yield return request.SendWebRequest();
-
-            if (request.result == UnityWebRequest.Result.Success)
+            using UnityWebRequest request = UnityWebRequest.Post(gatewayURL, body);
             {
-                AccountPacket packet = JsonUtility.FromJson<AccountPacket>(request.downloadHandler.text);
-                Debug.Log(packet.StatusCode);
-                Debug.Log(packet.Msg);
+                yield return request.SendWebRequest();
+
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    foreach (KeyValuePair<string,string> valuePair in request.GetResponseHeaders())
+                    {
+                        if (valuePair.Key == "statusCode")
+                        {
+                            callback?.Invoke(Int32.Parse(valuePair.Value));
+                        }
+                    }
+                }
             }
         }
 
-        // // TODO : 비동기 메서드마다 결과값이 다를텐데.. 이걸 해결하는 방법
-        // private IEnumerator serverRequest(RankingCommand command, string userName, int score)
-        // {
-        //     WWWForm body = new WWWForm();
-        //     body.AddField("EventType", "Ranking");
-        //     body.AddField("CommandType", _rankingCommandMap.TryGetValue(command, out string value) ? value : null);
-        //     
-        // }
+        private IEnumerator serverRequest(RankingCommand command, string userName, string songName, string score = "10")
+        {
+            WWWForm body = new WWWForm();
+            body.AddField("EventType", "Ranking");
+            body.AddField("CommandType", _rankingCommandMap.TryGetValue(command, out string value) ? value : null);
+            body.AddField("UserName", userName);
+            body.AddField("SongName", songName);
+            body.AddField("Score", score);
+            
+            using UnityWebRequest request = UnityWebRequest.Post(gatewayURL, body);
+            {
+                yield return request.SendWebRequest();
+
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    string responseText = request.downloadHandler.text;
+                    
+                    Debug.Log(responseText);
+                    
+                    // JSON 응답 데이터를 C# 객체로 Deserialize
+                    if (responseText != null)
+                    {
+                        RankingPacket[] responseData = JsonUtility.FromJson<RankingPacket[]>(responseText);
+
+                        // C# 객체를 사용하여 Unity에서 처리
+                        foreach (RankingPacket data in responseData)
+                        {
+                            Debug.Log("UserName: " + data.UserName);
+                            Debug.Log("SongName: " + data.SongName);
+                            Debug.Log("Score: " + data.Score);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
