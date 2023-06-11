@@ -1,4 +1,3 @@
-using Server;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,18 +72,10 @@ namespace Utility
                 playAt.text = _PlayAt;
                 accurancy.text = (_accurancy * 100) + "%";
             }
-
-            // 점수를 DB에 등록합니다
+            
+            // score Graph의 애니메이션을 보여줍니다.
             {
-                if (AccountManager.ID == AccountManager.Default)
-                {
-                    AlarmPopupManager.EnqueueAlarm("오류 : Guest계정은 점수가 DB에 저장되지 않습니다.", null, null, null);
-                    AlarmPopupManager.EnqueueAlarm("도움말 : 타이틀화면에서 로그인을 해주세요.", null, null, null);
-                }
-                else
-                {
-                    ServerManager.Instance.AddRank(AccountManager.ID, mapName.text, score.text);
-                }
+                
             }
         }
 
@@ -129,13 +120,9 @@ namespace Utility
             {
                 _Grade = "B";
             }
-            else if (accurancy >= 0.7f)
-            {
-                _Grade = "C";
-            }
             else
             {
-                _Grade = "F";
+                _Grade = "C";
             }
         }
 

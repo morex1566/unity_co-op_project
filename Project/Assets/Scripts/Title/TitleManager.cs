@@ -79,6 +79,11 @@ namespace Title
             {
                 OnExitMenuCreate();
             }
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                AlarmPopupManager.EnqueueAlarm("테스트", null, null, null);
+            }
         }
 
         private bool instantiate()

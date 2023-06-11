@@ -21,30 +21,6 @@ MonoBehaviour:
     m_Address: Loading.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 56578f9972cd75d4ba776fc3babc4739
-    m_Address: Drum_and_Bass_-_Peanut.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ea3ac894c7556a64e80f233fd770c8c8
-    m_Address: Streaming-Heart.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 150fe62835a33ec419fbee450663c78e
-    m_Address: Tom_Orlando_-_Out_Of_My_Head__Radio_Edit_.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 359081d7390647e41b2ae608b2cc2a5a
-    m_Address: Drum_and_Bass_-_Peanut
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ee0bac57fa49fa74999818adf23d9ffc
-    m_Address: Streaming-Heart
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8763e16665bd99b49b811c96d9c9f195
-    m_Address: Tom_Orlando_-_Out_Of_My_Head__Radio_Edit_
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 96ad7f0e208dd154287159283f7acedd, type: 2}
   m_SchemaSet:

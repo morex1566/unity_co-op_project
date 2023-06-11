@@ -1,10 +1,8 @@
-using Server;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Utility;
 
 // TODO : 지금 GameManager는 모든 Scene에서 사용 가능할듯 합니다. 현재 Scene에서만 사용가능하도록 제한해야 할듯
 public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameManagerObstacleSpawner
@@ -286,7 +284,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
             }
         
             resultBoard.SetActive(true);
-
+        
             // 소리 음량 감소
             StartCoroutine(OnMusicFadeOut(duration, 0.2f));
         }

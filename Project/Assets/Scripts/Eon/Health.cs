@@ -22,12 +22,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         if (curHp > 0)
-        {
-            if (curHp > 3)
-            {
-                curHp -= Time.deltaTime;
-            }
-        }
+            curHp -= Time.deltaTime;
         else
             curHp = 0;
         hpbar.value = Mathf.Lerp(hpbar.value, curHp / maxHp, Time.deltaTime*10);

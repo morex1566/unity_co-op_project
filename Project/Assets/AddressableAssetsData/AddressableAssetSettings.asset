@@ -17,7 +17,7 @@ MonoBehaviour:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 1
+  m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -43,7 +43,6 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 621a4786a0b8bba4abbfdf14e895f784, type: 2}
   - {fileID: 11400000, guid: 186b941d05e7f144188a519300185490, type: 2}
-  - {fileID: 11400000, guid: 3f20944ceaa48a94b8de22029b2f8c8b, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -64,7 +63,7 @@ MonoBehaviour:
       - m_Id: 5e54e9ebc31a80d4bb382ad67e662eeb
         m_Value: ServerData/[BuildTarget]
       - m_Id: f8ced0e8b403fe34fb77cd5291d0f6d0
-        m_Value: https://beatrunner.s3.ap-northeast-2.amazonaws.com:[HostingServicePort]
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: 0c642ee8df13a764a961cc9ecf695627
       m_Name: BuildTarget
