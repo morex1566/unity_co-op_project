@@ -20,7 +20,7 @@ public class Sword : MonoBehaviour
     private int totalHit;
 
     private Collider _hitBox;
-    private bool hitFlag = true;
+    public bool hitFlag = true;
 
     public int ComboCount { get { return comboCount; } set { comboCount = value; } }
 
@@ -103,8 +103,6 @@ public class Sword : MonoBehaviour
 
     private void Update()
     {
-        hitFlag = true;
-        
         if (Input.GetKeyDown(KeyCode.A))
         {
             playerAnim.SetTrigger("LeftAttack");
@@ -114,10 +112,5 @@ public class Sword : MonoBehaviour
         {
             playerAnim.SetTrigger("RightAttack");
         }
-    }
-
-    private void onAttack(bool toggle)
-    {
-        _hitBox.enabled = toggle;
     }
 }

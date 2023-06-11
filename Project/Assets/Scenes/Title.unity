@@ -1616,6 +1616,7 @@ GameObject:
   - component: {fileID: 916451504}
   - component: {fileID: 916451506}
   - component: {fileID: 916451507}
+  - component: {fileID: 916451508}
   m_Layer: 0
   m_Name: TitleManager
   m_TagString: Untagged
@@ -1790,6 +1791,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &916451508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916451503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0456f16d9669941a9b5cb310981e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1012114381
 GameObject:
   m_ObjectHideFlags: 0
@@ -3113,7 +3126,7 @@ PrefabInstance:
     - target: {fileID: 8105037365346846740, guid: 1fd247bf3229a7942bb673e60cdbb118,
         type: 3}
       propertyPath: lifespan
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8105037365346846741, guid: 1fd247bf3229a7942bb673e60cdbb118,
         type: 3}
@@ -4590,7 +4603,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gatewayURL: https://5vgm6wvd30.execute-api.ap-northeast-2.amazonaws.com/default/beatrunner
-  popup: {fileID: 0}
 --- !u!1 &1888323497
 GameObject:
   m_ObjectHideFlags: 0

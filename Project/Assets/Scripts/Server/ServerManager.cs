@@ -45,9 +45,14 @@ namespace Server
 
     public struct RankingPacket
     {
-        public string UserName;
-        public string SongName;
-        public string Score;
+        public string[] values;
+    }
+    
+    public struct RankingPackets
+    {
+        public string username;
+        public string songname;
+        public string score;
     }
     
     public class ServerManager : MonoBehaviour
@@ -121,13 +126,59 @@ namespace Server
 
         public void AddRank(string userName, string songName, string score)
         {
-            AlarmPopupManager.EnqueueAlarm("점수를 등록중입니다...", null, null, null);
-
+            StartCoroutine(serverRequest(RankingCommand.AddRank, userName, songName, score, (value, responseText) =>
+            {
+                // 성공
+                if (value >= 500)
+                {
+                    AlarmPopupManager.EnqueueAlarm(string.Format("{0} : DB에 점수 등록 완료", songName), null, null, null);
+                }
+                // 실패
+                else
+                {
+                    AlarmPopupManager.EnqueueAlarm(string.Format("{0} : DB server 등록되지 않은 노래", songName), null, null, null);
+                }
+            }));
         }
 
-        public void LoadRank(string songName)
+        public void LoadRank(string songName, GameObject content, GameObject scoreBlock)
         {
-            StartCoroutine(serverRequest(RankingCommand.LoadRank, "Test_User", songName, "10"));
+            StartCoroutine(serverRequest(RankingCommand.LoadRank, "null", songName, "null", (value, responseText) =>
+            {
+                // 성공
+                if (value >= 500)
+                {
+                    AlarmPopupManager.EnqueueAlarm(string.Format("{0} : DB에서 Score 불러오기 성공", songName), null, null, null);
+                    
+                    // JSON 응답 데이터를 C# 객체로 Deserialize
+                    if (responseText != null)
+                    {
+                        var responseDatas = Utility.CustomJsonParser.ParseRankingPackets(responseText);
+                        if (responseDatas == null)
+                        {
+                            // null일 경우 처리
+                        }
+                        else
+                        {
+                            // C# 객체를 사용하여 Unity에서 처리
+                            foreach (var packet in responseDatas)
+                            {
+                                ScoreBlock scoreBlock_ = Instantiate(scoreBlock, content.transform).GetComponent<ScoreBlock>();
+                                {
+                                    scoreBlock_.UserName.text = packet.username;
+                                    scoreBlock_.Score.text = packet.score;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                // 실패
+                else
+                {
+                    AlarmPopupManager.EnqueueAlarm(string.Format("{0} : DB server에 없는 노래입니다.", songName), null, null, null);
+                }
+            }));
         }
         
         private void Awake()
@@ -171,7 +222,7 @@ namespace Server
             }
         }
 
-        private IEnumerator serverRequest(RankingCommand command, string userName, string songName, string score = "10")
+        private IEnumerator serverRequest(RankingCommand command, string userName, string songName, string score, Action<int, string> callback)
         {
             WWWForm body = new WWWForm();
             body.AddField("EventType", "Ranking");
@@ -188,19 +239,11 @@ namespace Server
                 {
                     string responseText = request.downloadHandler.text;
                     
-                    Debug.Log(responseText);
-                    
-                    // JSON 응답 데이터를 C# 객체로 Deserialize
-                    if (responseText != null)
+                    foreach (KeyValuePair<string,string> valuePair in request.GetResponseHeaders())
                     {
-                        RankingPacket[] responseData = JsonUtility.FromJson<RankingPacket[]>(responseText);
-
-                        // C# 객체를 사용하여 Unity에서 처리
-                        foreach (RankingPacket data in responseData)
+                        if (valuePair.Key == "statusCode")
                         {
-                            Debug.Log("UserName: " + data.UserName);
-                            Debug.Log("SongName: " + data.SongName);
-                            Debug.Log("Score: " + data.Score);
+                            callback?.Invoke(Int32.Parse(valuePair.Value), responseText);
                         }
                     }
                 }

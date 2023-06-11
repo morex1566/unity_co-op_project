@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AccountManager : MonoBehaviour
@@ -10,5 +11,10 @@ public class AccountManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void Update()
+    {
+        
     }
 }
