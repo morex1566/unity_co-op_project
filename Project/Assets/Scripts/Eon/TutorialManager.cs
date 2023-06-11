@@ -15,24 +15,22 @@ public class TutorialManager : MonoBehaviour
 
     bool complete = false;
 
-    public bool left=false, right = false;
+    bool left=false, right = false;
 
     public GameObject ObjectSpawner;
     public GameObject level;
     public GameObject end;
-    public Object boxObject;
-    public GameObject player;
+    public Object boxObject; 
 
     string[] textList =
     {
         "←, → 키를 이용해 좌우로 움직이세요",
         "↑ 키를 이용해 점프하세요",
-        "A, D버튼을 이용해 블록을 파괴하세요\n화살표에 맞는 방향으로 휘둘러야 합니다!",
+        "A, D버튼을 이용해 블록을 파괴하세요",
         "튜토리얼 완료",
     };
 
     public TMP_Text tutoText;
-
 
     private void Start()
     {
@@ -65,7 +63,7 @@ public class TutorialManager : MonoBehaviour
                     actionCount++;
                     if(actionCount>0 && !complete)
                     {
-                        StartCoroutine(FadeOut());
+                        StartCoroutine(FadeOut(3));
                     }
                 }
                 break;
@@ -73,29 +71,26 @@ public class TutorialManager : MonoBehaviour
             case (2):
                 ObjectSpawner.SetActive(true);
                 //Object box = FindObjectOfType<Object>();
-                Object box = FindObjectOfType<Object>();
+                Object[] box = FindObjectsOfType<Object>();
 
-                Renderer render1 = box.gameObject.GetComponent<Renderer>();
-                Material material1 = render1.material;
-
-                //Renderer[] renderer = { box[0].gameObject.GetComponent<Renderer>(), box[1].gameObject.GetComponent<Renderer>() };
-                //Material[] material = { renderer[0].materials[0], renderer[1].materials[0] };//renderer.materials[0];
+                Renderer[] renderer = { box[0].gameObject.GetComponent<Renderer>(), box[1].gameObject.GetComponent<Renderer>() };
+                Material[] material = { renderer[0].materials[0], renderer[1].materials[0] };//renderer.materials[0];
 
                 level.transform.position = Vector3.zero;
                 level.transform.rotation= Quaternion.Euler(0,0,0);
                 level.GetComponent<LevelManager>().enabled = false;
-                if (box.boxStop)
+                if (box[0].boxStop)
                 {
-                    if (Input.GetKeyDown(KeyCode.A) && box.transform.GetChild(0). localScale.x<0 &&!left)
+                    if (Input.GetKeyDown(KeyCode.A))
                     {
                         left = true;
-                        MeshCut.Cut(box.gameObject, box.transform.position, Vector3.right, material1);
+                        MeshCut.Cut(box[1].gameObject, box[1].transform.position, Vector3.right, material[1]);
                      
                     }
-                    else if (Input.GetKeyDown(KeyCode.D) && box.transform.GetChild(0).localScale.x>0 &&!right)
+                    else if (Input.GetKeyDown(KeyCode.D))
                     {
                         right = true;
-                        MeshCut.Cut(box.gameObject, box.transform.position, Vector3.right, material1);
+                        MeshCut.Cut(box[0].gameObject, box[0].transform.position, Vector3.right, material[0]);
                     }
                 }
 
@@ -111,7 +106,6 @@ public class TutorialManager : MonoBehaviour
         
         
     }
-
 
     IEnumerator FadeOut(float delay = 0)
     {
@@ -146,8 +140,6 @@ public class TutorialManager : MonoBehaviour
         complete = false;
         
     }
-
-    
 
     public void Retry()
     {

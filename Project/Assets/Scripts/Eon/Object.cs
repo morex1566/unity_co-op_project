@@ -17,7 +17,7 @@ public class Object : MonoBehaviour
     private void Update()
     {
         if(player.transform.position.z-1 > transform.position.z)
-            transform.Translate(Vector3.forward*Time.deltaTime * speed );       
+            transform.Translate(Vector3.forward * speed);       
         else
         {
             boxStop = true;
