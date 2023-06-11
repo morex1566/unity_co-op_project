@@ -27,7 +27,7 @@ public class StageData : MonoBehaviour
             image.GetComponentInChildren<TextMeshProUGUI>().text = modifiedFilename;
         }
 
-        //getScoreData();
+        getScoreData();
     }
 
     public void OnPlayMap()
@@ -47,7 +47,7 @@ public class StageData : MonoBehaviour
 
     private void getScoreData()
     {
-        ServerManager.Instance.LoadRank(Regex.Replace(MapData.Filename, @"(\.txt|\.wav|\.mp3)", ""));
+        ServerManager.Instance.LoadRank(Regex.Replace(MapData.Filename, @"(\.txt|\.wav|\.mp3)", ""), scoreContents, scoreBlock);
     }
 
     private void CheckIsAddressable(string filePath)

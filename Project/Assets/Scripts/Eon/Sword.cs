@@ -20,7 +20,7 @@ public class Sword : MonoBehaviour
     private int totalHit;
 
     private Collider _hitBox;
-    private bool hitFlag = true;
+    public bool hitFlag = true;
 
     public int ComboCount { get { return comboCount; } set { comboCount = value; } }
 
@@ -43,7 +43,7 @@ public class Sword : MonoBehaviour
         {
             string blockDirection = collision.GetComponent<FragileObstacle>().direction;
             if ((playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") && blockDirection == "Right") ||
-             (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") && blockDirection == "Left"))
+                (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") && blockDirection == "Left"))
             {
                 Renderer renderer = collision.gameObject.GetComponent<Renderer>();
                 Material material = renderer.materials[0];
@@ -78,9 +78,10 @@ public class Sword : MonoBehaviour
                     GameManager.Instance.ShowPopup(collision.gameObject.transform, comboCount.ToString());
                 }
 
-            comboText.text = comboCount.ToString();
+                comboText.text = comboCount.ToString();
 
-            hitFlag = false;
+                hitFlag = false;
+            }
         }
     }
 
@@ -102,8 +103,6 @@ public class Sword : MonoBehaviour
 
     private void Update()
     {
-        hitFlag = true;
-        
         if (Input.GetKeyDown(KeyCode.A))
         {
             playerAnim.SetTrigger("LeftAttack");
@@ -113,10 +112,5 @@ public class Sword : MonoBehaviour
         {
             playerAnim.SetTrigger("RightAttack");
         }
-    }
-
-    private void onAttack(bool toggle)
-    {
-        _hitBox.enabled = toggle;
     }
 }

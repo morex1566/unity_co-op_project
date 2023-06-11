@@ -26,6 +26,18 @@ namespace Title
 
         public void OnLogin()
         {
+            if (id.text.Length <= 3)
+            {
+                AlarmPopupManager.EnqueueAlarm("ID는 적어도 3자리 이상이여야 합니다", null, null, null);
+                return;
+            }
+
+            if (password.text.Length <= 3)
+            {
+                AlarmPopupManager.EnqueueAlarm("Password는 적어도 3자리 이상이여야 합니다", null, null, null);
+                return;
+            }
+
             StartCoroutine(ServerManager.Instance.Login(id.text, id.text, password.text, value =>
             {
                 if (value)
