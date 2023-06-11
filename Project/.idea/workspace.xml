@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cc296f2c-9810-4763-82d6-e7724965eab3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/Song_BundledAssetGroupSchema.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/Song_BundledAssetGroupSchema.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/Song_ContentUpdateGroupSchema.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/Song_ContentUpdateGroupSchema.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Song.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Song.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/ProfileDataSourceSettings.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/Windows/addressables_content_state.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/Windows/addressables_content_state.bin.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/FocusPanel.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/FocusPanel.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/FocusPanel_FadeIn.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/FocusPanel_FadeIn.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/FocusPanel_FadeOut.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/FocusPanel_FadeOut.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/Toolbar.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/Toolbar.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/Toolbar_Close.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/Toolbar_Close.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/Toolbar_Open.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animation/Toolbar_Open.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/SelectMap/ScoreBlock.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/SelectMap/ScoreBlock.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SelectMap/ScoreBlock.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SelectMap/ScoreBlock.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Server.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Server/ServerManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Server/ServerManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Test.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Test.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleAccount.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleAccount.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleTimer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleTimer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleToolbar.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleToolbar.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleUser.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleUser.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/AccountManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/AccountManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/CustomJsonParser.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/CustomJsonParser.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/TitleFocusPanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/TitleFocusPanel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerData/StandaloneWindows64/catalog_2023.05.22.03.21.54.hash" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerData/StandaloneWindows64/catalog_2023.05.22.03.21.54.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerData/StandaloneWindows64/ui_assets_all_a87ad979d1fe8ffadd1397b132117758.bundle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/UI_BundledAssetGroupSchema.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/UI_BundledAssetGroupSchema.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/UI.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/UI.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/Windows.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/FBCallbackHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/FBCallbackHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/FBCallbackHelper.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/FBCallbackHelper.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/FBDirectoryReceiveCallbackAndroid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/FBDirectoryReceiveCallbackAndroid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/FBDirectoryReceiveCallbackAndroid.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/FBDirectoryReceiveCallbackAndroid.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/FBPermissionCallbackAndroid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/FBPermissionCallbackAndroid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/FBPermissionCallbackAndroid.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/FBPermissionCallbackAndroid.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/SimpleFileBrowser.aar" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/SimpleFileBrowser.aar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Android/SimpleFileBrowser.aar.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Android/SimpleFileBrowser.aar.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Prefabs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Prefabs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Prefabs/SimpleFileBrowserItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Prefabs/SimpleFileBrowserItem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Prefabs/SimpleFileBrowserItem.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Prefabs/SimpleFileBrowserItem.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Prefabs/SimpleFileBrowserQuickLink.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Prefabs/SimpleFileBrowserQuickLink.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Prefabs/SimpleFileBrowserQuickLink.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Prefabs/SimpleFileBrowserQuickLink.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/README.txt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/README.txt.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Resources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Resources.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Resources/SimpleFileBrowserCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Resources/SimpleFileBrowserCanvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Resources/SimpleFileBrowserCanvas.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Resources/SimpleFileBrowserCanvas.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/EventSystemHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/EventSystemHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/EventSystemHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/EventSystemHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowser.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowser.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserAccessRestrictedPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserAccessRestrictedPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserAccessRestrictedPanel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserAccessRestrictedPanel.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserContextMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserContextMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserContextMenu.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserContextMenu.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserCursorHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserCursorHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserCursorHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserCursorHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserFileOperationConfirmationPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserFileOperationConfirmationPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserFileOperationConfirmationPanel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserFileOperationConfirmationPanel.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserHelpers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserHelpers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserHelpers.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserHelpers.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserItem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserItem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserMovement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserMovement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserQuickLink.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserQuickLink.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserQuickLink.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserQuickLink.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserRenamedItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserRenamedItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/FileBrowserRenamedItem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/FileBrowserRenamedItem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/NonDrawingGraphic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/NonDrawingGraphic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/NonDrawingGraphic.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/NonDrawingGraphic.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView/IListViewAdapter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView/IListViewAdapter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView/IListViewAdapter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView/IListViewAdapter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView/ListItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView/ListItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView/ListItem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView/ListItem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView/RecycledListView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView/RecycledListView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/SimpleRecycledListView/RecycledListView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/SimpleRecycledListView/RecycledListView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/UISkin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/UISkin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Scripts/UISkin.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Scripts/UISkin.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/SimpleFileBrowser.Runtime.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/SimpleFileBrowser.Runtime.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/SimpleFileBrowser.Runtime.asmdef.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/SimpleFileBrowser.Runtime.asmdef.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Skins.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Skins.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Skins/DarkSkin.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Skins/DarkSkin.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Skins/DarkSkin.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Skins/DarkSkin.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Skins/LightSkin.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Skins/LightSkin.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Skins/LightSkin.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Skins/LightSkin.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/Checkmark.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/Checkmark.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/Checkmark.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/Checkmark.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/DropdownArrow.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/DropdownArrow.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/DropdownArrow.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/DropdownArrow.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/ErrorIcon.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/ErrorIcon.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/ErrorIcon.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/ErrorIcon.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/ArchiveIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/ArchiveIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/ArchiveIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/ArchiveIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/AudioFileIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/AudioFileIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/AudioFileIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/AudioFileIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/DefaultFileIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/DefaultFileIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/DefaultFileIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/DefaultFileIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/DriveIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/DriveIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/DriveIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/DriveIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/ExecutableIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/ExecutableIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/ExecutableIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/ExecutableIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/FolderIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/FolderIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/FolderIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/FolderIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/ImageFileIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/ImageFileIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/ImageFileIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/ImageFileIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/LICENSE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/LICENSE.txt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/LICENSE.txt.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/PdfFileIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/PdfFileIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/PdfFileIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/PdfFileIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/TextFileIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/TextFileIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/TextFileIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/TextFileIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/VideoFileIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/VideoFileIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/FileIcons/VideoFileIcon.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/FileIcons/VideoFileIcon.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/ForwardArrow.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/ForwardArrow.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/ForwardArrow.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/ForwardArrow.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/MultiSelectionToggleOff.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/MultiSelectionToggleOff.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/MultiSelectionToggleOff.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/MultiSelectionToggleOff.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/MultiSelectionToggleOn.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/MultiSelectionToggleOn.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/MultiSelectionToggleOn.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/MultiSelectionToggleOn.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/ResizeCursor.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/ResizeCursor.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/ResizeCursor.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/ResizeCursor.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserDrag.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserDrag.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserDrag.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserDrag.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserMoreOptions.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserMoreOptions.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserMoreOptions.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserMoreOptions.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground1.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground1.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground1.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground1.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground2.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground2.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground2.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground2.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground3.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground3.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground3.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground3.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground4.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground4.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground4.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground4.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground5.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground5.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground5.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSlicedBackground5.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSpriteAtlas.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSpriteAtlas.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/SimpleFileBrowser/Sprites/SimpleFileBrowserSpriteAtlas.spriteatlas.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFileBrowser/Sprites/SimpleFileBrowserSpriteAtlas.spriteatlas.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SelectMap/Stage1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SelectMap/Stage1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Editor.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Editor.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Intro.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Intro.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SelectMap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SelectMap.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Title.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Title.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Eon/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Eon/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Eon/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Eon/Health.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Eon/Sword.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Eon/Sword.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Eon/TestMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Eon/TestMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SelectMap/StageData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SelectMap/StageData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Title/TitleLobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleLobby.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Title/TitleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Title/TitleManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utility/AlarmPopupManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/AlarmPopupManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utility/HitPopup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/HitPopup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utility/ResultBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/ResultBoard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/NanumGothicCoding-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/NanumGothicCoding-Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Search.settings" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Search.settings" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2R4LTftgpAsigSky8vbRJ9xfWVE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc296f2c-9810-4763-82d6-e7724965eab3" name="Changes" comment="" />
+      <created>1686504417056</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686504417056</updated>
+    </task>
+    <servers />
+  </component>
+</project>

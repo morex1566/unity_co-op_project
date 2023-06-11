@@ -83,6 +83,7 @@ public class TutorialManager : MonoBehaviour
 
                 level.transform.position = Vector3.zero;
                 level.transform.rotation= Quaternion.Euler(0,0,0);
+             
                 level.GetComponent<LevelManager>().enabled = false;
                 if (box.boxStop)
                 {

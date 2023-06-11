@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -25,6 +26,14 @@ public class TestMap : MonoBehaviour
 
     public Slider BgmSlider;
 
+    [SerializeField] private GameObject sword;
+    private Sword _sword;
+
+    private void Awake()
+    {
+        _sword = sword.GetComponent<Sword>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Static Obstacle")
@@ -33,6 +42,8 @@ public class TestMap : MonoBehaviour
             //Destroy(health.transform.GetChild(health.transform.childCount-1).gameObject);
             hitSound.Play();
         }
+        
+        
     }
     bool isPause = true;
 
@@ -86,18 +97,20 @@ public class TestMap : MonoBehaviour
     
     private void OnAttackTrue()
     {
+        _sword.hitFlag = true;
         swordCollider.enabled = true;
     }
 
     private void OnAttackFalse()
     {
+        _sword.hitFlag = true;
         swordCollider.enabled = false;
     }
 
     public void Restart()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Editor");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Exit()

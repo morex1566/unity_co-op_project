@@ -8,6 +8,9 @@ namespace Title
     {
         // Dependencies
         [SerializeField] private GameObject menuBar;
+        [SerializeField] private GameObject toolBar;
+        [SerializeField] private GameObject focusPanel;
+        
         private TitleManager        _titleManager;
         private TextMeshProUGUI     _version;
         private RectTransform       _logoTransform;
@@ -80,6 +83,7 @@ namespace Title
         }
 
         // logo의 button component에 등록되어 TitleLobbyMenuBar를 생성합니다.
+        // menu가 생성되면 toolbar도 활성화 합니다.
         public void OnMenuCreate()
         {
             if (!TitleLobbyMenuBar.Instance)
@@ -89,12 +93,15 @@ namespace Title
                 menu.name = "Menu Bar";
             
                 _animator.SetTrigger(AsideLogo);
+                toolBar.GetComponent<TitleToolbar>().OnOff(true);
             }
         }
 
         public void OnMenuShutDown()
         {
             _animator.SetTrigger(CenterLogo);
+            toolBar.GetComponent<TitleToolbar>().OnOff(false);
+            focusPanel.GetComponent<TitleFocusPanel>().OnOff(false);
         }
     }
 }
