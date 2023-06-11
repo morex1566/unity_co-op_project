@@ -233,14 +233,4 @@ public class SwipeUI : MonoBehaviour
             }
         }
     }
-
-    public void left()
-    {
-        UpdateSwipe(true);
-    }
-
-    public void right()
-    {
-        UpdateSwipe(false);
-    }
 }
