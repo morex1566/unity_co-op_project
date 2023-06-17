@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -61,6 +62,7 @@ public class LevelObstacleSpawner
     // Pair<스폰 시간, List<Pair<기둥 지나는 점1, 기둥 지나는 점2>>>
     private Queue<KeyValuePair<int, KeyValuePair<int, int>>> _staticObstacleTimeline;
     private Queue<KeyValuePair<int, int>> _holeObstacleTimline;
+    private Queue<Action> _events;
 
     private List<GameObject> _currReleasedObstacles;
     private List<GameObject> _spawnPoints;
@@ -102,6 +104,7 @@ public class LevelObstacleSpawner
         _fragileSpawnTimeline = new Queue<KeyValuePair<int, int>>();
         _staticObstacleTimeline = new Queue<KeyValuePair<int, KeyValuePair<int, int>>>();
         _holeObstacleTimline = new Queue<KeyValuePair<int, int>>();
+        _events = new Queue<Action>();
 
         
         // _spawnPoints의 위치를 할당
@@ -122,6 +125,14 @@ public class LevelObstacleSpawner
         else
         {
             Debug.Log(GetType().Name + " : [NOTICE] Start()를 사용하기 전에, Initialize()를 먼저 호출.");
+        }
+
+        if (Regex.Replace(_gameManager.MapData.Filename, @"(\.txt|\.wav|\.mp3)", "") == "Sekiro")
+        {
+            _events.Enqueue(() =>
+            {
+                GameManager.Instance.GameSpeedUp(180);
+            });
         }
     }
     private async Task createObstacle(CancellationToken token)
@@ -202,6 +213,15 @@ public class LevelObstacleSpawner
                 {
                     _holeObstacleTimline.Dequeue();
                 }
+            }
+
+            // event 호출
+            if (time >= 234 && _events.Count != 0)
+            {
+                _events.Peek().Invoke();
+                _events.Dequeue();
+                
+                Debug.Log("event");
             }
             
             await Task.Yield();
@@ -347,7 +367,7 @@ public class LevelObstacleSpawner
             spawnPoint = spawnPoint - (Vector3.up * _spawnOffset);
             
             GameObject point =
-                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
+                UnityEngine.Object.Instantiate(_spawnPointPrefab, spawnPoint, Quaternion.Euler(new Vector3(0, 0, 180)));
             _gameManager.AddGameObjectToLevel(point);
             _spawnPoints.Add(point);
         }

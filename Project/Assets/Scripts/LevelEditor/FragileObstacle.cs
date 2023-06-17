@@ -26,6 +26,8 @@ public class FragileObstacle : MonoBehaviour
         }
         _gameManager = GameManager.Instance as IGameManagerPlatformSpawner;
         _mapSpeed = _gameManager.MapSpeed;
+        
+        Debug.Log(direction);
     }
 
     // Update is called once per frame

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     [SerializeField] private Health health;
     [SerializeField] private GameObject level;
     [SerializeField] private GameObject resultBoard;
+    [SerializeField] public Camera mainCam;
 
     
     [Header("LevelPlatformSpawner Setting")]
@@ -192,6 +193,8 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     {
         _levelPlatformSpawner.Update();
         HealthCheck();
+        
+        
     }
 
     public void HealthCheck()
@@ -322,5 +325,39 @@ public class GameManager : MonoBehaviour, IGameManagerPlatformSpawner, IGameMana
     public void ShowPopup(Transform transform_, string text_)
     {
         _hitPopup.ShowPopup(transform_, text_);
+    }
+
+    public void GameSpeedUp(float duration)
+    {
+        float localMapSpeed = MapSpeed;
+        StartCoroutine(speedUp(duration, localMapSpeed));
+        
+        mainCam.GetComponent<LevelCameraMovement>().SpeedUpEvent();
+    }
+
+    private IEnumerator speedUp(float duration, float localMapSpeed)
+    {
+        mapSpeed = localMapSpeed * 1.5f;
+        
+        while (duration >= 0)
+        {
+            duration -= Time.deltaTime * 10f;
+            yield return null;
+        }
+
+        mapSpeed = localMapSpeed;
+        GameSpeedDown();
+        
+        yield return null;
+    }
+
+    public void GameSpeedDown()
+    {
+        mainCam.GetComponent<LevelCameraMovement>().SpeedDownEvent();
+    }
+
+    private IEnumerator speedDown()
+    {
+        yield return null;
     }
 }

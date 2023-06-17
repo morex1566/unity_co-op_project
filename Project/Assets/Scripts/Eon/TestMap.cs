@@ -97,7 +97,6 @@ public class TestMap : MonoBehaviour
     
     private void OnAttackTrue()
     {
-        _sword.hitFlag = true;
         swordCollider.enabled = true;
     }
 

@@ -42,6 +42,7 @@ public class Sword : MonoBehaviour
              hitFlag)
         {
             string blockDirection = collision.GetComponent<FragileObstacle>().direction;
+            
             if ((playerAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") && blockDirection == "Right") ||
                 (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") && blockDirection == "Left"))
             {
@@ -56,6 +57,9 @@ public class Sword : MonoBehaviour
 
                 MeshCut.Cut(collision.gameObject, collision.transform.position, Vector3.up, material);
 
+                
+                Debug.Log(playerAnim.GetCurrentAnimatorStateInfo(0));
+                
                 //체력
                 health.AddHp();
 

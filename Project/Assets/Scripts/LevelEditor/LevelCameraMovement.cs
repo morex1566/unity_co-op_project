@@ -3,7 +3,9 @@
  */
 
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 
@@ -23,10 +25,14 @@ public class LevelCameraMovement : MonoBehaviour
         Z
     }
 
+    [SerializeField] private Animator eventAnim;
+    [SerializeField] private TextMeshProUGUI msg;
     [SerializeField] private float translationSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private GameObject player;
     [FormerlySerializedAs("baseAxis")] [SerializeField] private MovementAxisState baseAxisState;
+
+    [SerializeField] private Camera cam;
 
     private PointOfViewState _baseState;
     private PointOfViewState _currentState;
@@ -232,6 +238,47 @@ public class LevelCameraMovement : MonoBehaviour
                     rotationSpeed * Time.deltaTime);
                 break;
         }
+    }
+
+    public void SpeedUpEvent()
+    {
+        msg.enabled = true;
+
+        msg.text = "Speed Up";
+        eventAnim.SetTrigger("SpeedUp");
+    }
+
+    private void SetSpeedUp()
+    {
+        msg.enabled = false;
+
+        cam.fieldOfView = 140;
+        
+        Debug.Log("SetSpeedUp");
+    }
+    
+    private void SetSpeedDown()
+    {
+        msg.enabled = false;
+
+        cam.fieldOfView = 120;
+        
+        Debug.Log("SetSpeedDown");
+    }
+
+    private void MsgOff()
+    {
+        msg.enabled = false;
+        
+        Debug.Log("MsgOff");
+    }
+
+    public void SpeedDownEvent()
+    {
+        msg.enabled = true;
+
+        msg.text = "Speed Down";
+        eventAnim.SetTrigger("SpeedDown");
     }
     
     //**************************************** 유니티 Loop 함수들 ****************************************//

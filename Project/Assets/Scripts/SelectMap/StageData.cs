@@ -45,7 +45,7 @@ public class StageData : MonoBehaviour
         }
     }
 
-    private void getScoreData()
+    public void getScoreData()
     {
         ServerManager.Instance.LoadRank(Regex.Replace(MapData.Filename, @"(\.txt|\.wav|\.mp3)", ""), scoreContents, scoreBlock);
     }

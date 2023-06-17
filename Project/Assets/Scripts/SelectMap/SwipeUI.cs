@@ -25,6 +25,7 @@ public class SwipeUI : MonoBehaviour
     // imageCircle이 생성될 곳
     [SerializeField] private GameObject panelCircleContent;
     
+    
     [SerializeField]
     Scrollbar scrollbar;
     private Transform[] circleContents;
@@ -34,6 +35,7 @@ public class SwipeUI : MonoBehaviour
     float swipeDistance = 10.0f;
 
     private List<MapData> _maps = new List<MapData>();
+    private List<GameObject> stages = new List<GameObject>();
 
     float[] scrollPageValues;
     float valueDistance = 0;
@@ -133,6 +135,16 @@ public class SwipeUI : MonoBehaviour
             currentPage++;
         }
         
+        // if (currentPage != 0 && isLeft == true)
+        // {
+        //     stages[currentPage - 1].GetComponent<StageData>().getScoreData();
+        // }
+        //
+        // if (currentPage < maxPage && isLeft == false)
+        // {
+        //     stages[currentPage - 1].GetComponent<StageData>().getScoreData();
+        // }
+
         StartCoroutine(OnSwipeOneStep(currentPage));
     }
 
@@ -154,6 +166,7 @@ public class SwipeUI : MonoBehaviour
 
             yield return null;
         }
+        
 
         isSwipeMode = false;
     }
@@ -230,6 +243,8 @@ public class SwipeUI : MonoBehaviour
                 stageInstance.GetComponentInChildren<StageData>().MapData = _maps[i - 1];
                 GameObject circleInstance = Instantiate(imageCircle, panelCircleContent.transform);
                 circleContents[i] = circleInstance.transform;
+                
+                stages.Add(stageInstance);
             }
         }
     }
